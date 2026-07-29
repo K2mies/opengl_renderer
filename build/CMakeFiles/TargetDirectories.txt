@@ -1,0 +1,3 @@
+/home/kettu/Documents/Work/OpenGl/git_opengl_renderer/build/CMakeFiles/OpenGLRenderer.dir
+/home/kettu/Documents/Work/OpenGl/git_opengl_renderer/build/CMakeFiles/edit_cache.dir
+/home/kettu/Documents/Work/OpenGl/git_opengl_renderer/build/CMakeFiles/rebuild_cache.dir
