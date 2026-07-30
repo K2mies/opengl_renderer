@@ -1,5 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/OpenGLRenderer.dir/link.d"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"

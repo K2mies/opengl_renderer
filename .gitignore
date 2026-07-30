@@ -1,0 +1,12 @@
+# Build output
+build/
+
+# Compilation database symlink (if it's a symlink)
+compile_commands.json
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
