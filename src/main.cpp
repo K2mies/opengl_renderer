@@ -4,21 +4,28 @@
 #include <iostream>
 
 //------------------------------------------------------- Forward declarations
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
 
+
+//---------------------------------------------------------------- Vertex data
+
+//Normalized Device Coordinates (NDC)
+float vertices[] = {
+     -0.5f, -0.5f,  0.0f, // Bottom left
+     0.5f,  -0.5f,  0.0f, // Bottom right
+     0.0f,  0.5f,   0.0f  // Top
+};
 
 int main (){
   
   std::cout << "Starting OpenGL Renderer..." << std::endl;
   
-  //if initialization fails then return -1
+  // 1. Initialize GLFW
   if (!glfwInit()){
     std::cerr << "Failed to initialize GLFW\n";
     return -1;
   }
-
-  //Create a window
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -27,7 +34,7 @@ int main (){
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
   #endif
   
-  //create the actual window
+  // 2. Create window
   GLFWwindow* window = glfwCreateWindow(
    800,
    600,
@@ -47,9 +54,11 @@ int main (){
   // Register resize callback
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+  // 3. Make OpenGL context current
   //make the window context active on the current thread
   glfwMakeContextCurrent(window);
-
+  
+  // 4. Initialize GLAD
   //Load the openGL function pointers with GLAD..
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
@@ -57,6 +66,18 @@ int main (){
       glfwTerminate();
       return -1;
   }
+
+  // 5. Create OpenGL objects
+  // VBO "Vertex Buffer Object"
+  unsigned int VBO;
+  glGenBuffers(1, &VBO);
+
+  // 6. Upload vertex data
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBufferData(GL_ARRAY_BUFFER,
+               sizeof(vertices),
+               vertices,
+               GL_STATIC_DRAW);
 
   //set the viewport
   glViewport(0, 0, 800, 600);
@@ -88,7 +109,8 @@ int main (){
   
   //The glfwSwapBuffers will swap the color buffer
   //(a large 2D buffer that contains color values for each pixel in GLFW's window)
-
+  
+  // 8. Render loop
   while (!glfwWindowShouldClose(window))
   {
       // input
@@ -115,6 +137,7 @@ int main (){
    * front buffer so the image can be displayed without still being rendered to,
    * removing all the aforementioned artifacts.*/
 
+  // 9. Cleanup
   //clear/handle all allocated memory free, close... etc
   glfwTerminate(); 
 
