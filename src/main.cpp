@@ -17,6 +17,18 @@ float vertices[] = {
      0.0f,  0.5f,   0.0f  // Top
 };
 
+//-------------------------------------------------------------------- Shaders
+
+//Vertex Shader written in GLSL and stored as a c string litteral...
+const char *vertexShaderSource = 
+    "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    "{\n"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "}\0";
+
+//----------------------------------------------------------------------- Main
 int main (){
   
   std::cout << "Starting OpenGL Renderer..." << std::endl;
@@ -75,9 +87,9 @@ int main (){
   // 6. Upload vertex data
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER,
-               sizeof(vertices),
-               vertices,
-               GL_STATIC_DRAW);
+                 sizeof(vertices),
+                 vertices,
+                GL_STATIC_DRAW);
 
   //set the viewport
   glViewport(0, 0, 800, 600);
@@ -143,6 +155,8 @@ int main (){
 
   return 0;
 }
+
+//------------------------------------------------------------------ functions
 
 //window resize update function
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
