@@ -114,12 +114,12 @@ int main (){
 
   // Tell OpenGL how the vertex data is laid out
   glVertexAttribPointer(
-        0,                   // attribute location
-         3,                   // 3 values per vertex
-         GL_FLOAT,            // each value is a float
-   GL_FALSE,            // don't normalize
-       3 * sizeof(float),   // size of one vertex
-      (void*)0             // starts at beginning
+        0,                    // attribute location
+        3,                     // 3 values per vertex
+        GL_FLOAT,              // each value is a float
+        GL_FALSE,        // don't normalize
+        3 * sizeof(float),   // size of one vertex
+        (void*)0            // starts at beginning
   );
   
   // Enable attribute location 0
