@@ -146,6 +146,13 @@ int main (){
   unsigned int VBO;
   glGenBuffers(1, &VBO);
 
+  //// Upload vertex data to the VBO object
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(triangle_vertices),
+  //               triangle_vertices,
+  //               GL_STATIC_DRAW);
+
   // Upload vertex data to the VBO object
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER,
