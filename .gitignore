@@ -12,6 +12,6 @@ compile_commands.json
 .idea/
 
 # Blender
-.blend
-.Blender/
-.Models/
+*.blend
+Blender/
+Models/
