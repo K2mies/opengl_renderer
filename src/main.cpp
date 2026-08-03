@@ -16,12 +16,20 @@ float triangle_vertices[] = {
      0.0f, 0.5f, 0.0f, 0, 0, 1    // Top
 };
 
+////Unique vertex positions (so they do not duplicate over each other)
+//float rectangle_vertices[] = {
+//    0.5f,  0.5f,   0.0f,  // top right
+//    0.5f,  -.5f,   0.0f,  // bottom right
+//    -.5f,  -.5f,   0.0f,  // bottom left
+//    -.5f,  0.5f,  0.0f   // top left 
+//};
+
 //Unique vertex positions (so they do not duplicate over each other)
 float rectangle_vertices[] = {
-    0.5f,  0.5f,   0.0f,  // top right
-    0.5f,  -.5f,   0.0f,  // bottom right
-    -.5f,  -.5f,   0.0f,  // bottom left
-    -.5f,  0.5f,  0.0f   // top left 
+     0.5f,  0.5f,   0.0f,  0,  0,  1,  // top right
+     0.5f,  -.5f,   0.0f,  0, 1, 0,  // bottom right
+    -.5f, -.5f,  0.0f, 0, 0, 1,  // bottom left
+    -.5f,  0.5f, 0.0f, 1, 0, 0   // top left 
 };
 
 //indices for index drawing
@@ -32,49 +40,49 @@ unsigned int rectangle_indices[] = {  // note that we start from 0!
 
 //----------------------------------------------------------------------- Shaders
 
-////Vertex Shader written in GLSL and stored as a c string litteral...
-////TRIANGLE WITH COLORS
-//const char *vertexShaderSource = 
-//  "#version 330 core\n"
-//  "layout (location = 0) in vec3 aPos;\n"
-//  "layout (location = 1) in vec3 aColor;\n"
-//
-//  "out vec3 ourColor;\n"
-//
-//  "void main()\n"
-//  "{\n"
-//  "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-//  "   ourColor = aColor;\n"
-//  "}\0";
-//
-////Fragment Shader written in GLSL and stored as a c string litteral...
-//const char *fragmentShaderSource =
-//  "#version 330 core\n"
-//  "in  vec3 ourColor;\n"
-//  "out vec4 FragColor;\n"
-//  "void main()\n"
-//  "{\n"
-//  " FragColor = vec4(ourColor, 1.0);\n"
-//  "}\n";
-
 //Vertex Shader written in GLSL and stored as a c string litteral...
+//TRIANGLE WITH COLORS
 const char *vertexShaderSource = 
   "#version 330 core\n"
   "layout (location = 0) in vec3 aPos;\n"
+  "layout (location = 1) in vec3 aColor;\n"
+
+  "out vec3 ourColor;\n"
 
   "void main()\n"
   "{\n"
-  "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-  "}\n";
+  "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+  "   ourColor = aColor;\n"
+  "}\0";
 
 //Fragment Shader written in GLSL and stored as a c string litteral...
 const char *fragmentShaderSource =
   "#version 330 core\n"
+  "in  vec3 ourColor;\n"
   "out vec4 FragColor;\n"
   "void main()\n"
   "{\n"
-  "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+  " FragColor = vec4(ourColor, 1.0);\n"
   "}\n";
+
+////Vertex Shader written in GLSL and stored as a c string litteral...
+//const char *vertexShaderSource = 
+//  "#version 330 core\n"
+//  "layout (location = 0) in vec3 aPos;\n"
+//
+//  "void main()\n"
+//  "{\n"
+//  "  gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+//  "}\n";
+//
+////Fragment Shader written in GLSL and stored as a c string litteral...
+//const char *fragmentShaderSource =
+//  "#version 330 core\n"
+//  "out vec4 FragColor;\n"
+//  "void main()\n"
+//  "{\n"
+//  "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+//  "}\n";
 
 //-------------------------------------------------------------------------- Main
 
@@ -176,42 +184,42 @@ int main (){
 
   // Tell OpenGL how the vertex data is laid out which will be used by the binded VAO
  
-  //// First attribute (location): 
-  //glVertexAttribPointer(
-  //  0,                    // attribute location
-  //  3,                     // 3 values per vertex
-  //  GL_FLOAT,              // each value is a float
-  //  GL_FALSE,        // don't normalize
-  //  6 * sizeof(float),   // size of one vertex
-  //  (void*)0            // starts at beginning
-  //);
-
-  //// Second attribute (color):
-  //glVertexAttribPointer(
-  //  1,
-  //  3,
-  //  GL_FLOAT,
-  //  GL_FALSE,
-  //  6 * sizeof(float),
-  //  (void*)(3 * sizeof(float))
-  //);
-  //
-  //// Enable attributes location 0 and location 1
-  //glEnableVertexAttribArray(0);
-  //glEnableVertexAttribArray(1);
-
-  // VAO setting for rectangle
+  // First attribute (location): 
   glVertexAttribPointer(
     0,                    // attribute location
     3,                     // 3 values per vertex
     GL_FLOAT,              // each value is a float
     GL_FALSE,        // don't normalize
-    3 * sizeof(float),   // size of one vertex
+    6 * sizeof(float),   // size of one vertex
     (void*)0            // starts at beginning
   );
+
+  // Second attribute (color):
+  glVertexAttribPointer(
+    1,
+    3,
+    GL_FLOAT,
+    GL_FALSE,
+    6 * sizeof(float),
+    (void*)(3 * sizeof(float))
+  );
+  
+  // Enable attributes location 0 and location 1
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+
+  //// VAO setting for rectangle
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,        // don't normalize
+  //  3 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
   
   // enable attribute 0
-  glEnableVertexAttribArray(0);
+  //glEnableVertexAttribArray(0);
 
   //----------------------------------------------------- 6. Create Vertex Shader 
   
@@ -293,8 +301,13 @@ int main (){
   glfwGetFramebufferSize  (window, &fbWidth, &fbHeight);
   glViewport(0, 0, fbWidth, fbHeight);
 
+  //------------------------------------------------------- 12. Rendering Settings
 
-  //----------------------------------------------------- 12. Implamentation info
+  // Render points as 10x10 pixels
+  glPointSize(40.0f);
+
+
+  //----------------------------------------------------- 13. Implamentation info
  
   //print useful information about the openGL implamentation
   std::cout << "Vendor:   "
@@ -311,7 +324,7 @@ int main (){
 
   std::cout << "openGL initialized successfully\n";
   
-  //------------------------------------------------------------- 13. Render Loop
+  //------------------------------------------------------------- 14. Render Loop
   
   /* Main "render loop":
    * The glfwWindowShouldClose function checks at the start of each loop 
@@ -339,11 +352,13 @@ int main (){
       glUseProgram  (shaderProgram);
 
       // Set draw mode to polygon wireframe
-      //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+      // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
       // Bind the VAO containing our vertex configuration
       glBindVertexArray(VAO);
+
+      // Draw points in place of vertices (see no.12)...
+      glDrawArrays(GL_POINTS, 0, 4);
 
       // Draw 3 triangle_vertices as a triangle
       //glDrawArrays  (GL_TRIANGLES, 0, 3);
@@ -372,11 +387,12 @@ int main (){
    * front buffer so the image can be displayed without still being rendered to,
    * removing all the aforementioned artifacts.*/
 
-  //----------------------------------------------------------------- 14. Cleanup
+  //----------------------------------------------------------------- 15. Cleanup
 
-  // Destroy vertex buffer, Array and program
+  // Destroy vertex buffer, Array , Element buffer object and program
   glDeleteVertexArrays  (1, &VAO);
   glDeleteBuffers       (1, &VBO);
+  glDeleteBuffers       (1, &EBO);
   glDeleteProgram       (shaderProgram);
 
   // Clear/handle all allocated memory free, close... etc for GLFW
