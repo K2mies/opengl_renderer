@@ -12,11 +12,13 @@ find_package(glfw3 REQUIRED)
 
 add_executable(OpenGLRenderer
     src/main.cpp
+    src/Shader.cpp
     third_party/glad/src/glad.c
 )
 
 target_include_directories(OpenGLRenderer PRIVATE
     third_party/glad/include
+    include
 )
 
 target_link_libraries(OpenGLRenderer
