@@ -21,11 +21,19 @@ enum BufferType
     EBO = 2
 };
 
+enum DimensionsType
+{
+    width   = 0,
+    height  = 1
+};
+
 //--------------------------------------------------------------------- Variables
 float pointSize = 40.0f;
+int   dimensions[2];
 
 //---------------------------------------------------------- Forward declarations
-void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+
+void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height*/);
 void processInput(GLFWwindow *window);
 void implamentation_info();
 
@@ -34,6 +42,9 @@ void implamentation_info();
 int main (){
   
   std::cout << "Starting OpenGL Renderer..." << std::endl;
+
+  dimensions[width]   = 800;
+  dimensions[height]  = 600;
   
   //---------------------------------------------------------- 1. Initialize GLFW
 
@@ -54,11 +65,11 @@ int main (){
   //------------------------------------------------------------ 2. Create Window
   
   GLFWwindow* window = glfwCreateWindow(
-   800,
-   600,
-   "OpenGL Renderer",
-   nullptr,
-   nullptr
+    dimensions[width],
+    dimensions[height],
+    "OpenGL Renderer",
+    nullptr,
+    nullptr
   ); 
 
   //Check if window creation failed...
@@ -119,9 +130,9 @@ int main (){
   glBindVertexArray(objects[VAO]);
   glBindBuffer(GL_ARRAY_BUFFER, objects[VBO]);
   glBufferData(GL_ARRAY_BUFFER,
-                 sizeof(vertices), 
-                 vertices, 
-                GL_STATIC_DRAW);
+                                  sizeof(vertices), 
+                                  vertices, 
+                                 GL_STATIC_DRAW);
 
   glVertexAttribPointer(
     0, 
@@ -149,9 +160,9 @@ int main (){
   //--------------------------------------------------------- 9. Set the viewport 
   
   //glViewport(0, 0, 800, 600);
-  int fbWidth, fbHeight;
-  glfwGetFramebufferSize  (window, &fbWidth, &fbHeight);
-  glViewport(0, 0, fbWidth, fbHeight);
+  int frameBuffer[2];
+  glfwGetFramebufferSize  (window, &frameBuffer[width], &frameBuffer[height]);
+  glViewport              (0, 0, frameBuffer[width], frameBuffer[height]);
 
   //------------------------------------------------------- 10. Rendering Settings
 
@@ -249,11 +260,11 @@ void implamentation_info() {
 }
 
 //window resize update function
-void framebuffer_size_callback  (GLFWwindow* window, int width, int height)
+void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height*/)
 {
-  int fbWidth, fbHeight;
-  glfwGetFramebufferSize  (window,    &fbWidth,&fbHeight);
-  glViewport              (0, 0, fbWidth, fbHeight);
+  int frameBuffer[2];
+  glfwGetFramebufferSize  (window,    &frameBuffer[width],&frameBuffer[height]);
+  glViewport              (0, 0, frameBuffer[width], frameBuffer[height]);
 }
 
 // Key Hooks
@@ -263,16 +274,16 @@ void processInput(GLFWwindow *window)
       glfwSetWindowShouldClose(window, true);
 
   if  (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
-    pointSize += 0.1f;
+        pointSize += 0.1f;
     if (pointSize < 20.0f){
-      pointSize = 20.0f;
+        pointSize = 20.0f;
     }
   }
   
   if  (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
-    pointSize -= 0.1f;
+        pointSize -= 0.1f;
     if (pointSize < 20.0f){
-      pointSize = 20.0f;
+        pointSize = 20.0f;
     }
   }
 }
