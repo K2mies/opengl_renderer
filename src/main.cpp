@@ -262,14 +262,14 @@ void processInput(GLFWwindow *window)
       glfwSetWindowShouldClose(window, true);
   if  (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
     pointSize += 0.1f;
-    if (pointSize < 1.0f){
-      pointSize = 1.0f;
+    if (pointSize < 20.0f){
+      pointSize = 20.0f;
     }
   }
   if  (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
     pointSize -= 0.1f;
-    if (pointSize < 1.0f){
-      pointSize = 1.0f;
+    if (pointSize < 20.0f){
+      pointSize = 20.0f;
     }
   }
 }
