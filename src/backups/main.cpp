@@ -72,35 +72,23 @@ const char *vertexShaderSource =
   "layout (location = 0) in vec3 aPos;\n"
   "layout (location = 1) in vec3 aColor;\n"
 
-  "out vec3 ourVertexColor;\n"
+  "out vec3 ourColor;\n"
 
   "void main()\n"
   "{\n"
   "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-  "   ourVertexColor = aColor;\n"
+  "   ourColor = aColor;\n"
   "}\0";
 
-////Fragment Shader written in GLSL and stored as a c string litteral...
-//const char *fragmentShaderSource =
-//  "#version 330 core\n"
-//  "in  vec3 ourColor;\n"
-//  "out vec4 FragColor;\n"
-//  "void main()\n"
-//  "{\n"
-//  " FragColor = vec4(ourColor, 1.0);\n"
-//  "}\0";
-
-//Fragment Shader that uses a uniform input
-const char* fragmentShaderSource =
-"#version 330 core\n"
-"out vec4 FragColor;\n"
-"in  vec3 ourVertexColor;\n"
-"uniform vec4 ourColor;\n"
-
-"void main()\n"
-"{\n"
-"    FragColor = ourColor + vec4(ourVertexColor, 1.0) / 2.0;\n"
-"}\0";
+//Fragment Shader written in GLSL and stored as a c string litteral...
+const char *fragmentShaderSource =
+  "#version 330 core\n"
+  "in  vec3 ourColor;\n"
+  "out vec4 FragColor;\n"
+  "void main()\n"
+  "{\n"
+  " FragColor = vec4(ourColor, 1.0);\n"
+  "}\n";
 
 ////Vertex Shader written in GLSL and stored as a c string litteral...
 //const char *vertexShaderSource = 
@@ -206,6 +194,114 @@ int main (){
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
 
+
+  //VAO "Vertex Array Object"
+  //unsigned int VAO;
+  //glGenVertexArrays(1, &VAO); 
+
+  //// 1. bind Vertex Array Object
+  //glBindVertexArray(VAO);
+  //
+  //// VBO "Vertex Buffer Object"
+  //unsigned int VBO;
+  //glGenBuffers(1, &VBO);
+
+  //// Upload vertex data to the VBO object
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(triangle_vertices),
+  //               triangle_vertices,
+  //               GL_STATIC_DRAW);
+
+  //// Upload vertex data to the VBO object
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(rectangle_vertices),
+  //               rectangle_vertices,
+  //               GL_STATIC_DRAW);
+  
+  // Upload vertex data to the VBO object
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(two_triangle_vertices),
+  //               two_triangle_vertices,
+  //               GL_STATIC_DRAW);
+
+  ////EBO "Element Buffer Oject"
+  //unsigned int EBO;
+  //glGenBuffers(1, &EBO);
+
+  //// Upload vertex data to the EBO object
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  //glBufferData(
+  //    GL_ELEMENT_ARRAY_BUFFER,
+  //    sizeof(rectangle_indices),
+  //    rectangle_indices,
+  //    GL_STATIC_DRAW
+  //);
+
+  // Tell OpenGL how the vertex data is laid out which will be used by the binded VAO
+ 
+  //// First attribute (location): 
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,        // don't normalize
+  //  6 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
+
+  //// Second attribute (color):
+  //glVertexAttribPointer(
+  //  1,
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  6 * sizeof(float),
+  //  (void*)(3 * sizeof(float))
+  //);
+  //
+  //// Enable attributes location 0 and location 1
+  //glEnableVertexAttribArray(0);
+  //glEnableVertexAttribArray(1);
+
+  //// VAO setting for rectangle
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,             // don't normalize
+  //  3 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
+  
+  // enable attribute 0
+  //glEnableVertexAttribArray(0);
+
+
+  // VAO setting for two triangles ...
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,        // don't normalize
+  //  3 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
+  
+  //glEnableVertexAttribArray(0);
+  
+  // note that this is allowed, the call to glVertexAttribPointer registered VBO 
+  // as the vertex attribute's bound vertex buffer object so afterwards we can 
+  // safely unbind
+  //glBindBuffer(GL_ARRAY_BUFFER, 0); 
+  
+  // You can unbind the VAO afterwards so other VAO calls won't accidentally modify 
+  // this VAO, but this rarely happens. Modifying other VAOs requires a call to 
+  // glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) 
+  // when it's not directly necessary.
+  //glBindVertexArray(0); 
 
   //----------------------------------------------------- 6. Create Vertex Shader 
   
@@ -349,7 +445,7 @@ int main (){
       //glBindVertexArray(VAO);
 
       // Draw points in place of vertices (see no.12)...
-      //glDrawArrays(GL_POINTS, 0, 3);
+      //glDrawArrays(GL_POINTS, 0, 4);
 
       // Draw 3 triangle_vertices as a triangle
       //glDrawArrays  (GL_TRIANGLES, 0, 3);
@@ -364,19 +460,10 @@ int main (){
       // Draw first triangle using the first VAO 1:
       glBindVertexArray(VAOs[0]);
       glDrawArrays(GL_TRIANGLES, 0, 3);
-      glDrawArrays(GL_POINTS, 0, 3);
 
       // Draw second triangle using the first VAO 1:
       glBindVertexArray(VAOs[1]);
       glDrawArrays(GL_TRIANGLES, 0, 3);
-      glDrawArrays(GL_POINTS, 0, 3);
-
-      // Here we are effecting and passing the uniform to the shader
-      float timeValue = glfwGetTime();
-      float redValue = (sin(timeValue) / 2.0f) + 0.5f;
-      int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-      glUseProgram(shaderProgram);
-      glUniform4f(vertexColorLocation, redValue, 0.0f, 0.0f, 1.0f);
 
       // Swap the buffers / present the finished frame.
       glfwSwapBuffers (window);
