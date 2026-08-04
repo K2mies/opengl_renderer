@@ -6,12 +6,19 @@
 #include "Shader.h"
 
 //------------------------------------------------------------------------- Enums
-enum Axis
+enum AxisType
 {
     x = 0,
     y = 1,
     z = 2,
     w = 3
+};
+
+enum BufferType
+{
+    VBO = 0,
+    VAO = 1,
+    EBO = 2
 };
 
 //--------------------------------------------------------------------- Variables
@@ -20,6 +27,7 @@ float pointSize = 40.0f;
 //---------------------------------------------------------- Forward declarations
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
+void implamentation_info();
 
 //-------------------------------------------------------------------------- Main
 
@@ -100,15 +108,16 @@ int main (){
    };
   //---------------------------------------------------- 8. Create OpenGL Objects 
 
-  //initialise all VBO's and VAO's
-  unsigned int VBO, VAO;
-  glGenVertexArrays (1, &VAO); // we can also generate multiple VAOs or buffers at the same time
-  glGenBuffers      (1, &VBO);
+  //initialise all VBO's and VAO's as openGL objects
+  unsigned int objects[2];
+
+  glGenVertexArrays (1, &objects[VAO]); // we can also generate multiple VAOs or buffers at the same time
+  glGenBuffers      (1, &objects[VBO]);
 
   // Tiangle setup
   // --------------------
-  glBindVertexArray(VAO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  glBindVertexArray(objects[VAO]);
+  glBindBuffer(GL_ARRAY_BUFFER, objects[VBO]);
   glBufferData(GL_ARRAY_BUFFER,
                  sizeof(vertices), 
                  vertices, 
@@ -153,26 +162,7 @@ int main (){
   //----------------------------------------------------- 11. Implamentation info
  
   //print useful information about the openGL implamentation
-  std::cout << "Vendor:   "
-            << glGetString(GL_VENDOR) << std::endl;
-
-  std::cout << "Renderer: "
-            << glGetString(GL_RENDERER) << std::endl;
-  
-  std::cout << "OpenGL:   "
-            << glGetString(GL_VERSION) << std::endl;
-  
-  std::cout << "GLSL:     "
-            << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
-
-  std::cout << "openGL initialized successfully\n";
-  
-  // Query the maximum number of vertex attributes
-  int nrAttributes;
-  glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-  std::cout 
-    << "Maximum vertex attributes: "
-    << nrAttributes << std::endl;
+  implamentation_info();
   //------------------------------------------------------------- 12. Render Loop
 
   while (!glfwWindowShouldClose(window))
@@ -207,7 +197,7 @@ int main (){
       );
   
       // Draw a triangle
-      glBindVertexArray(VAO);
+      glBindVertexArray(objects[VAO]);
       glDrawArrays(GL_TRIANGLES, 0, 3);
       glDrawArrays(GL_POINTS, 0, 3);
 
@@ -221,8 +211,8 @@ int main (){
   //----------------------------------------------------------------- 13. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays  (1, &VAO);
-  glDeleteBuffers       (1, &VBO);
+  glDeleteVertexArrays  (1, &objects[VAO]);
+  glDeleteBuffers       (1, &objects[VBO]);
 
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
@@ -230,6 +220,32 @@ int main (){
 }
 
 //---------------------------------------------------------- non-member functions
+
+// Implamentation info
+void implamentation_info() {
+
+  //print useful information about the openGL implamentation
+  std::cout << "Vendor:   "
+            << glGetString(GL_VENDOR) << std::endl;
+
+  std::cout << "Renderer: "
+            << glGetString(GL_RENDERER) << std::endl;
+  
+  std::cout << "OpenGL:   "
+            << glGetString(GL_VERSION) << std::endl;
+  
+  std::cout << "GLSL:     "
+            << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+
+  std::cout << "openGL initialized successfully\n";
+  
+  // Query the maximum number of vertex attributes
+  int nrAttributes;
+  glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+  std::cout 
+    << "Maximum vertex attributes: "
+    << nrAttributes << std::endl;
+}
 
 //window resize update function
 void framebuffer_size_callback  (GLFWwindow* window, int width, int height)

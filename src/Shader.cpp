@@ -56,7 +56,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
   glShaderSource  (shader[vertex], 1, &ShaderCode[vertex], NULL);
   glCompileShader (shader[vertex]);
   
-  checkCompileErrors(shader[vertex], "VERTEX");
+  checkCompileErrors  (shader[vertex], "VERTEX");
 
   // Fragment Shader:
   shader[fragment] = glCreateShader (GL_FRAGMENT_SHADER);
@@ -97,10 +97,10 @@ void Shader::setFloat (const std::string &name, float value)  const {
   glUniform1f (glGetUniformLocation  (ID, name.c_str()), value );
 }
 void Shader::setVec4(const std::string& name,
-                     float x,
-                     float y,
-                     float z,
-                     float w) const
+                                              float x,
+                                              float y,
+                                              float z,
+                                              float w)        const
 {
     glUniform4f(
         glGetUniformLocation(ID, name.c_str()),
