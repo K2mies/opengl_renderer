@@ -176,7 +176,8 @@ int main (){
 
       // Use our shader program
       shaderProgram.use();
-      
+     
+      // Update the point size
       glPointSize(pointSize);
 
       // Feed the uniform location
@@ -260,12 +261,14 @@ void processInput(GLFWwindow *window)
 {
   if  (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       glfwSetWindowShouldClose(window, true);
+
   if  (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
     pointSize += 0.1f;
     if (pointSize < 20.0f){
       pointSize = 20.0f;
     }
   }
+  
   if  (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
     pointSize -= 0.1f;
     if (pointSize < 20.0f){
