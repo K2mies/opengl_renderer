@@ -49,6 +49,19 @@ float two_triangle_vertices[] = {
     0.9f, -.5f,0.0f,0, 1, 0,  // right
     .45f, 0.5f,0.0f,0, 0, 1   // top 
  };
+//First Tirangle
+float firstTriangle[] = {
+  -.9f, -.5f,  0.0f, 0,  0, 1,  // left 
+  -.0f, -.5f,  0.0f, 0, 1,0,  // right
+ -.45f,0.5f,0.0f,1, 0,0   // top 
+};
+
+//Second Triangle
+float secondTriangle[] = {
+  0.0f,  -.5f, 0.0f, 1,  0,  0,  // left
+  0.9f,  -.5f, 0.0f, 0, 1, 0,  // right
+ 0.45f, .5f,0.0f,0, 0, 1   // top 
+};
 
 //----------------------------------------------------------------------- Shaders
 
@@ -155,17 +168,43 @@ int main (){
   }
 
   //---------------------------------------------------- 5. Create OpenGL Objects 
-  
-  //VAO "Vertex Array Object"
-  unsigned int VAO;
-  glGenVertexArrays(1, &VAO); 
 
-  // 1. bind Vertex Array Object
-  glBindVertexArray(VAO);
-  
-  // VBO "Vertex Buffer Object"
-  unsigned int VBO;
-  glGenBuffers(1, &VBO);
+  //initialise all VBO's and VAO's
+  unsigned int VBOs[2], VAOs[2];
+  glGenVertexArrays (2, VAOs); // we can also generate multiple VAOs or buffers at the same time
+  glGenBuffers      (2, VBOs);
+
+  // first triangle setup
+  // --------------------
+  glBindVertexArray(VAOs[0]);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);	// Vertex attributes stay the same
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));	// Vertex attributes stay the same
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+
+  // second triangle setup
+  // --------------------
+  glBindVertexArray(VAOs[1]);
+  glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(secondTriangle), secondTriangle, GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);	// Vertex attributes stay the same
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));	// Vertex attributes stay the same
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+
+
+  //VAO "Vertex Array Object"
+  //unsigned int VAO;
+  //glGenVertexArrays(1, &VAO); 
+
+  //// 1. bind Vertex Array Object
+  //glBindVertexArray(VAO);
+  //
+  //// VBO "Vertex Buffer Object"
+  //unsigned int VBO;
+  //glGenBuffers(1, &VBO);
 
   //// Upload vertex data to the VBO object
   //glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -182,11 +221,11 @@ int main (){
   //               GL_STATIC_DRAW);
   
   // Upload vertex data to the VBO object
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER,
-                 sizeof(two_triangle_vertices),
-                 two_triangle_vertices,
-                 GL_STATIC_DRAW);
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(two_triangle_vertices),
+  //               two_triangle_vertices,
+  //               GL_STATIC_DRAW);
 
   ////EBO "Element Buffer Oject"
   //unsigned int EBO;
@@ -204,28 +243,28 @@ int main (){
   // Tell OpenGL how the vertex data is laid out which will be used by the binded VAO
  
   //// First attribute (location): 
-  glVertexAttribPointer(
-    0,                    // attribute location
-    3,                     // 3 values per vertex
-    GL_FLOAT,              // each value is a float
-    GL_FALSE,        // don't normalize
-    6 * sizeof(float),   // size of one vertex
-    (void*)0            // starts at beginning
-  );
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,        // don't normalize
+  //  6 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
 
-  // Second attribute (color):
-  glVertexAttribPointer(
-    1,
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-    6 * sizeof(float),
-    (void*)(3 * sizeof(float))
-  );
-  
-  // Enable attributes location 0 and location 1
-  glEnableVertexAttribArray(0);
-  glEnableVertexAttribArray(1);
+  //// Second attribute (color):
+  //glVertexAttribPointer(
+  //  1,
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  6 * sizeof(float),
+  //  (void*)(3 * sizeof(float))
+  //);
+  //
+  //// Enable attributes location 0 and location 1
+  //glEnableVertexAttribArray(0);
+  //glEnableVertexAttribArray(1);
 
   //// VAO setting for rectangle
   //glVertexAttribPointer(
@@ -398,7 +437,7 @@ int main (){
       glUseProgram  (shaderProgram);
 
       // Bind the VAO containing our vertex configuration
-      glBindVertexArray(VAO);
+      //glBindVertexArray(VAO);
 
       // Draw points in place of vertices (see no.12)...
       //glDrawArrays(GL_POINTS, 0, 4);
@@ -407,12 +446,19 @@ int main (){
       //glDrawArrays  (GL_TRIANGLES, 0, 3);
       
       // Draw 2 triangles
-      glDrawArrays  (GL_TRIANGLES, 0, 6);
+      //glDrawArrays  (GL_TRIANGLES, 0, 6);
 
       // Draw a Rectangle
-      glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-      glBindVertexArray(0);
+      //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+      //glBindVertexArray(0);
+      
+      // Draw first triangle using the first VAO 1:
+      glBindVertexArray(VAOs[0]);
+      glDrawArrays(GL_TRIANGLES, 0, 3);
 
+      // Draw second triangle using the first VAO 1:
+      glBindVertexArray(VAOs[1]);
+      glDrawArrays(GL_TRIANGLES, 0, 3);
 
       // Swap the buffers / present the finished frame.
       glfwSwapBuffers (window);
@@ -436,8 +482,8 @@ int main (){
   //----------------------------------------------------------------- 15. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays  (1, &VAO);
-  glDeleteBuffers       (1, &VBO);
+  glDeleteVertexArrays  (2, VAOs);
+  glDeleteBuffers       (2, VBOs);
   //glDeleteBuffers       (1, &EBO);
   glDeleteProgram       (shaderProgram);
 
