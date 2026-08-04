@@ -38,6 +38,18 @@ unsigned int rectangle_indices[] = {  // note that we start from 0!
     1, 2, 3    // second triangle
 };
 
+//vertix positions for two triangles next to each other
+float two_triangle_vertices[] = {
+     // first triangle
+     -.9f,  -.5f, 0.0f, 0,  0,  1,  // left 
+     -.0f,  -.5f, 0.0f, 0, 1, 0,  // right
+    -.45f,0.5f,0.0f,1, 0, 0,  // top 
+     // second triangle
+    0.0f, -.5f,0.0f,1, 0, 0,  // left
+    0.9f, -.5f,0.0f,0, 1, 0,  // right
+    .45f, 0.5f,0.0f,0, 0, 1   // top 
+ };
+
 //----------------------------------------------------------------------- Shaders
 
 //Vertex Shader written in GLSL and stored as a c string litteral...
@@ -162,29 +174,36 @@ int main (){
   //               triangle_vertices,
   //               GL_STATIC_DRAW);
 
+  //// Upload vertex data to the VBO object
+  //glBindBuffer(GL_ARRAY_BUFFER, VBO);
+  //glBufferData(GL_ARRAY_BUFFER,
+  //               sizeof(rectangle_vertices),
+  //               rectangle_vertices,
+  //               GL_STATIC_DRAW);
+  
   // Upload vertex data to the VBO object
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER,
-                 sizeof(rectangle_vertices),
-                 rectangle_vertices,
+                 sizeof(two_triangle_vertices),
+                 two_triangle_vertices,
                  GL_STATIC_DRAW);
 
-  //EBO "Element Buffer Oject"
-  unsigned int EBO;
-  glGenBuffers(1, &EBO);
+  ////EBO "Element Buffer Oject"
+  //unsigned int EBO;
+  //glGenBuffers(1, &EBO);
 
-  // Upload vertex data to the EBO object
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-  glBufferData(
-      GL_ELEMENT_ARRAY_BUFFER,
-      sizeof(rectangle_indices),
-      rectangle_indices,
-      GL_STATIC_DRAW
-  );
+  //// Upload vertex data to the EBO object
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+  //glBufferData(
+  //    GL_ELEMENT_ARRAY_BUFFER,
+  //    sizeof(rectangle_indices),
+  //    rectangle_indices,
+  //    GL_STATIC_DRAW
+  //);
 
   // Tell OpenGL how the vertex data is laid out which will be used by the binded VAO
  
-  // First attribute (location): 
+  //// First attribute (location): 
   glVertexAttribPointer(
     0,                    // attribute location
     3,                     // 3 values per vertex
@@ -213,13 +232,37 @@ int main (){
   //  0,                    // attribute location
   //  3,                     // 3 values per vertex
   //  GL_FLOAT,              // each value is a float
-  //  GL_FALSE,        // don't normalize
+  //  GL_FALSE,             // don't normalize
   //  3 * sizeof(float),   // size of one vertex
   //  (void*)0            // starts at beginning
   //);
   
   // enable attribute 0
   //glEnableVertexAttribArray(0);
+
+
+  // VAO setting for two triangles ...
+  //glVertexAttribPointer(
+  //  0,                    // attribute location
+  //  3,                     // 3 values per vertex
+  //  GL_FLOAT,              // each value is a float
+  //  GL_FALSE,        // don't normalize
+  //  3 * sizeof(float),   // size of one vertex
+  //  (void*)0            // starts at beginning
+  //);
+  
+  //glEnableVertexAttribArray(0);
+  
+  // note that this is allowed, the call to glVertexAttribPointer registered VBO 
+  // as the vertex attribute's bound vertex buffer object so afterwards we can 
+  // safely unbind
+  //glBindBuffer(GL_ARRAY_BUFFER, 0); 
+  
+  // You can unbind the VAO afterwards so other VAO calls won't accidentally modify 
+  // this VAO, but this rarely happens. Modifying other VAOs requires a call to 
+  // glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) 
+  // when it's not directly necessary.
+  //glBindVertexArray(0); 
 
   //----------------------------------------------------- 6. Create Vertex Shader 
   
@@ -338,6 +381,9 @@ int main (){
   //The glfwSwapBuffers will swap the color buffer
   //(a large 2D buffer that contains color values for each pixel in GLFW's window)
   
+  // Set draw mode to polygon wireframe
+  // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
   while (!glfwWindowShouldClose(window))
   {
       // Input
@@ -351,17 +397,17 @@ int main (){
       // Use our shader program
       glUseProgram  (shaderProgram);
 
-      // Set draw mode to polygon wireframe
-      // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
       // Bind the VAO containing our vertex configuration
       glBindVertexArray(VAO);
 
       // Draw points in place of vertices (see no.12)...
-      glDrawArrays(GL_POINTS, 0, 4);
+      //glDrawArrays(GL_POINTS, 0, 4);
 
       // Draw 3 triangle_vertices as a triangle
       //glDrawArrays  (GL_TRIANGLES, 0, 3);
+      
+      // Draw 2 triangles
+      glDrawArrays  (GL_TRIANGLES, 0, 6);
 
       // Draw a Rectangle
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -392,7 +438,7 @@ int main (){
   // Destroy vertex buffer, Array , Element buffer object and program
   glDeleteVertexArrays  (1, &VAO);
   glDeleteBuffers       (1, &VBO);
-  glDeleteBuffers       (1, &EBO);
+  //glDeleteBuffers       (1, &EBO);
   glDeleteProgram       (shaderProgram);
 
   // Clear/handle all allocated memory free, close... etc for GLFW
