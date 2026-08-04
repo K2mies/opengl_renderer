@@ -14,6 +14,9 @@ enum Axis
     w = 3
 };
 
+//--------------------------------------------------------------------- Variables
+float pointSize = 40.0f;
+
 //---------------------------------------------------------- Forward declarations
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -76,7 +79,7 @@ int main (){
       return -1;
   }
 
- //----------------------------------------------------- 6. Create Vertex Shader 
+ //----------------------------------------------------- 5. Create Vertex Shader 
   
   Shader shaderProgram (
       "../assets/shaders/basic.vert",
@@ -95,7 +98,7 @@ int main (){
     -.5f, -.5f,  0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
    0.0f,0.5f, 0.0f, 0.0f, 0.0f, 1.0f   // top 
    };
-  //---------------------------------------------------- 5. Create OpenGL Objects 
+  //---------------------------------------------------- 8. Create OpenGL Objects 
 
   //initialise all VBO's and VAO's
   unsigned int VBO, VAO;
@@ -134,20 +137,20 @@ int main (){
   glEnableVertexAttribArray(1);
 
 
-  //-------------------------------------------------------- 11. Set the viewport 
+  //--------------------------------------------------------- 9. Set the viewport 
   
   //glViewport(0, 0, 800, 600);
   int fbWidth, fbHeight;
   glfwGetFramebufferSize  (window, &fbWidth, &fbHeight);
   glViewport(0, 0, fbWidth, fbHeight);
 
-  //------------------------------------------------------- 12. Rendering Settings
+  //------------------------------------------------------- 10. Rendering Settings
 
   // Render points as 10x10 pixels
-  glPointSize(40.0f);
+  glPointSize(pointSize);
 
 
-  //----------------------------------------------------- 13. Implamentation info
+  //----------------------------------------------------- 11. Implamentation info
  
   //print useful information about the openGL implamentation
   std::cout << "Vendor:   "
@@ -170,7 +173,7 @@ int main (){
   std::cout 
     << "Maximum vertex attributes: "
     << nrAttributes << std::endl;
-  //------------------------------------------------------------- 14. Render Loop
+  //------------------------------------------------------------- 12. Render Loop
 
   while (!glfwWindowShouldClose(window))
   {
@@ -183,6 +186,8 @@ int main (){
 
       // Use our shader program
       shaderProgram.use();
+      
+      glPointSize(pointSize);
 
       // Feed the uniform location
       float time = glfwGetTime();
@@ -213,7 +218,7 @@ int main (){
       glfwPollEvents();
   }
 
-  //----------------------------------------------------------------- 15. Cleanup
+  //----------------------------------------------------------------- 13. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
   glDeleteVertexArrays  (1, &VAO);
@@ -239,4 +244,16 @@ void processInput(GLFWwindow *window)
 {
   if  (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       glfwSetWindowShouldClose(window, true);
+  if  (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
+    pointSize += 0.1f;
+    if (pointSize < 1.0f){
+      pointSize = 1.0f;
+    }
+  }
+  if  (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
+    pointSize -= 0.1f;
+    if (pointSize < 1.0f){
+      pointSize = 1.0f;
+    }
+  }
 }
