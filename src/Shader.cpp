@@ -4,10 +4,10 @@
 Shader::Shader(const char *vertexPath, const char *fragmentPath){
 
   // 1. retrieve the vertex/fragment source code from filePath:
-  std::string   vertexCode;
-  std::string   fragmentCode;
-  std::ifstream vShaderFile;
-  std::ifstream fShaderFile;
+  std::string       vertexCode;
+  std::string       fragmentCode;
+  std::ifstream     vShaderFile;
+  std::ifstream     fShaderFile;
 
   // ensure ifstream objects can throw exceptions:
   vShaderFile.exceptions  (std::ifstream::failbit | std::ifstream::badbit);
@@ -41,9 +41,9 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
   const char *fShaderCode = fragmentCode.c_str();
 
   // 2. compile shaders
-  unsigned int    vertex, fragment;
-  int             success;
-  char            infoLog[512];
+  unsigned int      vertex, fragment;
+  int               success;
+  char              infoLog[512];
 
   // Vertex Shader:
   vertex = glCreateShader (GL_VERTEX_SHADER);
@@ -57,7 +57,7 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
   glShaderSource  (fragment, 1, &fShaderCode, NULL);
   glCompileShader (fragment);
 
-  checkCompileErrors(fragment, "FRAGMENT");
+  checkCompileErrors  (fragment, "FRAGMENT");
   
   // Shader Program:
   ID = glCreateProgram();
@@ -89,6 +89,17 @@ void Shader::setInt   (const std::string &name, int value)    const {
 }
 void Shader::setFloat (const std::string &name, float value)  const {
   glUniform1f (glGetUniformLocation  (ID, name.c_str()), value );
+}
+void Shader::setVec4(const std::string& name,
+                     float x,
+                     float y,
+                     float z,
+                     float w) const
+{
+    glUniform4f(
+        glGetUniformLocation(ID, name.c_str()),
+        x, y, z, w
+    );
 }
 
 // utility function for checking shader compilation/linking errors.

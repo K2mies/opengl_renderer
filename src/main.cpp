@@ -5,6 +5,15 @@
 
 #include "Shader.h"
 
+//------------------------------------------------------------------------- Enums
+enum Axis
+{
+    x = 0,
+    y = 1,
+    z = 2,
+    w = 3
+};
+
 //---------------------------------------------------------- Forward declarations
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -69,20 +78,20 @@ int main (){
 
  //----------------------------------------------------- 6. Create Vertex Shader 
   
-  Shader shader (
+  Shader shaderProgram (
       "../assets/shaders/basic.vert",
     "../assets/shaders/basic.frag"
   ); 
 
   //--------------------------------------------- 6. Build/Compile Shader Program
   
-  shader.use();
+  shaderProgram.use();
 
   //--------------------------------------------------------------- 7 Vertex data
   
   //Single triangle with colored verticies
   float vertices[] = {
-    0.5f, -.5f,  0.0f,  1.0f,  0.0f,  0.0f,    // bottom right
+    0.5f, -.5f,  0.0f,  1.0f,  0.0f,  0.0f,  // bottom right
     -.5f, -.5f,  0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
    0.0f,0.5f, 0.0f, 0.0f, 0.0f, 1.0f   // top 
    };
@@ -173,7 +182,24 @@ int main (){
       glClear       (GL_COLOR_BUFFER_BIT);
 
       // Use our shader program
-      shader.use();
+      shaderProgram.use();
+
+      // Feed the uniform location
+      float time = glfwGetTime();
+      float location[4];
+
+      location[x] = (sin(time) / 2.0f) + 0.5f;
+      location[y] = 0.0f;
+      location[z] = 0.0f;
+      location[w] = 1.0f;
+
+      shaderProgram.setVec4(
+        "ourVertexLocation",
+        location[x],
+        location[y],
+        location[z],
+        location[w]
+      );
   
       // Draw a triangle
       glBindVertexArray(VAO);
