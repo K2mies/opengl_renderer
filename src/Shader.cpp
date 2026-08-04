@@ -1,78 +1,84 @@
 #include "Shader.h"
 
+enum ShaderType
+{
+  vertex    = 0,
+  fragment  = 1
+};
+
 //------------------------- constructor reads and builds the shader
 Shader::Shader(const char *vertexPath, const char *fragmentPath){
 
   // 1. retrieve the vertex/fragment source code from filePath:
-  std::string       vertexCode;
-  std::string       fragmentCode;
-  std::ifstream     vShaderFile;
-  std::ifstream     fShaderFile;
+  std::string       Code[2];
+  std::ifstream     ShaderFile[2];
 
   // ensure ifstream objects can throw exceptions:
-  vShaderFile.exceptions  (std::ifstream::failbit | std::ifstream::badbit);
-  fShaderFile.exceptions  (std::ifstream::failbit | std::ifstream::badbit);
+  ShaderFile[vertex].exceptions    (std::ifstream::failbit | std::ifstream::badbit);
+  ShaderFile[fragment].exceptions  (std::ifstream::failbit | std::ifstream::badbit);
 
   try{
 
     // open files:
-    vShaderFile.open  (vertexPath);
-    fShaderFile.open  (fragmentPath);
-    std::stringstream vShaderStream, fShaderStream;
+    ShaderFile[vertex].open   (vertexPath);
+    ShaderFile[fragment].open (fragmentPath);
+    std::stringstream ShaderStream[2];
     
     // read file's buffer contents into streams:
-    vShaderStream << vShaderFile.rdbuf();
-    fShaderStream << fShaderFile.rdbuf();
+    ShaderStream[vertex]    << ShaderFile[vertex].rdbuf();
+    ShaderStream[fragment]  << ShaderFile[fragment].rdbuf();
 
     // close file handlers:
-    vShaderFile.close();
-    fShaderFile.close();
+    ShaderFile[vertex].close();
+    ShaderFile[fragment].close();
 
     // convert stream into string:
-    vertexCode    = vShaderStream.str();
-    fragmentCode  = fShaderStream.str();
+    Code[vertex]    = ShaderStream[vertex].str();
+    Code[fragment]  = ShaderStream[fragment].str();
   }
 
   catch (std::ifstream::failure e){
     std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
   }
+  
+  const char *ShaderCode[2];
 
-  const char *vShaderCode = vertexCode.c_str();
-  const char *fShaderCode = fragmentCode.c_str();
+  ShaderCode[vertex]    = Code[vertex].c_str();
+  ShaderCode[fragment]  = Code[fragment].c_str();
 
   // 2. compile shaders
-  unsigned int      vertex, fragment;
+  unsigned int      shader[2];
   int               success;
   char              infoLog[512];
 
   // Vertex Shader:
-  vertex = glCreateShader (GL_VERTEX_SHADER);
-  glShaderSource  (vertex, 1, &vShaderCode, NULL);
-  glCompileShader (vertex);
+  shader[vertex] = glCreateShader (GL_VERTEX_SHADER);
+  glShaderSource  (shader[vertex], 1, &ShaderCode[vertex], NULL);
+  glCompileShader (shader[vertex]);
   
-  checkCompileErrors(vertex, "VERTEX");
+  checkCompileErrors(shader[vertex], "VERTEX");
 
   // Fragment Shader:
-  fragment = glCreateShader (GL_FRAGMENT_SHADER);
-  glShaderSource  (fragment, 1, &fShaderCode, NULL);
-  glCompileShader (fragment);
+  shader[fragment] = glCreateShader (GL_FRAGMENT_SHADER);
+  glShaderSource  (shader[fragment], 1, &ShaderCode[fragment], NULL);
+  glCompileShader (shader[fragment]);
 
-  checkCompileErrors  (fragment, "FRAGMENT");
+  checkCompileErrors  (shader[fragment], "FRAGMENT");
   
   // Shader Program:
   ID = glCreateProgram();
 
-  glAttachShader  (ID, vertex);
-  glAttachShader  (ID, fragment);
+  glAttachShader  (ID, shader[vertex]);
+  glAttachShader  (ID, shader[fragment]);
   glLinkProgram   (ID);
 
-  checkCompileErrors(ID, "PROGRAM");
+  checkCompileErrors  (ID, "PROGRAM");
 
   // delete the shaders as they're linked into our program now 
   // and no longer necessary. Think of it like deleting .o files
   // after linking and creating a binary.
-  glDeleteShader  (vertex);
-  glDeleteShader  (fragment);
+  glDeleteShader  (shader[vertex]);
+  glDeleteShader  (shader[fragment]);
 
 
 }
