@@ -1,4 +1,9 @@
+
 #include "Shader.h"
+
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 enum ShaderType
 {
@@ -81,7 +86,6 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
   glDeleteShader  (shader[vertex]);
   glDeleteShader  (shader[fragment]);
 
-
 }
 //----------------------------------------- use/activate the shader
 void Shader::use(){
@@ -90,21 +94,23 @@ void Shader::use(){
 //--------------------------------------- utility uniform functions
 void Shader::setBool  (const std::string &name, bool value)   const {
   glUniform1i (glGetUniformLocation  (ID, name.c_str()), (int)value);
-}  
+}
+
 void Shader::setInt   (const std::string &name, int value)    const {
   glUniform1i (glGetUniformLocation  (ID, name.c_str()), value);
 }
+
 void Shader::setFloat (const std::string &name, float value)  const {
   glUniform1f (glGetUniformLocation  (ID, name.c_str()), value );
 }
+
 void Shader::setVec4  (const std::string &name,
                                                 float x,
                                                 float y,
                                                 float z,
                                                 float w)      const
 {
-    glUniform4f(
-        glGetUniformLocation(ID, name.c_str()),
+    glUniform4f (glGetUniformLocation(ID, name.c_str()),
         x, y, z, w
     );
 }
@@ -140,4 +146,3 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type){
     }
   }
 }
-

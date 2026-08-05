@@ -28,14 +28,15 @@ enum DimensionsType
 };
 
 //--------------------------------------------------------------------- Variables
-float pointSize = 40.0f;
+float pointSize;
 int   dimensions[2];
+float location[4];
 
 //---------------------------------------------------------- Forward declarations
 
 void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height*/);
-void processInput(GLFWwindow *window);
-void implamentation_info();
+void processInput               (GLFWwindow *window);
+void implamentation_info        ();
 
 //-------------------------------------------------------------------------- Main
 
@@ -43,8 +44,16 @@ int main (){
   
   std::cout << "Starting OpenGL Renderer..." << std::endl;
 
+  //----------------------------------------------------- 0. Initialize variables
+  pointSize   = 40.f;
+
   dimensions[width]   = 800;
   dimensions[height]  = 600;
+
+  location[x] = 0.0f;
+  location[y] = 0.0f;
+  location[z] = 0.0f;
+  location[w] = 1.0f;
   
   //---------------------------------------------------------- 1. Initialize GLFW
 
@@ -81,12 +90,12 @@ int main (){
   }
 
   // Register resize callback
-  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSetFramebufferSizeCallback  (window, framebuffer_size_callback);
 
   //---------------------------------------------- 3. Make OpenGL Context Current
   
   //make the window context active on the current thread
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent          (window);
   
   //---------------------------------------------------------- 4. Initialize GLAD 
   
@@ -101,7 +110,7 @@ int main (){
  //----------------------------------------------------- 5. Create Vertex Shader 
   
   Shader shaderProgram (
-      "../assets/shaders/basic.vert",
+    "../assets/shaders/basic.vert",
     "../assets/shaders/basic.frag"
   ); 
 
@@ -127,14 +136,15 @@ int main (){
 
   // Tiangle setup
   // --------------------
-  glBindVertexArray(objects[VAO]);
-  glBindBuffer(GL_ARRAY_BUFFER, objects[VBO]);
-  glBufferData(GL_ARRAY_BUFFER,
-                                  sizeof(vertices), 
-                                  vertices, 
-                                 GL_STATIC_DRAW);
+  glBindVertexArray (objects[VAO]);
+  glBindBuffer      (GL_ARRAY_BUFFER, objects[VBO]);
+  glBufferData      (GL_ARRAY_BUFFER,
+                                        sizeof(vertices), 
+                                        vertices, 
+                                        GL_STATIC_DRAW);
 
-  glVertexAttribPointer(
+  // Attribute #0 (LOCATION) :
+  glVertexAttribPointer (
     0, 
     3,
     GL_FLOAT,
@@ -143,9 +153,10 @@ int main (){
     (void*)0
   );
 
-  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray (0);
 
-  glVertexAttribPointer(
+  // Attribute #1 (COLOR) :
+  glVertexAttribPointer (
     1, 
     3, 
     GL_FLOAT,
@@ -154,12 +165,11 @@ int main (){
     (void*)(3 * sizeof(float))
   );
 
-  glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray (1);
 
 
   //--------------------------------------------------------- 9. Set the viewport 
   
-  //glViewport(0, 0, 800, 600);
   int frameBuffer[2];
   glfwGetFramebufferSize  (window, &frameBuffer[width], &frameBuffer[height]);
   glViewport              (0, 0, frameBuffer[width], frameBuffer[height]);
@@ -167,39 +177,39 @@ int main (){
   //------------------------------------------------------- 10. Rendering Settings
 
   // Render points as 10x10 pixels
-  glPointSize(pointSize);
-
+  glPointSize (pointSize);
 
   //----------------------------------------------------- 11. Implamentation info
  
   //print useful information about the openGL implamentation
   implamentation_info();
+
   //------------------------------------------------------------- 12. Render Loop
 
   while (!glfwWindowShouldClose(window))
   {
       // Input
-      processInput(window);
+      processInput    (window);
 
       // Set Background Color 
-      glClearColor  (0.2f, 0.3f, 0.3f, 1.0f);
-      glClear       (GL_COLOR_BUFFER_BIT);
+      glClearColor    (0.2f, 0.3f, 0.3f, 1.0f);
+      glClear         (GL_COLOR_BUFFER_BIT);
 
       // Use our shader program
       shaderProgram.use();
      
       // Update the point size
-      glPointSize(pointSize);
+      glPointSize     (pointSize);
 
       // Feed the uniform location
-      float time = glfwGetTime();
-      float location[4];
+      //float time = glfwGetTime();
 
-      location[x] = (sin(time) / 2.0f) + 0.5f;
-      location[y] = 0.0f;
-      location[z] = 0.0f;
-      location[w] = 1.0f;
-
+      //location[x] = (sin(time) / 2.0f);
+      //location[y] = (sin(time + 1.0f) / 2.0f);
+      //location[z] = 0.0f;
+      //location[w] = 1.0f;
+  
+      // set uniform
       shaderProgram.setVec4(
         "ourVertexLocation",
         location[x],
@@ -209,12 +219,12 @@ int main (){
       );
   
       // Draw a triangle
-      glBindVertexArray(objects[VAO]);
-      glDrawArrays(GL_TRIANGLES, 0, 3);
-      glDrawArrays(GL_POINTS, 0, 3);
+      glBindVertexArray (objects[VAO]);
+      glDrawArrays      (GL_TRIANGLES, 0, 3);
+      glDrawArrays      (GL_POINTS, 0, 3);
 
       // Swap the buffers / present the finished frame.
-      glfwSwapBuffers (window);
+      glfwSwapBuffers   (window);
 
       // Clear input poll events (needed for inputs)
       glfwPollEvents();
@@ -270,20 +280,45 @@ void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height
 // Key Hooks
 void processInput(GLFWwindow *window)
 {
-  if  (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  if  (glfwGetKey (window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       glfwSetWindowShouldClose(window, true);
 
-  if  (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
+  if  (glfwGetKey (window, GLFW_KEY_2)      == GLFW_PRESS){
         pointSize += 0.1f;
     if (pointSize < 20.0f){
         pointSize = 20.0f;
     }
   }
   
-  if  (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
+  if  (glfwGetKey (window, GLFW_KEY_1)      == GLFW_PRESS){
         pointSize -= 0.1f;
     if (pointSize < 20.0f){
         pointSize = 20.0f;
     }
   }
+
+  if  (glfwGetKey (window, GLFW_KEY_UP)     == GLFW_PRESS){
+        location[y] += 0.01f;
+    if (location[y] >= 1.4f)
+        location[y] =  1.4f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_DOWN)   == GLFW_PRESS){
+        location[y] -= 0.01f;
+    if (location[y] <= -1.4f)
+        location[y] =  -1.4f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_RIGHT)  == GLFW_PRESS){
+        location[x] += 0.01f;
+    if (location[x] >= 1.4f)
+        location[x] =  1.4f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_LEFT)   == GLFW_PRESS){
+        location[x] -= 0.01f;
+    if (location[x] <= -1.4f)
+        location[x] = -1.4f;
+  }
+
 }
