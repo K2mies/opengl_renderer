@@ -1,19 +1,25 @@
 [
 {
   "directory": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build",
-  "command": "/usr/bin/c++  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -std=gnu++17 -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp",
+  "command": "/usr/bin/c++  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -std=gnu++17 -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp",
   "file": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp",
   "output": "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o"
 },
 {
   "directory": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build",
-  "command": "/usr/bin/c++  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -std=gnu++17 -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp",
+  "command": "/usr/bin/c++  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -std=gnu++17 -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp",
   "file": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp",
   "output": "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o"
 },
 {
   "directory": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build",
-  "command": "/usr/bin/cc  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks  -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c",
+  "command": "/usr/bin/c++  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -std=gnu++17 -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp",
+  "file": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp",
+  "output": "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
+},
+{
+  "directory": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build",
+  "command": "/usr/bin/cc  -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks  -arch arm64 -o CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c",
   "file": "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c",
   "output": "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"
 }

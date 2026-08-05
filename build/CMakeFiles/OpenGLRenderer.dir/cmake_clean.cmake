@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
+  "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
+  "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"
   "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o.d"
   "OpenGLRenderer"

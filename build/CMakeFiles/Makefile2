@@ -85,12 +85,12 @@ clean: CMakeFiles/OpenGLRenderer.dir/clean
 CMakeFiles/OpenGLRenderer.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=1,2,3,4 "Built target OpenGLRenderer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target OpenGLRenderer"
 .PHONY : CMakeFiles/OpenGLRenderer.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/OpenGLRenderer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/OpenGLRenderer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles 0
 .PHONY : CMakeFiles/OpenGLRenderer.dir/rule
@@ -102,7 +102,7 @@ OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/rule
 # codegen rule for target.
 CMakeFiles/OpenGLRenderer.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target OpenGLRenderer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=1,2,3,4,5 "Finished codegen for target OpenGLRenderer"
 .PHONY : CMakeFiles/OpenGLRenderer.dir/codegen
 
 # clean rule for target.
