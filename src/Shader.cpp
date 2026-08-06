@@ -7,40 +7,40 @@
 
 enum ShaderType
 {
-  vertex    = 0,
-  fragment  = 1
+  vert  = 0,
+  frag  = 1
 };
 
 //------------------------- constructor reads and builds the shader
 Shader::Shader(const char *vertexPath, const char *fragmentPath){
 
   // 1. retrieve the vertex/fragment source code from filePath:
-  std::string       Code[2];
-  std::ifstream     ShaderFile[2];
+  std::string     Code[2];
+  std::ifstream   ShaderFile[2];
 
   // ensure ifstream objects can throw exceptions:
-  ShaderFile[vertex].exceptions    (std::ifstream::failbit | std::ifstream::badbit);
-  ShaderFile[fragment].exceptions  (std::ifstream::failbit | std::ifstream::badbit);
+  ShaderFile      [vert].exceptions  (std::ifstream::failbit | std::ifstream::badbit);
+  ShaderFile      [frag].exceptions  (std::ifstream::failbit | std::ifstream::badbit);
 
   try{
 
     // open files:
-    ShaderFile[vertex].open   (vertexPath);
-    ShaderFile[fragment].open (fragmentPath);
+    ShaderFile    [vert].open (vertexPath);
+    ShaderFile    [frag].open (fragmentPath);
     
     std::stringstream ShaderStream[2];
     
     // read file's buffer contents into streams:
-    ShaderStream[vertex]    << ShaderFile[vertex].rdbuf();
-    ShaderStream[fragment]  << ShaderFile[fragment].rdbuf();
+    ShaderStream  [vert] << ShaderFile[vert].rdbuf();
+    ShaderStream  [frag] << ShaderFile[frag].rdbuf();
 
     // close file handlers:
-    ShaderFile[vertex].close();
-    ShaderFile[fragment].close();
+    ShaderFile    [vert].close();
+    ShaderFile    [frag].close();
 
     // convert stream into string:
-    Code[vertex]    = ShaderStream[vertex].str();
-    Code[fragment]  = ShaderStream[fragment].str();
+    Code          [vert] = ShaderStream[vert].str();
+    Code          [frag] = ShaderStream[frag].str();
   }
 
   catch (std::ifstream::failure e){
@@ -49,42 +49,40 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath){
   
   const char *ShaderCode[2];
 
-  ShaderCode[vertex]    = Code[vertex].c_str();
-  ShaderCode[fragment]  = Code[fragment].c_str();
+  ShaderCode      [vert] = Code[vert].c_str();
+  ShaderCode      [frag] = Code[frag].c_str();
 
   // 2. compile shaders
-  unsigned int      shader[2];
-  int               success;
-  char              infoLog[512];
+  unsigned int          shader[2];
 
-  // Vertex Shader:
-  shader[vertex] = glCreateShader (GL_VERTEX_SHADER);
-  glShaderSource  (shader[vertex], 1, &ShaderCode[vertex], NULL);
-  glCompileShader (shader[vertex]);
+  // vert Shader:
+  shader          [vert] = glCreateShader (GL_VERTEX_SHADER);
+  glShaderSource        (shader[vert], 1, &ShaderCode[vert], NULL);
+  glCompileShader       (shader[vert]);
   
-  checkCompileErrors  (shader[vertex], "VERTEX");
+  checkCompileErrors    (shader[vert], "vert");
 
-  // Fragment Shader:
-  shader[fragment] = glCreateShader (GL_FRAGMENT_SHADER);
-  glShaderSource  (shader[fragment], 1, &ShaderCode[fragment], NULL);
-  glCompileShader (shader[fragment]);
+  // frag Shader:
+  shader          [frag] = glCreateShader (GL_FRAGMENT_SHADER);
+  glShaderSource        (shader[frag], 1, &ShaderCode[frag], NULL);
+  glCompileShader       (shader[frag]);
 
-  checkCompileErrors  (shader[fragment], "FRAGMENT");
+  checkCompileErrors    (shader[frag], "frag");
   
   // Shader Program:
   ID = glCreateProgram();
 
-  glAttachShader  (ID, shader[vertex]);
-  glAttachShader  (ID, shader[fragment]);
-  glLinkProgram   (ID);
+  glAttachShader        (ID, shader[vert]);
+  glAttachShader        (ID, shader[frag]);
+  glLinkProgram         (ID);
 
-  checkCompileErrors  (ID, "PROGRAM");
+  checkCompileErrors    (ID, "PROGRAM");
 
   // delete the shaders as they're linked into our program now 
   // and no longer necessary. Think of it like deleting .o files
   // after linking and creating a binary.
-  glDeleteShader  (shader[vertex]);
-  glDeleteShader  (shader[fragment]);
+  glDeleteShader        (shader[vert]);
+  glDeleteShader        (shader[frag]);
 
 }
 //----------------------------------------- use/activate the shader
@@ -104,6 +102,25 @@ void Shader::setFloat (const std::string &name, float value)  const {
   glUniform1f (glGetUniformLocation  (ID, name.c_str()), value );
 }
 
+void Shader::setVec2  (const std::string &name,
+                                                float x,
+                                                float y)      const
+{
+    glUniform2f (glGetUniformLocation(ID, name.c_str()),
+        x, y
+    );
+}
+
+void Shader::setVec3  (const std::string &name,
+                                                float x,
+                                                float y,
+                                                float z)      const
+{
+    glUniform3f (glGetUniformLocation(ID, name.c_str()),
+        x, y, z
+    );
+}
+
 void Shader::setVec4  (const std::string &name,
                                                 float x,
                                                 float y,
@@ -117,11 +134,15 @@ void Shader::setVec4  (const std::string &name,
 
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
-void Shader::checkCompileErrors(unsigned int shader, std::string type){
+void Shader::checkCompileErrors(unsigned int shader, std::string type)  {
+
   int   success;
   char  infoLog[1024];
+
   if (type != "PROGRAM"){
+
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
     if (!success){
       glGetShaderInfoLog(shader, 1024, NULL, infoLog);
       std::cout 
@@ -132,7 +153,9 @@ void Shader::checkCompileErrors(unsigned int shader, std::string type){
         << std::endl;
     }
     else {
+
       glGetProgramiv(shader, GL_LINK_STATUS, &success);
+
       if (!success){
         glGetShaderInfoLog(shader, 1024, NULL, infoLog);
         std::cout 
