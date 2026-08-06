@@ -253,7 +253,6 @@ int main (){
       glBindVertexArray(VAO);
       
       // DRAW...
-
       // Drawn Rectangle
       glDrawElements(
           GL_TRIANGLES,
@@ -265,7 +264,15 @@ int main (){
       // Draw vertex points
       glDrawArrays          (GL_POINTS, 0, 4);
 
-      // Set uniform location
+      // Feed the uniform location
+      //float time = glfwGetTime();
+
+      //location[x] = (sin(time) / 2.0f);
+      //location[y] = (sin(time + 1.0f) / 2.0f);
+      //location[z] = 0.0f;
+      //location[w] = 1.0f;
+  
+      // set uniform
       shaderProgram.setVec4(
         "ourVertexLocation",
         location[x],
