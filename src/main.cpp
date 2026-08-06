@@ -18,7 +18,7 @@ enum AxisType
     w = 3
 };
 
-enum BufferType
+enum ObjectType
 {
     VBO = 0,
     VAO = 1,
@@ -50,7 +50,6 @@ int main (){
   std::cout << "Starting OpenGL Renderer..." << std::endl;
 
   //----------------------------------------------------- 0. Initialize variables
-  pointSize   = 40.f;
 
   window_dimensions[width]   = 800;
   window_dimensions[height]  = 600;
@@ -59,6 +58,8 @@ int main (){
   location[y] = 0.0f;
   location[z] = 0.0f;
   location[w] = 1.0f;
+
+  pointSize   = 40.f;
   
   //---------------------------------------------------------- 1. Initialize GLFW
 
@@ -246,11 +247,11 @@ int main (){
       glPointSize         (pointSize);
       
       // Bind Textures to GL_TEXTURE0 + unit.
-      containerTexture.bind(0);
-      faceTexture.bind(1);
+      containerTexture.bind (0);
+      faceTexture.bind      (1);
       
       // Bind the relvent VAO
-      glBindVertexArray(VAO);
+      glBindVertexArray (VAO);
       
       // DRAW...
 

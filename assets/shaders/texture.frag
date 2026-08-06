@@ -13,9 +13,9 @@ uniform sampler2D    ourTexture1;
 uniform sampler2D    ourTexture2;
 
 //--------------------------------------------------- consts
-const   float        texture_weight    = 0.5;
-const   float        vertex_weight     = 0.25;
-const   float        location_weight   = 0.25;
+const   float        weight_texture    = 0.5;
+const   float        weight_vertex     = 0.25;
+const   float        weight_location   = 0.25;
 
 //-------------------------------------------------- structs
 struct  Weight {
@@ -26,23 +26,23 @@ struct  Weight {
 
 //----------------------------------------------- asignments
 const   Weight       weight = Weight(
-                     texture_weight,
-                     vertex_weight,
-                     location_weight
+                     weight_texture,
+                     weight_vertex,
+                     weight_location
 );
 
 //----------------------------------------------------------
 
 void main() {
 
-  vec4 vertexColor   = vec4 (ourVertexColor, 1.0);
+  vec4 vertexColor   = vec4   (ourVertexColor, 1.0);
 
   vec4 texture1      = texture(ourTexture1, TexCoord) / 2.0;
   vec4 texture2      = texture(ourTexture2, TexCoord) / 2.0;
-  vec4 mixedTextures = texture1 
+  vec4 mixed         = texture1 
                      + texture2;
   
-  FragColor          = mixedTextures      *  weight.texture
+  FragColor          = mixed              *  weight.texture
                      + vertexColor        *  weight.vertex
                      + ourVertexLocation  *  weight.location;
 }
