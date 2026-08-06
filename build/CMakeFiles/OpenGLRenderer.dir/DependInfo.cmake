@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c" "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d"
   )

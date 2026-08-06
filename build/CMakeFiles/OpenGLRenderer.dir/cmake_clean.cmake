@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o.d"
+  "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o"
+  "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
