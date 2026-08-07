@@ -28,9 +28,24 @@ enum ObjectType
 
 enum DimensionsType
 {
-    width   = 0,
-    height  = 1
+    width  = 0,
+    height = 1
 };
+
+//----------------------------------------------------------------------- Structs
+struct Weight {
+  float texture;
+  float vertex;
+  float location;
+  float blend;
+};
+
+Weight  weight{ 
+    0.0,        // texture
+    0.0,        // vertex
+    0.0,        // location
+    0.0         // blend
+  };
 
 //--------------------------------------------------------------------- Variables
 float pointSize;
@@ -60,7 +75,12 @@ int main (){
   location[w] = 1.0f;
 
   pointSize   = 40.f;
-  
+
+  weight.texture  = 0.5;
+  weight.vertex   = 0.25;
+  weight.location = 0.25;
+  weight.blend    = 0.5;
+
   //---------------------------------------------------------- 1. Initialize GLFW
 
   if (!glfwInit()){
@@ -124,15 +144,15 @@ int main (){
   
   float vertices[] = {
      // positions         // colors           // uv coords
-     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top    right
      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
     -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top    left 
   };
 
   unsigned int indices[] = {
     // note that we start from 0!
-    0, 1, 3,  // first triangle
+    0, 1, 3,  // first  triangle
     1, 2, 3   // second triangle
   };
   //---------------------------------------------------- 7. Create OpenGL Objects 
@@ -184,7 +204,7 @@ int main (){
 
   glEnableVertexAttribArray (1);
   
-  // Attribute #2 (UV)
+  // Attribute #2 (UV) :
   glVertexAttribPointer(
     2,
     2,
@@ -194,11 +214,11 @@ int main (){
     (void*)(6 * sizeof(float))
   );
 
-  glEnableVertexAttribArray(2);
+  glEnableVertexAttribArray    (2);
 
   // Unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  glBindVertexArray            (0);
 
   //----------------------------------------------------------------- 8. Textures 
   
@@ -208,6 +228,7 @@ int main (){
   //--------------------------------------------- 9. Build/Compile Shader Program
 
   shaderProgram.use();
+
   // Send textures to the shader program uniforms
   shaderProgram.setInt     ("ourTexture1", 0);
   shaderProgram.setInt     ("ourTexture2", 1);
@@ -251,7 +272,7 @@ int main (){
       faceTexture.bind      (1);
       
       // Bind the relvent VAO
-      glBindVertexArray (VAO);
+      glBindVertexArray     (VAO);
       
       // DRAW...
 
@@ -274,6 +295,12 @@ int main (){
         location[z],
         location[w]
       );
+
+      // Set uniform blend
+      shaderProgram.setFloat("weight.texture",  weight.texture);
+      shaderProgram.setFloat("weight.vertex",   weight.vertex);
+      shaderProgram.setFloat("weight.location", weight.location);
+      shaderProgram.setFloat("weight.blend",    weight.blend);
   
       // Swap the buffers / present the finished frame.
       glfwSwapBuffers       (window);
@@ -326,8 +353,8 @@ void implamentation_info() {
 void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height*/)
 {
   int frameBuffer[2];
-  glfwGetFramebufferSize  (window,    &frameBuffer[width],&frameBuffer[height]);
-  glViewport              (0, 0, frameBuffer[width], frameBuffer[height]);
+  glfwGetFramebufferSize  (window, &frameBuffer[width],&frameBuffer[height]);
+  glViewport              (0, 0,    frameBuffer[width], frameBuffer[height]);
 }
 
 // Key Hooks
@@ -374,4 +401,51 @@ void processInput(GLFWwindow *window)
         location[x] = -1.4f;
   }
 
+  if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
+        weight.texture -= 0.01f;
+    if (weight.texture <= 0.0f)
+        weight.texture =  0.0f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_4)   == GLFW_PRESS){
+        weight.texture += 0.01f;
+    if (weight.texture >= 1.0f)
+        weight.texture =  1.0f;
+  }
+
+   if  (glfwGetKey (window, GLFW_KEY_5)   == GLFW_PRESS){
+        weight.vertex -= 0.01f;
+    if (weight.vertex <= 0.0f)
+        weight.vertex =  0.0f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_6)   == GLFW_PRESS){
+        weight.vertex += 0.01f;
+    if (weight.vertex >= 1.0f)
+        weight.vertex =  1.0f;
+  }
+
+ if  (glfwGetKey (window, GLFW_KEY_7)   == GLFW_PRESS){
+        weight.location -= 0.01f;
+    if (weight.location <= 0.0f)
+        weight.location =  0.0f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_8)   == GLFW_PRESS){
+        weight.location += 0.01f;
+    if (weight.location >= 1.0f)
+        weight.location =  1.0f;
+  }
+
+ if  (glfwGetKey (window, GLFW_KEY_9)   == GLFW_PRESS){
+        weight.blend -= 0.01f;
+    if (weight.blend <= 0.0f)
+        weight.blend =  0.0f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_0)   == GLFW_PRESS){
+        weight.blend += 0.01f;
+    if (weight.blend >= 1.0f)
+        weight.blend =  1.0f;
+  }
 }
