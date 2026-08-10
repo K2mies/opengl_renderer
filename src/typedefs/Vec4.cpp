@@ -113,12 +113,12 @@ vec4	vec4::operator		+	( const vec4& other )		const
 
 vec4	vec4::operator		-	( const vec4& other )		const
 {
-	vec4	temp = *this;
-	temp.x -= other.x;
-	temp.y -= other.y;
+  vec4	temp = *this;
+  temp.x -= other.x;
+  temp.y -= other.y;
   temp.z -= other.z;
   temp.w -= other.w;
-	return ( temp );
+  return ( temp );
 }
 
 vec4	vec4::operator		*	( const vec4& other )		const
