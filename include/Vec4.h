@@ -32,12 +32,12 @@ public:
 
 	vec4	  operator	-	  ()				              const;
 
-	vec4	  operator	*	  (       float num )			const;
+	vec4	  operator	*   (       float num )			const;
 	vec4&	  operator	*=	(       float num );
 
-	vec4	  operator	+	  ( const vec4& other )	  const;
-	vec4	  operator	-	  ( const vec4& other )	  const;
-	vec4	  operator	*	  ( const vec4& other )	  const;
+	vec4	  operator	+   ( const vec4& other )	  const;
+	vec4	  operator	-   ( const vec4& other )	  const;
+	vec4	  operator	*   ( const vec4& other )	  const;
 
 	vec4&	  operator	+=	( const vec4& other );
 	vec4&	  operator	-=	( const vec4& other );
@@ -55,7 +55,7 @@ public:
 };
 
 //--------------------------------------------------------- non-member functions 
-vec4		      operator	*	  ( int num, const vec4& obj );
+vec4		      operator	*  ( int num, const vec4& obj );
 std::ostream&	operator	<<	( std::ostream& out, const vec4& obj );
 
 #endif

@@ -12,9 +12,6 @@ public:
 
   vec4 column[4];
 
-  float        *data();
-  const float*  data()                         const;
-
 	//--------------------------------------------------------- constructors
   mat4();
 
@@ -47,6 +44,10 @@ public:
   mat4    operator  *   ( const mat4& )         const;
 
 	//---------------------------------------------------- utility functions
+
+  float        *data();
+
+  const float*  data()                         const;
   
   static  mat4            identity       ();
 
