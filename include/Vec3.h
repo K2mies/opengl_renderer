@@ -21,7 +21,7 @@ public:
 	vec3&	  operator	=	  ( const vec3& source );
 
 	float	  operator	[]	(       int   index )	  const;
-	float&  operator	[]	(       int   index );
+	float&    operator	[]	(       int   index );
 
 	vec3	  operator	-	  ()				              const;
 
