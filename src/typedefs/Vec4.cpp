@@ -74,9 +74,9 @@ float&	vec4::operator		[]	( int index )
 
 vec4	vec4::operator		-	()				const
 {
-	vec4	temp = *this;
-	temp[0] = -temp[0];
-	temp[1] = -temp[1];
+  vec4	temp = *this;
+  temp[0] = -temp[0];
+  temp[1] = -temp[1];
   temp[2] = -temp[2];
   temp[3] = -temp[3];
   return ( temp );
