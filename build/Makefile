@@ -225,6 +225,78 @@ src/stb_image.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s
 .PHONY : src/stb_image.cpp.s
 
+src/typedefs/Mat4.o: src/typedefs/Mat4.cpp.o
+.PHONY : src/typedefs/Mat4.o
+
+# target to build an object file
+src/typedefs/Mat4.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o
+.PHONY : src/typedefs/Mat4.cpp.o
+
+src/typedefs/Mat4.i: src/typedefs/Mat4.cpp.i
+.PHONY : src/typedefs/Mat4.i
+
+# target to preprocess a source file
+src/typedefs/Mat4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.i
+.PHONY : src/typedefs/Mat4.cpp.i
+
+src/typedefs/Mat4.s: src/typedefs/Mat4.cpp.s
+.PHONY : src/typedefs/Mat4.s
+
+# target to generate assembly for a file
+src/typedefs/Mat4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.s
+.PHONY : src/typedefs/Mat4.cpp.s
+
+src/typedefs/Vec3.o: src/typedefs/Vec3.cpp.o
+.PHONY : src/typedefs/Vec3.o
+
+# target to build an object file
+src/typedefs/Vec3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o
+.PHONY : src/typedefs/Vec3.cpp.o
+
+src/typedefs/Vec3.i: src/typedefs/Vec3.cpp.i
+.PHONY : src/typedefs/Vec3.i
+
+# target to preprocess a source file
+src/typedefs/Vec3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.i
+.PHONY : src/typedefs/Vec3.cpp.i
+
+src/typedefs/Vec3.s: src/typedefs/Vec3.cpp.s
+.PHONY : src/typedefs/Vec3.s
+
+# target to generate assembly for a file
+src/typedefs/Vec3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.s
+.PHONY : src/typedefs/Vec3.cpp.s
+
+src/typedefs/Vec4.o: src/typedefs/Vec4.cpp.o
+.PHONY : src/typedefs/Vec4.o
+
+# target to build an object file
+src/typedefs/Vec4.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o
+.PHONY : src/typedefs/Vec4.cpp.o
+
+src/typedefs/Vec4.i: src/typedefs/Vec4.cpp.i
+.PHONY : src/typedefs/Vec4.i
+
+# target to preprocess a source file
+src/typedefs/Vec4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.i
+.PHONY : src/typedefs/Vec4.cpp.i
+
+src/typedefs/Vec4.s: src/typedefs/Vec4.cpp.s
+.PHONY : src/typedefs/Vec4.s
+
+# target to generate assembly for a file
+src/typedefs/Vec4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.s
+.PHONY : src/typedefs/Vec4.cpp.s
+
 third_party/glad/src/glad.o: third_party/glad/src/glad.c.o
 .PHONY : third_party/glad/src/glad.o
 
@@ -270,6 +342,15 @@ help:
 	@echo "... src/stb_image.o"
 	@echo "... src/stb_image.i"
 	@echo "... src/stb_image.s"
+	@echo "... src/typedefs/Mat4.o"
+	@echo "... src/typedefs/Mat4.i"
+	@echo "... src/typedefs/Mat4.s"
+	@echo "... src/typedefs/Vec3.o"
+	@echo "... src/typedefs/Vec3.i"
+	@echo "... src/typedefs/Vec3.s"
+	@echo "... src/typedefs/Vec4.o"
+	@echo "... src/typedefs/Vec4.i"
+	@echo "... src/typedefs/Vec4.s"
 	@echo "... third_party/glad/src/glad.o"
 	@echo "... third_party/glad/src/glad.i"
 	@echo "... third_party/glad/src/glad.s"

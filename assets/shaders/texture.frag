@@ -17,6 +17,7 @@ struct  Weight {
         float        texture;
         float        vertex;
         float        location;
+
         float        blend;
 };
 
@@ -31,6 +32,7 @@ void main() {
   vec4 texture1      = texture(ourTexture1,  TexCoord) / 2.0;
   vec4 texture2      = texture(ourTexture2,  TexCoord) / 2.0;
   vec4 mixed         = mix    (texture1,     texture2,
+
                                              weight.blend);
   
   FragColor          = mixed              *  weight.texture

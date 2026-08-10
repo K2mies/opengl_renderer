@@ -1,56 +1,91 @@
+// Imported libraries
+
+// Glad/GLFW/stb_image 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "stb_image.h"
+
+// GLM 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Objects / Classes
 #include "Shader.h"
 #include "Texture.h"
 
+// Custom Types
+#include "Vec4.h"
+#include "Vec3.h"
+#include "Mat4.h"
+
 // Imports
 #include <iostream>
 
 //------------------------------------------------------------------------- Enums
-enum AxisType
-{
+enum AxisType {
+    
     x = 0,
     y = 1,
     z = 2,
     w = 3
+
 };
 
-enum ObjectType
-{
+enum ObjectType {
+    
     VBO = 0,
     VAO = 1,
     EBO = 2,
     TEX = 3
+
 };
 
-enum DimensionsType
-{
+enum DimensionsType {
+    
     width  = 0,
     height = 1
+
+};
+
+enum ProjectionType {
+
+  orthographic = 0,
+  perspective  = 1
 };
 
 //----------------------------------------------------------------------- Structs
-struct Weight {
-  float texture;
-  float vertex;
-  float location;
-  float blend;
-};
 
-Weight  weight{ 
-    0.0,        // texture
-    0.0,        // vertex
-    0.0,        // location
-    0.0         // blend
+Weight  weight  { 
+
+    0.0,       // texture
+    0.0,       // vertex
+    0.0,       // location
+    0.0        // blend
+
   };
 
-//--------------------------------------------------------------------- Variables
+Frustum frustum {
+
+    0.0f,      // left
+    0.0f,      // right
+    0.0f,      // bottom
+    0.0f,      // top
+    0.0f,      // near
+    0.0f       // far
+
+};
+
+Matrix  matrix;
+
+//-------------------------------------------------------------- Global Variables
+
 float pointSize;
 int   window_dimensions[2];
 float location[4];
+float rotation[3];
+float scale[3];
+float fov;
 
 //---------------------------------------------------------- Forward declarations
 
@@ -61,25 +96,85 @@ void implamentation_info        ();
 //-------------------------------------------------------------------------- Main
 
 int main (){
+
+  mat4 identity(1.0f);
+  
+  std::cout << "Identity:\n";
+  std::cout << identity << "\n\n";
+
+  identity.column[0].x = 0.5f;
+ 
+  std::cout << "Identity:\n";
+  std::cout << identity << "\n\n";
+
   
   std::cout << "Starting OpenGL Renderer..." << std::endl;
+
+  //Vec4 tests;
+
+  vec4 test0 = vec4(2.3f, 4.5f, 1.2f, 1.0f);
+  std::cout << "vec4: " << test0 << std::endl;
+  test0 *= 5;
+  std::cout << "vec4: " << test0 << std::endl;
+  
+  vec3 test1 = vec3(1.5f, 2.3f, 6.1f);
+  std::cout << "vec3: " << test1 << std::endl;
+  test1 *= 5;
+  std::cout << "vec3: " << test1 << std::endl;
+
+  vec3 test2 = vec3(2.4f, 5.5f, 6.6f);
+  std::cout << "vec3: " << test2 << std::endl;
+  vec4 test3 = vec4(test2, 1.0f);
+  std::cout << "vec3: " << test3 << std::endl;
+
 
   //----------------------------------------------------- 0. Initialize variables
 
   window_dimensions[width]   = 800;
   window_dimensions[height]  = 600;
 
-  location[x] = 0.0f;
-  location[y] = 0.0f;
-  location[z] = 0.0f;
-  location[w] = 1.0f;
+  location[x]     = 0.0f;
+  location[y]     = 0.0f;
+  location[z]     = 0.0f;
+  location[w]     = 1.0f;
 
-  pointSize   = 40.f;
+  rotation[x]     = 0.0f;
+  rotation[y]     = 0.0f;
+  rotation[z]     = 1.0f;
 
-  weight.texture  = 0.5;
-  weight.vertex   = 0.25;
-  weight.location = 0.25;
-  weight.blend    = 0.5;
+  scale   [x]     = 0.5f;
+  scale   [y]     = 0.5f;
+  scale   [z]     = 0.5f;
+
+  pointSize       = 40.f;
+
+  fov             = glm::radians(45.0f);
+
+  weight.blend    = 0.5f;
+
+  weight.texture  = 0.5f;
+  weight.vertex   = 0.25f;
+  weight.location = 0.25f;
+
+  //frustum.left    = 0.0f;
+  //frustum.right   = 800.0f;
+  //frustum.bottom  = 0.0f;
+  //frustum.top     = 600.0f;
+  //frustum.near    = 0.1f;
+  //frustum.far     = 100.0f;
+
+  frustum.left      = -1.0f;
+  frustum.right     = 1.0f;
+  frustum.bottom    = -1.0f;
+  frustum.top       = 1.0f;
+  frustum.near      = 0.1f;
+  frustum.far       = 100.0f;
+
+  matrix.local      = glm::mat4(1.0f);
+  matrix.model      = glm::mat4(1.0f);
+  matrix.view       = glm::mat4(1.0f);
+  matrix.projection = glm::mat4(1.0f);
+  matrix.clip       = glm::mat4(1.0f);
 
   //---------------------------------------------------------- 1. Initialize GLFW
 
@@ -136,25 +231,108 @@ int main (){
  //---------------------------------------------------- 5. Create Shader Program
   
   Shader shaderProgram (
-    "../assets/Shaders/texture.vert",
-    "../assets/Shaders/texture.frag"
+    "../assets/Shaders/coord.vert",
+    "../assets/Shaders/coord.frag"
   );   
+  // configure global opengl state
+  // -----------------------------
+    glEnable(GL_DEPTH_TEST);
 
-  //--------------------------------------------------------------- 6 Vertex data
+  //--------------------------------------------------------------- 6 Vxertex data
+
+  // set up vertex data (and buffer(s)) and configure vertex attributes
+  // ------------------------------------------------------------------
+
+    float vertices[] = {
   
-  float vertices[] = {
-     // positions         // colors           // uv coords
-     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top    right
-     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top    left 
+      //======================================================== Back (-Z)
+  
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   // 0
+       0.5f, -0.5f, -0.5f,   1.0f, 0.0f,   // 1
+       0.5f,  0.5f, -0.5f,   1.0f, 1.0f,   // 2
+      -0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   // 3
+  
+      //======================================================= Front (+Z)
+  
+      -0.5f, -0.5f,  0.5f,   0.0f, 0.0f,   // 4
+       0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   // 5
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   // 6
+      -0.5f,  0.5f,  0.5f,   0.0f, 1.0f,   // 7
+  
+      //======================================================== Left (-X)
+  
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   // 8
+      -0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   // 9
+      -0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //10
+      -0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   //11
+  
+      //======================================================= Right (+X)
+  
+       0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   //12
+       0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   //13
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //14
+       0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   //15
+  
+      //======================================================= Bottom (-Y)
+  
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   //16
+       0.5f, -0.5f, -0.5f,   1.0f, 0.0f,   //17
+       0.5f, -0.5f,  0.5f,   1.0f, 1.0f,   //18
+      -0.5f, -0.5f,  0.5f,   0.0f, 1.0f,   //19
+  
+      //========================================================== Top (+Y)
+  
+      -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,   //20
+       0.5f,  0.5f, -0.5f,   1.0f, 0.0f,   //21
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //22
+      -0.5f,  0.5f,  0.5f,   0.0f, 1.0f    //23
   };
 
-  unsigned int indices[] = {
-    // note that we start from 0!
-    0, 1, 3,  // first  triangle
-    1, 2, 3   // second triangle
-  };
+    // EBO indicies
+    unsigned int indices[] = {
+
+        // back
+         0,  1,  2,
+         2,  3,  0,
+    
+        // front
+         4,  5,  6,
+         6,  7,  4,
+    
+        // left
+         8,  9, 10,
+        10, 11,  8,
+    
+        // right
+        12, 13, 14,
+        14, 15, 12,
+    
+        // bottom
+        16, 17, 18,
+        18, 19, 16,
+    
+        // top
+        20, 21, 22,
+        22, 23, 20
+
+    };
+
+    // world space positions of our cubes
+    glm::vec3 cubePositions[] = {
+
+        glm::vec3( 0.0f,  0.0f,  0.0f),
+        glm::vec3( 2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3( 2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3( 1.3f, -2.0f, -2.5f),
+        glm::vec3( 1.5f,  2.0f, -2.5f),
+        glm::vec3( 1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
+
+    };
+
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   //initialise all VBO's and VAO's as openGL objects
@@ -173,7 +351,7 @@ int main (){
                                         sizeof(vertices), 
                                         vertices, 
                                         GL_STATIC_DRAW);
-
+  
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, objects[EBO]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER,
                                         sizeof(indices),
@@ -186,35 +364,24 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-    8 * sizeof(float),
+    5 * sizeof(float),
     (void*)0
   );
 
   glEnableVertexAttribArray (0);
 
-  // Attribute #1 (COLOR) :
-  glVertexAttribPointer (
-    1, 
-    3, 
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)(3 * sizeof(float))
-  );
-
-  glEnableVertexAttribArray (1);
   
   // Attribute #2 (UV) :
   glVertexAttribPointer(
-    2,
+    1,
     2,
     GL_FLOAT,
     GL_FALSE,
-    8 * sizeof(float),
-    (void*)(6 * sizeof(float))
+    5 * sizeof(float),
+    (void*)(3 * sizeof(float))
   );
 
-  glEnableVertexAttribArray    (2);
+  glEnableVertexAttribArray    (1);
 
   // Unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -259,7 +426,7 @@ int main (){
 
       // Set Background Color 
       glClearColor        (0.2f, 0.3f, 0.3f, 1.0f);
-      glClear             (GL_COLOR_BUFFER_BIT);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // Use our shader program
       shaderProgram.use();
@@ -272,50 +439,104 @@ int main (){
       faceTexture.bind      (1);
       
       // Bind the relvent VAO
-      glBindVertexArray     (VAO);
+      glBindVertexArray     (objects[VAO]); 
+
+      // clip = projection * view * model * local....
       
+      
+      // local space matrix
+      matrix.local = glm::mat4       (1.0f); // create identity matrix
+      //matrix.local = glm::translate   (matrix.local, 
+      //                                 glm::vec3  (location[x], 
+      //                                             location[y], 
+      //                                             location[z])
+      //                                );
+
+      // model space matrix
+      matrix.model = glm::mat4       (1.0f); // create identity matrix
+
+      matrix.model = glm::rotate     (matrix.model, 
+                                      glm::radians(-55.0f), 
+                                      glm::vec3   (1.0f, 0.0f, 0.0f));
+
+      // view space matrix
+      matrix.view = glm::mat4        (1.0f); // create identity matrix
+      matrix.view = glm::translate   (matrix.view, 
+                                      glm::vec3   (0.0f, 0.0f, -3.0f));
+      
+      matrix.view = glm::translate   (matrix.view,
+                                      glm::vec3   (location[x],
+                                                   location[y],
+                                                   location[z])
+                                      );
+
+      // projection matricies
+      glm::mat4 projection[2];
+
+      projection[orthographic] = glm::ortho       (frustum.left,
+                                                   frustum.right,
+                                                   frustum.bottom,
+                                                   frustum.top,
+                                                   frustum.near,
+                                                   frustum.far
+                                                  );
+
+      projection[perspective]  = glm::perspective (fov, 
+                                                  (float)window_dimensions[width] 
+                                                / (float)window_dimensions[height],
+                                                   frustum.near,
+                                                   frustum.far
+                                                  );
+  
+      // select which perspective projection matrix to use:
+      matrix.projection = projection[perspective];
+      
+      // Pass the coordinate matricies to the shader.
+      shaderProgram.setMatrix      ("matrix", matrix);
+
+      // set weights
+      shaderProgram.setWeight      ("weight", weight); 
+
       // DRAW...
 
-      // Drawn Rectangle
-      glDrawElements(
-          GL_TRIANGLES,
-          6,
-          GL_UNSIGNED_INT,
-          nullptr
-      );
+      for (unsigned int i = 0; i < 10; i++)  {
 
-      // Draw vertex points
-      glDrawArrays          (GL_POINTS, 0, 4);
+        // calculate the model matrix for each object and pass it to shader before drawing
+        matrix.model = glm::mat4(1.0f);
+        matrix.model = glm::translate(matrix.model, cubePositions[i]);
 
-      // Set uniform location
-      shaderProgram.setVec4(
-        "ourVertexLocation",
-        location[x],
-        location[y],
-        location[z],
-        location[w]
-      );
+        float angle  = 20.0f * i;
 
-      // Set uniform blend
-      shaderProgram.setFloat("weight.texture",  weight.texture);
-      shaderProgram.setFloat("weight.vertex",   weight.vertex);
-      shaderProgram.setFloat("weight.location", weight.location);
-      shaderProgram.setFloat("weight.blend",    weight.blend);
-  
+        matrix.model = glm::rotate(matrix.model, 
+                                   glm::radians(angle), 
+                                   glm::vec3(1.0f, 0.0f, 0.0f));
+
+        shaderProgram.setMat4("matrix.model", matrix.model);
+
+        glDrawElements(
+                        GL_TRIANGLES,
+                        36,
+                        GL_UNSIGNED_INT,
+                        nullptr
+                      );
+
+        glDrawArrays(GL_POINTS, 0, 36);
+
+      }
+
       // Swap the buffers / present the finished frame.
-      glfwSwapBuffers       (window);
+      glfwSwapBuffers               (window);
 
       // Clear input poll events (needed for inputs)
       glfwPollEvents();
   }
-
+  
   //----------------------------------------------------------------- 14. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays      (1, &objects[VAO]);
-  glDeleteBuffers           (1, &objects[VBO]);
-  glDeleteBuffers           (1, &objects[EBO]);
-
+  glDeleteVertexArrays        (1, &objects[VAO]);
+  glDeleteBuffers             (1, &objects[VBO]);
+  glDeleteBuffers             (1, &objects[EBO]);
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;
@@ -355,6 +576,9 @@ void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height
   int frameBuffer[2];
   glfwGetFramebufferSize  (window, &frameBuffer[width],&frameBuffer[height]);
   glViewport              (0, 0,    frameBuffer[width], frameBuffer[height]);
+
+  window_dimensions[width]  = frameBuffer[width];
+  window_dimensions[height] = frameBuffer[height];
 }
 
 // Key Hooks
@@ -447,5 +671,17 @@ void processInput(GLFWwindow *window)
         weight.blend += 0.01f;
     if (weight.blend >= 1.0f)
         weight.blend =  1.0f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_X)   == GLFW_PRESS){
+        fov += glm::radians(1.0f);
+    if (fov >= glm::radians(180.0f))
+        fov =  glm::radians(180.0f);
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_Z)   == GLFW_PRESS){
+        fov -= glm::radians(1.0f);
+    if (fov <= glm::radians(1.0f))
+        fov =  glm::radians(1.0f);
   }
 }

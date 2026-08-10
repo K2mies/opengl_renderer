@@ -4,7 +4,17 @@
 // include glad to get all the required OpenGL headers 
 #include <glad/glad.h> 
 
+// include glm libraries to get the glm functions
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <string>
+
+// Types to use for custom setters ie: Light, Material ... etc
+#include "ShaderTypes.h"
+
+//---------------------------------------- Forward declarations
 
 class Shader  {
 
@@ -23,6 +33,7 @@ class Shader  {
     void setInt   (const std::string &name, int   value)  const;   
     void setFloat (const std::string &name, float value)  const;
 
+    //------------------------------------- set vector functions
     void setVec2  (const std::string& name,
                                             float x,
                                             float y)      const;
@@ -36,6 +47,27 @@ class Shader  {
                                             float z,
                                             float w)      const;
 
+    //------------------------------------- set matrix functions
+    void setMat2(const std::string &name,   const glm::mat2 &mat)
+
+                                                          const;
+
+    void setMat3(const std::string &name,   const glm::mat3 &mat)
+
+                                                          const;
+
+    void setMat4(const std::string &name,   const glm::mat4 &mat)
+
+                                                          const;
+
+    //------------------------------------------------ set types
+    void setWeight(const std::string& name, const Weight& weight)
+
+                                                          const;
+
+    void setMatrix(const std::string& name, const Matrix& matrix) 
+
+                                                          const;
   private:
     //-- function for checking shader compilation/linking errors.
     void checkCompileErrors(unsigned int shader, std::string type);

@@ -132,6 +132,48 @@ void Shader::setVec4  (const std::string &name,
     );
 }
 
+//------------------------------------- set matrix functions
+void Shader::setMat2(const std::string &name,   const glm::mat2 &mat) const {
+   glUniformMatrix2fv(
+        glGetUniformLocation(ID, name.c_str()),
+        1,
+        GL_FALSE,
+        glm::value_ptr(mat)
+  );
+}
+void Shader::setMat3(const std::string &name,   const glm::mat3 &mat) const {
+  glUniformMatrix3fv(
+        glGetUniformLocation(ID, name.c_str()),
+        1,
+        GL_FALSE,
+        glm::value_ptr(mat)
+  );
+}
+void Shader::setMat4(const std::string &name,   const glm::mat4 &mat) const {
+  glUniformMatrix4fv(
+        glGetUniformLocation(ID, name.c_str()),
+        1,
+        GL_FALSE,
+        glm::value_ptr(mat)
+  );
+}
+
+//------------------------------------------------ set types
+void Shader::setWeight(const std::string& name, const Weight& weight) const {
+    setFloat(name + ".texture",  weight.texture);
+    setFloat(name + ".vertex",   weight.vertex);
+    setFloat(name + ".location", weight.location);
+    setFloat(name + ".blend",    weight.blend);
+}
+
+void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
+    setMat4(name + ".local",      matrix.local);
+    setMat4(name + ".model",      matrix.model);
+    setMat4(name + ".view",       matrix.view);
+    setMat4(name + ".projection", matrix.projection);
+    setMat4(name + ".clip",       matrix.clip);
+
+}
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
 void Shader::checkCompileErrors(unsigned int shader, std::string type)  {

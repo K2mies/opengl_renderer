@@ -15,12 +15,16 @@ add_executable(OpenGLRenderer
     src/Shader.cpp
     src/Texture.cpp
     src/stb_image.cpp
+    src/typedefs/Vec4.cpp
+    src/typedefs/Vec3.cpp
+    src/typedefs/Mat4.cpp
     third_party/glad/src/glad.c
 )
 
 target_include_directories(OpenGLRenderer PRIVATE
     third_party/glad/include
     third_party/stb/
+    third_party
     include
 )
 

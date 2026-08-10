@@ -5,7 +5,7 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+C_INCLUDES = -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
 
 C_FLAGSarm64 =  -arch arm64
 
@@ -13,7 +13,7 @@ C_FLAGS =  -arch arm64
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
+CXX_INCLUDES = -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/include -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party -I/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include -isystem /opt/homebrew/include -iframework /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
 
