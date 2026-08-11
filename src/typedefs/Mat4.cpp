@@ -1,6 +1,7 @@
 #include "Mat4.h"
 
 #include <stdexcept>
+#include <cmath>
 
 //--------------------------------------------------------- constructors
 mat4::mat4(){
@@ -195,23 +196,184 @@ const float*  mat4::data()                         const{
   return &column[0].x;
 }
 
-//static  mat4            identity       ();
-//
-//static  mat4            translate      (const vec3&);
-//
-//static  mat4            scale          (const vec3&);
-//
-//static  mat4            rotateX        (float);
-//
-//static  mat4            rotateY        (float);
-//
-//static  mat4            rotateZ        (float);
-//
-//static  mat4            perspective    (...);
-//
-//static  mat4            ortho          (...);
-//
-//static  mat4            lookAt         (...);
+mat4 mat4::identity(){
+
+  return mat4(1.0f);
+
+}
+
+mat4 mat4::translate    ( const vec3& offset ){
+
+   mat4 result(1.0f);
+
+    result[3] = vec4(offset, 1.0f);
+
+    return result;
+
+}
+
+mat4 mat4::scale        ( const vec3& scale ){
+
+    mat4 result(1.0f);
+
+    result[0].x = scale.x;
+    result[1].y = scale.y;
+    result[2].z = scale.z;
+
+    return result;
+
+}
+
+mat4 mat4::rotateX ( float angle ){
+
+  mat4  result(1.0f);
+
+  float c = std::cos(angle);
+  float s = std::sin(angle);
+
+  result[1].y = c;
+  result[1].z = s;
+
+  result[2].y = -s;
+  result[2].z = c;
+
+  return result;
+}
+
+mat4 mat4::rotateY ( float angle ){
+
+  mat4 result(1.0f);
+
+    float c = std::cos(angle);
+    float s = std::sin(angle);
+
+    result[1].y = c;
+    result[1].z = s;
+
+    result[2].y = -s;
+    result[2].z = c;
+
+    return result;
+
+}
+
+mat4 mat4::rotateZ ( float angle ){
+
+   mat4 result(1.0f);
+
+    float c = std::cos(angle);
+    float s = std::sin(angle);
+
+    result[0].x = c;
+    result[0].z = -s;
+
+    result[2].x = s;
+    result[2].z = c;
+
+    return result;
+
+}
+
+mat4  mat4::rotate  ( float angle, const vec3& axis  ){
+
+    vec3 a = axis.normalized();
+
+    float c = std::cos(angle);
+    float s = std::sin(angle);
+    float t = 1.0f - c;
+
+    mat4 result(1.0f);
+
+    result[0].x = t * a.x * a.x + c;
+    result[0].y = t * a.x * a.y + s * a.z;
+    result[0].z = t * a.x * a.z - s * a.y;
+
+    result[1].x = t * a.x * a.y - s * a.z;
+    result[1].y = t * a.y * a.y + c;
+    result[1].z = t * a.y * a.z + s * a.x;
+
+    result[2].x = t * a.x * a.z + s * a.y;
+    result[2].y = t * a.y * a.z - s * a.x;
+    result[2].z = t * a.z * a.z + c;
+
+    return result;
+
+}
+
+mat4 mat4::perspective  (  float fov,
+                           float aspect,
+                           float nearPlane,
+                           float farPlane    ){
+
+    mat4  result(0.0f);
+
+    float tanHalfFov = std::tan(  fov / 2.0f  );
+
+    result[0].x = 1.0f / (  aspect * tanHalfFov );
+    result[1].y = 1.0f / tanHalfFov;
+
+    result[2].z = -(  farPlane + nearPlane  )
+                 / (  farPlane - nearPlane  );
+
+    result[2].w = -1.0f;
+
+    result[3].z = -(  2.0f * farPlane * nearPlane )
+                 / (         farPlane - nearPlane  );
+
+    return result;
+}
+
+mat4 mat4::ortho(
+    float left,
+    float right,
+    float bottom,
+    float top,
+    float nearPlane,
+    float farPlane
+)
+{
+    mat4 result(1.0f);
+
+    result[0].x =  2.0f / (right    - left);
+    result[1].y =  2.0f / (top      - bottom);
+    result[2].z = -2.0f / (farPlane - nearPlane);
+
+    result[3].x =        -(right + left) 
+                        / (right - left);
+
+    result[3].y =        -(top + bottom) 
+                        / (top - bottom);
+
+    result[3].z =        -(farPlane + nearPlane) 
+                        / (farPlane - nearPlane);
+
+    return result;
+}
+
+mat4 mat4::lookAt ( const vec3& eye,
+                    const vec3& center,
+                    const vec3& up){
+
+    vec3  forward  =      ( center - eye ).normalized();
+    vec3  right    = forward.cross  ( up ).normalized();
+
+    vec3  cameraUp = right.cross(forward);
+
+    mat4  result(1.0f);
+
+    result[0] = vec4  (  right,         0.0f  );
+    result[1] = vec4  (  cameraUp,      0.0f  );
+    result[2] = vec4  ( -forward,       0.0f  );
+
+    result[3] = vec4  ( -right.dot    ( eye ),
+                        -cameraUp.dot ( eye ),
+                         forward.dot  ( eye ),
+
+                         1.0f 
+                      );
+
+    return result;
+}
 
 
 //--------------------------------------------------------- non-member functions 

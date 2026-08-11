@@ -129,6 +129,30 @@ OpenGLRenderer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/build
 .PHONY : OpenGLRenderer/fast
 
+src/MathUtils.o: src/MathUtils.cpp.o
+.PHONY : src/MathUtils.o
+
+# target to build an object file
+src/MathUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o
+.PHONY : src/MathUtils.cpp.o
+
+src/MathUtils.i: src/MathUtils.cpp.i
+.PHONY : src/MathUtils.i
+
+# target to preprocess a source file
+src/MathUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.i
+.PHONY : src/MathUtils.cpp.i
+
+src/MathUtils.s: src/MathUtils.cpp.s
+.PHONY : src/MathUtils.s
+
+# target to generate assembly for a file
+src/MathUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.s
+.PHONY : src/MathUtils.cpp.s
+
 src/Shader.o: src/Shader.cpp.o
 .PHONY : src/Shader.o
 
@@ -330,6 +354,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... OpenGLRenderer"
+	@echo "... src/MathUtils.o"
+	@echo "... src/MathUtils.i"
+	@echo "... src/MathUtils.s"
 	@echo "... src/Shader.o"
 	@echo "... src/Shader.i"
 	@echo "... src/Shader.s"

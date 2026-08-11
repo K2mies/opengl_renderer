@@ -1,4 +1,5 @@
 #include  "Vec4.h"
+#include <cmath>
 
 //----------------------------------------------------------------- constructors
 vec4::vec4()  {
@@ -225,7 +226,55 @@ bool  vec4::operator == ( const vec4& other ) const {
 bool  vec4::operator != ( const vec4& other ) const
 { return ( !( *this == other ) ); }
 
-vec4::~vec4(){}
+//---------------------------------------------------- utility functions
+
+float vec4::length()                  const{
+
+  return std::sqrt( lengthSquared() );
+
+}
+
+float vec4::lengthSquared()           const{
+
+  return   x * x
+         + y * y
+         + z * z
+         + w * w;
+
+}
+
+void  vec4::normalize(){
+
+  float len = length();
+
+    if (len == 0.0f)
+        return;
+
+    x /= len;
+    y /= len;
+    z /= len;
+    w /= len;
+
+}
+
+vec4  vec4::normalized()              const{
+
+  vec4 temp(*this);
+
+    temp.normalize();
+
+    return temp;
+
+}
+
+float vec4::dot(  const vec4& other ) const{
+
+    return x * other.x
+         + y * other.y
+         + z * other.z
+         + w * other.w;
+
+}
 
 //--------------------------------------------------------- non-member functions 
 vec4  operator * ( int num, const vec4& obj )  {

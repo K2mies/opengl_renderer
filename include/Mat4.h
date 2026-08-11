@@ -50,23 +50,33 @@ public:
   const float*  data()                         const;
   
   static  mat4            identity       ();
+  static  mat4            translate      (  const vec3& );
+  static  mat4            scale          (  const vec3& );
+  
+  static  mat4            rotateX        (  float );
+  static  mat4            rotateY        (  float );
+  static  mat4            rotateZ        (  float );
 
-  static  mat4            translate      (const vec3&);
-  
-  static  mat4            scale          (const vec3&);
-  
-  static  mat4            rotateX        (float);
-  
-  static  mat4            rotateY        (float);
-  
-  static  mat4            rotateZ        (float);
-  
-  static  mat4            perspective    (...);
-  
-  static  mat4            ortho          (...);
-  
-  static  mat4            lookAt         (...);
+  static  mat4            rotate         (  float angle, 
+                                            const vec3& axis  );
 
+  static  mat4            perspective    (  float fov,
+                                            float aspect,
+                                            float nearPlane,
+                                            float farPlane    );
+
+  static  mat4            ortho          (  float left,
+                                            float right,
+                                            float bottom,
+                                            float top,
+                                            float nearPlane,
+                                            float farPlane    );
+
+  static  mat4            lookAt         (  const vec3& eye,
+                                            const vec3& center,
+                                            const vec3& up    ); 
+
+	//----------------------------------------------------------- destructor
 	~mat4   () = default;
 };
 

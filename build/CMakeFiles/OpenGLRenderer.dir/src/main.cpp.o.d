@@ -1088,6 +1088,42 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtc/../mat4x2.hpp \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtc/../mat4x3.hpp \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtc/type_ptr.inl \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/string_cast.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../glm.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/type_precision.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../gtc/quaternion.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../gtc/vec1.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_int1_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_int2_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_int3_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_int4_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/scalar_int_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_uint1_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_uint2_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_uint3_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/vector_uint4_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../ext/scalar_uint_sized.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_vec2.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_vec3.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_vec4.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat2x2.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat2x3.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat2x4.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat3x2.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat3x3.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat3x4.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat4x2.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat4x3.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/../detail/type_mat4x4.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/type_precision.inl \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtc/quaternion.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/dual_quaternion.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/../glm.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/../gtc/constants.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/../gtc/quaternion.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/dual_quaternion.inl \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/../gtx/../geometric.hpp \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/string_cast.inl \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Shader.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/ShaderTypes.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Texture.h \
@@ -1109,4 +1145,5 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec3.h \
-  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/MathUtils.h

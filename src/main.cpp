@@ -10,6 +10,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
+
 // Objects / Classes
 #include "Shader.h"
 #include "Texture.h"
@@ -18,6 +21,9 @@
 #include "Vec4.h"
 #include "Vec3.h"
 #include "Mat4.h"
+
+// custom libraries
+#include "MathUtils.h"
 
 // Imports
 #include <iostream>
@@ -96,6 +102,7 @@ void implamentation_info        ();
 //-------------------------------------------------------------------------- Main
 
 int main (){ 
+  //----------------------------------------------------------------------- TESTS
 
   //----------------------------------------------------- 0. Initialize variables
 

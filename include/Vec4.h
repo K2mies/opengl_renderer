@@ -51,7 +51,19 @@ public:
 	bool	  operator	==	( const vec4& other )		const;
 	bool	  operator	!=	( const vec4& other )		const;
 
-	~vec4   ();
+  //---------------------------------------------------- utility functions
+
+  float   length()                              const;
+  
+  float   lengthSquared()                       const;
+  
+  void    normalize();
+  
+  vec4    normalized()                          const;
+  
+  float   dot(  const vec4& other )             const;
+
+	~vec4   () = default;
 };
 
 //--------------------------------------------------------- non-member functions 

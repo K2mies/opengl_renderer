@@ -2,6 +2,7 @@
 #define VEC3_HPP
 
 #include<iostream>
+#include<cmath>
 
 class vec3
 {
@@ -21,7 +22,7 @@ public:
 	vec3&	  operator	=	  ( const vec3& source );
 
 	float	  operator	[]	(       int   index )	  const;
-	float&   operator	[]	(       int   index );
+	float&  operator	[]	(       int   index );
 
 	vec3	  operator	-	  ()				              const;
 
@@ -43,8 +44,23 @@ public:
 
 	bool	  operator	==	( const vec3& other )		const;
 	bool	  operator	!=	( const vec3& other )		const;
+  
+  //---------------------------------------------------- utility functions
 
-	~vec3   ();
+  float   length()                              const;
+  
+  float   lengthSquared()                       const;
+  
+  void    normalize();
+  
+  vec3    normalized()                          const;
+  
+  float   dot   ( const vec3& other )           const;
+  
+  vec3    cross ( const vec3& other )           const;
+
+  //----------------------------------------------------------- destructor
+	~vec3   () = default;
 };
 
 //--------------------------------------------------------- non-member functions 

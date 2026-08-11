@@ -15,6 +15,7 @@ add_executable(OpenGLRenderer
     src/Shader.cpp
     src/Texture.cpp
     src/stb_image.cpp
+    src/MathUtils.cpp
     src/typedefs/Vec4.cpp
     src/typedefs/Vec3.cpp
     src/typedefs/Mat4.cpp
