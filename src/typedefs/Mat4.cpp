@@ -53,7 +53,7 @@ mat4& mat4::operator  =   ( const mat4&   source  ){
 
 }
 
-vec4&            mat4::operator  []  (int index){
+vec4& mat4::operator  []  (int index){
 
   if (index < 0 || index > 3)
         throw std::out_of_range("mat4 index out of range");
@@ -61,7 +61,7 @@ vec4&            mat4::operator  []  (int index){
     return column[index];
 
 }
-const   vec4&     mat4::operator  []  (int index)         const{
+const vec4& mat4::operator  []  (int index) const{
 
   if (index < 0 || index > 3)
         throw std::out_of_range("mat4 index out of range");
@@ -69,17 +69,119 @@ const   vec4&     mat4::operator  []  (int index)         const{
     return column[index];
 }
 
-//mat4    operator  +   ( const mat4& )         const;
-//mat4    operator  -   ( const mat4& )         const;
-//
-//mat4&   operator  +=  ( const mat4& );
-//mat4&   operator  -=  ( const mat4& );
-//
-//mat4    operator  *   ( float )               const;
-//mat4&   operator  *=  ( float );  
-//
-//vec4    operator  *   ( const vec4& )         const;
-//mat4    operator  *   ( const mat4& )         const;
+mat4  mat4::operator + ( const mat4& other ) const{
+   
+  mat4 temp(*this);
+
+    temp.column[0] += other.column[0];
+    temp.column[1] += other.column[1];
+    temp.column[2] += other.column[2];
+    temp.column[3] += other.column[3];
+
+    return temp;
+
+}
+
+mat4  mat4::operator - ( const mat4& other ) const{
+
+  mat4 temp(*this);
+
+    temp.column[0] -= other.column[0];
+    temp.column[1] -= other.column[1];
+    temp.column[2] -= other.column[2];
+    temp.column[3] -= other.column[3];
+
+    return temp;
+
+}
+
+mat4& mat4::operator += ( const mat4& other ){
+
+    column[0] += other.column[0];
+    column[1] += other.column[1];
+    column[2] += other.column[2];
+    column[3] += other.column[3];
+
+    return *this;
+
+}
+
+mat4& mat4::operator -= ( const mat4& other ){
+
+    column[0] -= other.column[0];
+    column[1] -= other.column[1];
+    column[2] -= other.column[2];
+    column[3] -= other.column[3];
+
+    return *this;
+
+}
+
+mat4 mat4::operator * ( float value) const{
+
+   mat4 temp(*this);
+
+    temp.column[0] *= value;
+    temp.column[1] *= value;
+    temp.column[2] *= value;
+    temp.column[3] *= value;
+
+    return temp;
+
+}
+
+mat4& mat4::operator *= ( float value ){
+
+    column[0] *= value;
+    column[1] *= value;
+    column[2] *= value;
+    column[3] *= value;
+
+    return *this;
+
+}  
+
+vec4  mat4::operator * ( const vec4& vector ) const{
+
+  vec4 result;
+
+    result.x =
+          column[0].x * vector.x
+        + column[1].x * vector.y
+        + column[2].x * vector.z
+        + column[3].x * vector.w;
+
+    result.y =
+          column[0].y * vector.x
+        + column[1].y * vector.y
+        + column[2].y * vector.z
+        + column[3].y * vector.w;
+
+    result.z =
+          column[0].z * vector.x
+        + column[1].z * vector.y
+        + column[2].z * vector.z
+        + column[3].z * vector.w;
+
+    result.w =
+          column[0].w * vector.x
+        + column[1].w * vector.y
+        + column[2].w * vector.z
+        + column[3].w * vector.w;
+
+    return result;
+
+}
+mat4  mat4::operator * ( const mat4& other ) const{
+
+    return mat4(
+        *this * other.column[0],
+        *this * other.column[1],
+        *this * other.column[2],
+        *this * other.column[3]
+    );
+
+}
 
 //---------------------------------------------------- utility functions
 

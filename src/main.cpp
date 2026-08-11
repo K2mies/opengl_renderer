@@ -95,38 +95,7 @@ void implamentation_info        ();
 
 //-------------------------------------------------------------------------- Main
 
-int main (){
-
-  mat4 identity(1.0f);
-  
-  std::cout << "Identity:\n";
-  std::cout << identity << "\n\n";
-
-  identity.column[0].x = 0.5f;
- 
-  std::cout << "Identity:\n";
-  std::cout << identity << "\n\n";
-
-  
-  std::cout << "Starting OpenGL Renderer..." << std::endl;
-
-  //Vec4 tests;
-
-  vec4 test0 = vec4(2.3f, 4.5f, 1.2f, 1.0f);
-  std::cout << "vec4: " << test0 << std::endl;
-  test0 *= 5;
-  std::cout << "vec4: " << test0 << std::endl;
-  
-  vec3 test1 = vec3(1.5f, 2.3f, 6.1f);
-  std::cout << "vec3: " << test1 << std::endl;
-  test1 *= 5;
-  std::cout << "vec3: " << test1 << std::endl;
-
-  vec3 test2 = vec3(2.4f, 5.5f, 6.6f);
-  std::cout << "vec3: " << test2 << std::endl;
-  vec4 test3 = vec4(test2, 1.0f);
-  std::cout << "vec3: " << test3 << std::endl;
-
+int main (){ 
 
   //----------------------------------------------------- 0. Initialize variables
 
