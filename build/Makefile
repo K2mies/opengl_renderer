@@ -249,6 +249,30 @@ src/stb_image.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s
 .PHONY : src/stb_image.cpp.s
 
+src/typedefs/Mat3.o: src/typedefs/Mat3.cpp.o
+.PHONY : src/typedefs/Mat3.o
+
+# target to build an object file
+src/typedefs/Mat3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o
+.PHONY : src/typedefs/Mat3.cpp.o
+
+src/typedefs/Mat3.i: src/typedefs/Mat3.cpp.i
+.PHONY : src/typedefs/Mat3.i
+
+# target to preprocess a source file
+src/typedefs/Mat3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.i
+.PHONY : src/typedefs/Mat3.cpp.i
+
+src/typedefs/Mat3.s: src/typedefs/Mat3.cpp.s
+.PHONY : src/typedefs/Mat3.s
+
+# target to generate assembly for a file
+src/typedefs/Mat3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.s
+.PHONY : src/typedefs/Mat3.cpp.s
+
 src/typedefs/Mat4.o: src/typedefs/Mat4.cpp.o
 .PHONY : src/typedefs/Mat4.o
 
@@ -369,6 +393,9 @@ help:
 	@echo "... src/stb_image.o"
 	@echo "... src/stb_image.i"
 	@echo "... src/stb_image.s"
+	@echo "... src/typedefs/Mat3.o"
+	@echo "... src/typedefs/Mat3.i"
+	@echo "... src/typedefs/Mat3.s"
 	@echo "... src/typedefs/Mat4.o"
 	@echo "... src/typedefs/Mat4.i"
 	@echo "... src/typedefs/Mat4.s"

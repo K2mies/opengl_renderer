@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o.d"

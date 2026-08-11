@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d"
+  "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o"
+  "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o"
   "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o.d"
   "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o"

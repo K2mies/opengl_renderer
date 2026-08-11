@@ -1,6 +1,7 @@
 #include "Mat4.h"
 
 #include <stdexcept>
+#include <iomanip>
 #include <cmath>
 
 //--------------------------------------------------------- constructors
@@ -377,35 +378,38 @@ mat4 mat4::lookAt ( const vec3& eye,
 
 
 //--------------------------------------------------------- non-member functions 
-std::ostream& operator<<(std::ostream& out, const mat4& obj){
-  out << "{\n";
+std::ostream& operator<<(std::ostream& out, const mat4& obj)
+{
+    out << std::fixed << std::setprecision(3);
+
+    out << "{\n";
 
     out << "  {"
-        << obj[0].x << ", "
-        << obj[1].x << ", "
-        << obj[2].x << ", "
-        << obj[3].x
+        << std::setw(8) << obj[0].x << ", "
+        << std::setw(8) << obj[1].x << ", "
+        << std::setw(8) << obj[2].x << ", "
+        << std::setw(8) << obj[3].x
         << "},\n";
 
     out << "  {"
-        << obj[0].y << ", "
-        << obj[1].y << ", "
-        << obj[2].y << ", "
-        << obj[3].y
+        << std::setw(8) << obj[0].y << ", "
+        << std::setw(8) << obj[1].y << ", "
+        << std::setw(8) << obj[2].y << ", "
+        << std::setw(8) << obj[3].y
         << "},\n";
 
     out << "  {"
-        << obj[0].z << ", "
-        << obj[1].z << ", "
-        << obj[2].z << ", "
-        << obj[3].z
+        << std::setw(8) << obj[0].z << ", "
+        << std::setw(8) << obj[1].z << ", "
+        << std::setw(8) << obj[2].z << ", "
+        << std::setw(8) << obj[3].z
         << "},\n";
 
     out << "  {"
-        << obj[0].w << ", "
-        << obj[1].w << ", "
-        << obj[2].w << ", "
-        << obj[3].w
+        << std::setw(8) << obj[0].w << ", "
+        << std::setw(8) << obj[1].w << ", "
+        << std::setw(8) << obj[2].w << ", "
+        << std::setw(8) << obj[3].w
         << "}\n";
 
     out << "}";

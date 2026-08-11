@@ -21,6 +21,7 @@
 #include "Vec4.h"
 #include "Vec3.h"
 #include "Mat4.h"
+#include "Mat3.h"
 
 // custom libraries
 #include "MathUtils.h"
@@ -421,24 +422,48 @@ int main (){
       // clip = projection * view * model * local....
       
       float time = glfwGetTime() * 10.0f;
+
       // local space matrix
-      matrix.local = mat4                             (1.0f); // create identity matrix
-      matrix.local = matrix.local *  mat4::rotate     (math::radians(time), 
-                                                  vec3(1.0f, 1.0f, 1.0f));
-      //matrix.local = matrix.local *  mat4::translate  (vec3(location[x],
-      //                                                      location[y], 
-      //                                                      location[z]));
+      matrix.local = mat4                               ( 1.0f  ); // create identity matrix
+      matrix.local = matrix.local *  mat4::rotate       ( math::radians ( time  ) * 10.f, 
+                                                  vec3  ( 1.0f, 
+                                                          1.0f,
+                                                          1.0f )
+                                                         );
+
+      matrix.local = matrix.local * mat4::translate     ( vec3 ( sin(time) * 0.1f, sin(time) * 0.1f, sin(time) * 0.1f ) );
+
+      //matrix.local = matrix.local *  mat4::translate  ( vec3  ( location[x],
+      //                                                          location[y], 
+      //                                                          location[z] ) 
+      //                                                        );
 
 
       // model space matrix
       matrix.model = mat4 (1.0f); // create identity matrix
-      matrix.model = matrix.model * mat4::rotate(math::radians(-55.0f), vec3(1.0f, 0.0f, 0.0f));
+      matrix.model = matrix.model * mat4::rotate  ( math::radians ( -55.0f  ), 
+                                                             vec3 (  1.0f,
+                                                                     0.0f, 
+                                                                     0.0f  ) 
+                                                  );
 
 
       // view space matrix
       matrix.view = mat4 (1.0f); // create identity matrix
-      matrix.view = matrix.view * mat4::translate(vec3(0.0f, 0.0f, -3.0f));
-      matrix.view = matrix.view * mat4::translate(vec3(location[x], location[y], location[z]));
+      matrix.view = matrix.view * mat4::translate ( vec3  ( 0.0f, 0.0f, -3.0f ) );
+      matrix.view = matrix.view * mat4::translate ( vec3  ( location[x], 
+                                                            location[y], 
+                                                            location[z] )
+                                                  );
+      const float radius    = 10.0f;
+      float camX = sin(time / 10.0f) * radius;
+      float camZ = cos(time / 10.0f) * radius;
+
+      matrix.view = matrix.view 
+                  * mat4::lookAt  ( vec3  ( camX, 0.0f, camZ  ),
+                                    vec3  ( 0.0,  0.0,  0.0   ),
+                                    vec3  ( 0.0,  1.0,  0.0   )
+                                  );
 
      
 
