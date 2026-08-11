@@ -1126,8 +1126,7 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glm/gtx/string_cast.inl \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Shader.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/ShaderTypes.h \
-  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Texture.h \
-  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec4.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/istream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__ostream/basic_ostream.h \
@@ -1145,5 +1144,6 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec3.h \
-  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec4.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Texture.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/MathUtils.h

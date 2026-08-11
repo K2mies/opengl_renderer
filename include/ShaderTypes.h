@@ -4,6 +4,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Mat4.h"
+#include "Vec4.h"
+#include "Vec3.h"
+
 struct Weight
 {
     float texture;
@@ -25,10 +29,10 @@ struct  Frustum
 
 struct  Matrix
 {
-    glm::mat4 local;
-    glm::mat4 model;
-    glm::mat4 view;
-    glm::mat4 projection;
-    glm::mat4 clip;
+    mat4 local;
+    mat4 model;
+    mat4 view;
+    mat4 projection;
+    mat4 clip;
 
 };

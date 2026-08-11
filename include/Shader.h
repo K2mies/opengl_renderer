@@ -56,7 +56,7 @@ class Shader  {
 
                                                           const;
 
-    void setMat4(const std::string &name,   const glm::mat4 &mat)
+    void setMat4(const std::string &name,   const mat4 &matrix)
 
                                                           const;
 

@@ -231,11 +231,11 @@ mat4 mat4::rotateX ( float angle ){
   float c = std::cos(angle);
   float s = std::sin(angle);
 
-  result[1].y = c;
-  result[1].z = s;
+  result[1].y =  c;
+  result[1].z =  s;
 
   result[2].y = -s;
-  result[2].z = c;
+  result[2].z =  c;
 
   return result;
 }
@@ -247,11 +247,11 @@ mat4 mat4::rotateY ( float angle ){
     float c = std::cos(angle);
     float s = std::sin(angle);
 
-    result[1].y = c;
-    result[1].z = s;
+    result[1].y =  c;
+    result[1].z =  s;
 
     result[2].y = -s;
-    result[2].z = c;
+    result[2].z =  c;
 
     return result;
 
@@ -264,11 +264,11 @@ mat4 mat4::rotateZ ( float angle ){
     float c = std::cos(angle);
     float s = std::sin(angle);
 
-    result[0].x = c;
+    result[0].x =  c;
     result[0].z = -s;
 
-    result[2].x = s;
-    result[2].z = c;
+    result[2].x =  s;
+    result[2].z =  c;
 
     return result;
 

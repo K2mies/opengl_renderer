@@ -295,18 +295,18 @@ int main (){
     };
 
     // world space positions of our cubes
-    vec3 cubePositions[] = {
+    glm::vec3 cubePositions[] = {
 
-       vec3( 0.0f,  0.0f,  0.0f),
-       vec3( 2.0f,  5.0f, -15.0f),
-       vec3(-1.5f, -2.2f, -2.5f),
-       vec3(-3.8f, -2.0f, -12.3f),
-       vec3( 2.4f, -0.4f, -3.5f),
-       vec3(-1.7f,  3.0f, -7.5f),
-       vec3( 1.3f, -2.0f, -2.5f),
-       vec3( 1.5f,  2.0f, -2.5f),
-       vec3( 1.5f,  0.2f, -1.5f),
-       vec3(-1.3f,  1.0f, -1.5f)
+        glm::vec3( 0.0f,  0.0f,  0.0f),
+        glm::vec3( 2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3( 2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3( 1.3f, -2.0f, -2.5f),
+        glm::vec3( 1.5f,  2.0f, -2.5f),
+        glm::vec3( 1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
 
     };
 
@@ -422,43 +422,51 @@ int main (){
       
       float time = glfwGetTime() * 10.0f;
       // local space matrix
-      matrix.local = mat4                             (1.0f); // create identity matrix
-      matrix.local = matrix.local *  mat4::rotate     (math::radians(time), 
-                                                  vec3(1.0f, 1.0f, 1.0f));
-      //matrix.local = matrix.local *  mat4::translate  (vec3(location[x],
-      //                                                      location[y], 
-      //                                                      location[z]));
-
+      matrix.local = glm::mat4       (1.0f); // create identity matrix
+      matrix.local = glm::rotate     (matrix.local,
+                                      glm::radians(time),
+                                      glm::vec3(1.0f, 1.0f, 1.0f));
+      //matrix.local = glm::translate   (matrix.local, 
+      //                                 glm::vec3  (location[x], 
+      //                                             location[y], 
+      //                                             location[z])
+      //                                );
 
       // model space matrix
-      matrix.model = mat4 (1.0f); // create identity matrix
-      matrix.model = matrix.model * mat4::rotate(math::radians(-55.0f), vec3(1.0f, 0.0f, 0.0f));
+      matrix.model = glm::mat4       (1.0f); // create identity matrix
 
+      matrix.model = glm::rotate     (matrix.model, 
+                                      glm::radians(-55.0f), 
+                                      glm::vec3   (1.0f, 0.0f, 0.0f));
 
       // view space matrix
-      matrix.view = mat4 (1.0f); // create identity matrix
-      matrix.view = matrix.view * mat4::translate(vec3(0.0f, 0.0f, -3.0f));
-      matrix.view = matrix.view * mat4::translate(vec3(location[x], location[y], location[z]));
-
-     
+      matrix.view = glm::mat4        (1.0f); // create identity matrix
+      matrix.view = glm::translate   (matrix.view, 
+                                      glm::vec3   (0.0f, 0.0f, -3.0f));
+      
+      matrix.view = glm::translate   (matrix.view,
+                                      glm::vec3   (location[x],
+                                                   location[y],
+                                                   location[z])
+                                      );
 
       // projection matricies
-      mat4 projection[2];
+      glm::mat4 projection[2];
 
-      projection[orthographic] = mat4::ortho        (frustum.left,
-                                                     frustum.right,
-                                                     frustum.bottom,
-                                                     frustum.top,
-                                                     frustum.near,
-                                                     frustum.far
-                                                    );
+      projection[orthographic] = glm::ortho       (frustum.left,
+                                                   frustum.right,
+                                                   frustum.bottom,
+                                                   frustum.top,
+                                                   frustum.near,
+                                                   frustum.far
+                                                  );
 
-      projection[perspective]  = mat4::perspective  (fov, 
-                                                    (float)window_dimensions[width] 
-                                                  / (float)window_dimensions[height],
-                                                     frustum.near,
-                                                     frustum.far
-                                                    );
+      projection[perspective]  = glm::perspective (fov, 
+                                                  (float)window_dimensions[width] 
+                                                / (float)window_dimensions[height],
+                                                   frustum.near,
+                                                   frustum.far
+                                                  );
   
       // select which perspective projection matrix to use:
       matrix.projection = projection[perspective];
@@ -474,12 +482,14 @@ int main (){
       for (unsigned int i = 0; i < 10; i++)  {
 
         // calculate the model matrix for each object and pass it to shader before drawing
-        matrix.model = mat4(1.0f);
-        matrix.model = matrix.model * mat4::translate(cubePositions[i]);
+        matrix.model = glm::mat4(1.0f);
+        matrix.model = glm::translate(matrix.model, cubePositions[i]);
 
         float angle  = 20.0f * i;
 
-        matrix.model = matrix.model * mat4::rotate( math::radians(angle), vec3(1.0f, 0.0f, 0.0f));
+        matrix.model = glm::rotate(matrix.model, 
+                                   glm::radians(angle), 
+                                   glm::vec3(1.0f, 0.0f, 0.0f));
 
         shaderProgram.setMat4("matrix.model", matrix.model);
 

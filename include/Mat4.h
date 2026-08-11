@@ -45,9 +45,9 @@ public:
 
 	//---------------------------------------------------- utility functions
 
-  float        *data();
+  float                  *data();
 
-  const float*  data()                         const;
+  const float*            data()                const;
   
   static  mat4            identity       ();
   static  mat4            translate      (  const vec3& );
