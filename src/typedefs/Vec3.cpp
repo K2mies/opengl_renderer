@@ -57,10 +57,9 @@ float& vec3::operator [] ( int index ){
 }
 
 vec3 vec3::operator - () const{
-
-	vec3	temp = *this;
-	temp[0] = -temp[0];
-	temp[1] = -temp[1];
+  vec3	temp = *this;
+  temp[0] = -temp[0];
+  temp[1] = -temp[1];
   temp[2] = -temp[2];
   return ( temp );
 
