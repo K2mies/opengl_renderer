@@ -57,6 +57,7 @@ public:
   static  mat4            rotateY        (  float );
   static  mat4            rotateZ        (  float );
 
+  static  mat4            rotateXYZ      ( float angles[3]    );
   static  mat4            rotate         (  float angle, 
                                             const vec3& axis  );
 

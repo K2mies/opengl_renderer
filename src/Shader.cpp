@@ -6,8 +6,9 @@
 #include <iostream>
 
 #include "Mat4.h"
+#include "Mat3.h"
 #include "Vec4.h"
-#include "Vec4.h"
+#include "Vec3.h"
 #include "MathUtils.h"
 
 enum ShaderType
@@ -138,21 +139,22 @@ void Shader::setVec4  (const std::string &name,
 }
 
 //------------------------------------- set matrix functions
-void Shader::setMat2(const std::string &name,   const glm::mat2 &mat) const {
-   glUniformMatrix2fv(
-        glGetUniformLocation(ID, name.c_str()),
-        1,
-        GL_FALSE,
-        glm::value_ptr(mat)
-  );
-}
-void Shader::setMat3(const std::string &name,   const glm::mat3 &mat) const {
+//void Shader::setMat2(const std::string &name,   const glm::mat2 &mat) const {
+//   glUniformMatrix2fv(
+//        glGetUniformLocation(ID, name.c_str()),
+//        1,
+//        GL_FALSE,
+//        glm::value_ptr(mat)
+//  );
+//}
+
+void Shader::setMat3(const std::string &name,   const mat3 &matrix) const {
   glUniformMatrix3fv(
         glGetUniformLocation(ID, name.c_str()),
         1,
         GL_FALSE,
-        glm::value_ptr(mat)
-  );
+        matrix.data()
+   );
 }
 void Shader::setMat4(const std::string &name,   const mat4 &matrix) const {
   glUniformMatrix4fv(

@@ -203,25 +203,28 @@ float vec3::lengthSquared() const{
 }
 
 void  vec3::normalize(){
-
-  float len = length();
-
-    if (len == 0.0f)
-        return;
-
-    x /= len;
-    y /= len;
-    z /= len;
+  
+    *this = normalized();
 
 }
 
-vec3  vec3::normalized()  const{
+vec3 vec3::normalized(const vec3& vector)
+{
+  return vector.normalized();
+}
 
-    vec3 temp(*this);
+vec3 vec3::normalized() const{
+   
+  float len = length();
 
-    temp.normalize();
+    if (len == 0.0f)
+        return vec3(0.0f, 0.0f, 0.0f);
 
-    return temp;
+    return vec3(
+        x / len,
+        y / len,
+        z / len
+    );
 }
 
 float vec3::dot   ( const vec3& other ) const{
@@ -248,9 +251,15 @@ vec3  vec3::cross ( const vec3& other ) const{
 
 }
 
+vec3 vec3::cross (const vec3& vector_a, const vec3& vector_b){
+
+  return vector_a.cross(vector_b);
+
+}
+
 
 //--------------------------------------------------------- non-member functions 
-vec3 operator * ( int num, const vec3& obj ){
+vec3 operator * ( float num, const vec3& obj ){
 
 	vec3	temp ( obj );
 	temp *= num;

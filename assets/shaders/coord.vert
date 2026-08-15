@@ -16,18 +16,19 @@ struct    Matrix {
           mat4 model;
           mat4 view;
           mat4 projection;
-          mat4 clip;
 };
 
-uniform Matrix matrix;
+uniform   Matrix matrix;
 
-void main()
-{
-    gl_Position    = matrix.projection 
-                   * matrix.view 
-                   * matrix.model
-                   * matrix.local
-                   * vec4(aPos, 1.0);
+void main() {
+    
+    mat4  clip_space  = matrix.projection 
+                      * matrix.view 
+                      * matrix.model 
+                      * matrix.local;
+
+    gl_Position       = clip_space * vec4(aPos, 1.0);
   
-    TexCoord       = aTexCoord;
+    TexCoord          = aTexCoord;
 }
+

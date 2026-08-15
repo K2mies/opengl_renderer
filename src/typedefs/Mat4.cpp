@@ -1,8 +1,17 @@
 #include "Mat4.h"
-
+#include "Mat3.h"
 #include <stdexcept>
 #include <iomanip>
 #include <cmath>
+
+enum AxisType {
+
+  x = 0,
+  y = 1,
+  z = 2,
+  w = 3
+
+};
 
 //--------------------------------------------------------- constructors
 mat4::mat4(){
@@ -192,14 +201,14 @@ float* mat4::data()
     return &column[0].x;
 }
 
-const float*  mat4::data()                         const{
+const float*  mat4::data() const{
   
-  return &column[0].x;
+    return &column[0].x;
 }
 
 mat4 mat4::identity(){
 
-  return mat4(1.0f);
+    return mat4(1.0f);
 
 }
 
@@ -273,6 +282,17 @@ mat4 mat4::rotateZ ( float angle ){
 
     return result;
 
+}
+
+mat4  mat4::rotateXYZ   ( float angles[3] ){
+
+  mat4  result;
+
+  result = result * mat4::rotateX( angles[x] );
+  result = result * mat4::rotateY( angles[y] );
+  result = result * mat4::rotateZ( angles[z] );
+
+  return result;
 }
 
 mat4  mat4::rotate  ( float angle, const vec3& axis  ){
@@ -351,27 +371,31 @@ mat4 mat4::ortho(
     return result;
 }
 
-mat4 mat4::lookAt ( const vec3& eye,
-                    const vec3& center,
-                    const vec3& up){
+mat4 mat4::lookAt(const vec3& eye,
+                  const vec3& center,
+                  const vec3& up)
+{
+    vec3 forward  = (center - eye).normalized();
+    vec3 right    = forward.cross(up).normalized();
+    vec3 cameraUp = right.cross(forward);
 
-    vec3  forward  =      ( center - eye ).normalized();
-    vec3  right    = forward.cross  ( up ).normalized();
+    mat4 result(1.0f);
 
-    vec3  cameraUp = right.cross(forward);
+    result[0].x =  right.x;
+    result[1].x =  right.y;
+    result[2].x =  right.z;
 
-    mat4  result(1.0f);
+    result[0].y =  cameraUp.x;
+    result[1].y =  cameraUp.y;
+    result[2].y =  cameraUp.z;
 
-    result[0] = vec4  (  right,         0.0f  );
-    result[1] = vec4  (  cameraUp,      0.0f  );
-    result[2] = vec4  ( -forward,       0.0f  );
+    result[0].z = -forward.x;
+    result[1].z = -forward.y;
+    result[2].z = -forward.z;
 
-    result[3] = vec4  ( -right.dot    ( eye ),
-                        -cameraUp.dot ( eye ),
-                         forward.dot  ( eye ),
-
-                         1.0f 
-                      );
+    result[3].x = -right.dot(eye);
+    result[3].y = -cameraUp.dot(eye);
+    result[3].z =  forward.dot(eye);
 
     return result;
 }

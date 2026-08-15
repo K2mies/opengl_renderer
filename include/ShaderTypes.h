@@ -1,10 +1,11 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
 
 #include "Mat4.h"
+#include "Mat3.h"
 #include "Vec4.h"
 #include "Vec3.h"
 
@@ -14,6 +15,13 @@ struct Weight
     float vertex;
     float location;
     float blend;
+};
+
+struct  Euler
+{
+    float pitch;
+    float yaw;
+    float roll;
 };
 
 struct  Frustum
@@ -35,4 +43,23 @@ struct  Matrix
     mat4 projection;
     mat4 clip;
 
+};
+
+struct Camera
+{
+    vec3  position;
+    vec3  target;
+    vec3  direction;
+    vec3  up;
+    vec3  right;
+    vec3  worldup;
+    
+    float speed;
+};
+
+struct Time
+{
+  float delta_time;
+  float last_frame;
+  float current_frame;
 };

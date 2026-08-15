@@ -5,9 +5,9 @@
 #include <glad/glad.h> 
 
 // include glm libraries to get the glm functions
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 
@@ -48,11 +48,11 @@ class Shader  {
                                             float w)      const;
 
     //------------------------------------- set matrix functions
-    void setMat2(const std::string &name,   const glm::mat2 &mat)
-
-                                                          const;
-
-    void setMat3(const std::string &name,   const glm::mat3 &mat)
+//    void setMat2(const std::string &name,   const glm::mat2 &mat)
+//
+//                                                          const;
+//
+    void setMat3(const std::string &name,   const mat3 &matrix)
 
                                                           const;
 

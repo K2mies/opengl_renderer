@@ -26,12 +26,12 @@ public:
 
 	vec3	  operator	-	  ()				              const;
 
-	vec3	  operator	*	  (       float num )			const;
+	vec3	  operator	*   (       float num )			const;
 	vec3&	  operator	*=	(       float num );
 
-	vec3	  operator	+	  ( const vec3& other )	  const;
+	vec3	  operator	+   ( const vec3& other )	  const;
 	vec3	  operator	-	  ( const vec3& other )	  const;
-	vec3	  operator	*	  ( const vec3& other )	  const;
+	vec3	  operator	*   ( const vec3& other )	  const;
 
 	vec3&	  operator	+=	( const vec3& other );
 	vec3&	  operator	-=	( const vec3& other );
@@ -53,18 +53,22 @@ public:
   
   void    normalize();
   
-  vec3    normalized()                          const;
+  static  vec3       normalized              (  const vec3& vector  );
+  vec3               normalized         ()      const;
+
   
-  float   dot   ( const vec3& other )           const;
+  float   dot       ( const vec3& other )       const;
   
-  vec3    cross ( const vec3& other )           const;
+  vec3    cross     ( const vec3& other )       const;
+  static  vec3      cross                      (const vec3& vector_a, const vec3& vector_b);
+
 
   //----------------------------------------------------------- destructor
 	~vec3   () = default;
 };
 
 //--------------------------------------------------------- non-member functions 
-vec3		      operator	*	  ( int num, const vec3& obj );
+vec3		      operator	*    ( float num, const vec3& obj );
 std::ostream&	operator	<<	( std::ostream& out, const vec3& obj );
 
 #endif

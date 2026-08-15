@@ -6,12 +6,12 @@
 #include "stb_image.h"
 
 // GLM 
-//#include <glm/glm.hpp>
-//#include <glm/gtc/matrix_transform.hpp>
-//#include <glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-//#define GLM_ENABLE_EXPERIMENTAL
-//#include <glm/gtx/string_cast.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
 
 // Objects / Classes
 #include "Shader.h"
@@ -85,12 +85,6 @@ Frustum frustum {
 
 Matrix  matrix;
 
-Camera  camera;
-
-Time    timer;
-
-Euler   euler;
-
 //-------------------------------------------------------------- Global Variables
 
 float pointSize;
@@ -100,13 +94,9 @@ float rotation[3];
 float scale[3];
 float fov;
 
-float last[2];
-bool  firstMouse = true;
-
 //---------------------------------------------------------- Forward declarations
 
 void framebuffer_size_callback  (GLFWwindow *window, int /*width*/, int /*height*/);
-void mouse_callback             (GLFWwindow* window, double xpos, double ypos);
 void processInput               (GLFWwindow *window);
 void implamentation_info        ();
 
@@ -121,31 +111,28 @@ int main (){
   window_dimensions[width]   = 800;
   window_dimensions[height]  = 600;
 
-  location[x]       = 0.0f;
-  location[y]       = 0.0f;
-  location[z]       = 0.0f;
-  location[w]       = 1.0f;
+  location[x]     = 0.0f;
+  location[y]     = 0.0f;
+  location[z]     = 0.0f;
+  location[w]     = 1.0f;
 
-  rotation[x]       = 0.0f;
-  rotation[y]       = 0.0f;
-  rotation[z]       = 1.0f;
+  rotation[x]     = 0.0f;
+  rotation[y]     = 0.0f;
+  rotation[z]     = 1.0f;
 
-  scale   [x]       = 0.5f;
-  scale   [y]       = 0.5f;
-  scale   [z]       = 0.5f;
+  scale   [x]     = 0.5f;
+  scale   [y]     = 0.5f;
+  scale   [z]     = 0.5f;
 
-  pointSize         = 40.f;
+  pointSize       = 40.f;
 
-  fov               = math::radians(45.0f);
+  fov             = glm::radians(45.0f);
 
-  last[x]           = 400.0f;
-  last[y]           = 300.0f;
+  weight.blend    = 0.5f;
 
-  weight.blend      = 0.5f;
-
-  weight.texture    = 0.5f;
-  weight.vertex     = 0.25f;
-  weight.location   = 0.25f;
+  weight.texture  = 0.5f;
+  weight.vertex   = 0.25f;
+  weight.location = 0.25f;
 
   //frustum.left    = 0.0f;
   //frustum.right   = 800.0f;
@@ -154,11 +141,11 @@ int main (){
   //frustum.near    = 0.1f;
   //frustum.far     = 100.0f;
 
-  frustum.left      =  -1.0f;
-  frustum.right     =   1.0f;
-  frustum.bottom    =  -1.0f;
-  frustum.top       =   1.0f;
-  frustum.near      =   0.1f;
+  frustum.left      = -1.0f;
+  frustum.right     = 1.0f;
+  frustum.bottom    = -1.0f;
+  frustum.top       = 1.0f;
+  frustum.near      = 0.1f;
   frustum.far       = 100.0f;
 
   matrix.local      = mat4(1.0f);
@@ -167,16 +154,6 @@ int main (){
   matrix.projection = mat4(1.0f);
   matrix.clip       = mat4(1.0f);
 
-  camera.position  = vec3(0.0f, 0.0f,  3.0f);
-  camera.direction = vec3(0.0f, 0.0f, -1.0f);
-  camera.up        = vec3(0.0f, 1.0f,  0.0f);
-
-  timer.delta_time  = 0.0f;
-  timer.last_frame  = 0.0f;
-
-  euler.pitch       = 0.0f;
-  euler.yaw         = -90.0f;
-  euler.roll        = 0.0f;
   //---------------------------------------------------------- 1. Initialize GLFW
 
   if (!glfwInit()){
@@ -218,12 +195,6 @@ int main (){
   
   //make the window context active on the current thread
   glfwMakeContextCurrent          (window);
-
-  // Capture and hide the mouse cursor
-  glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-  glfwSetCursorPosCallback(window, mouse_callback);  
-
   
   //---------------------------------------------------------- 4. Initialize GLAD 
   
@@ -424,30 +395,6 @@ int main (){
   //print useful information about the openGL implamentation
   implamentation_info();
 
-  //------------------------------------------------------- 12. Projection matrix
-  
-  mat4 projection[2];
-  projection[orthographic] = mat4::ortho        (frustum.left,
-                                                 frustum.right,
-                                                 frustum.bottom,
-                                                 frustum.top,
-                                                 frustum.near,
-                                                 frustum.far
-                                                );
-
-  projection[perspective]  = mat4::perspective  (fov, 
-                                                (float)window_dimensions[width] 
-                                              / (float)window_dimensions[height],
-                                                 frustum.near,
-                                                 frustum.far
-                                                );
-  
-  // select which perspective projection matrix to use:
-  matrix.projection = projection[perspective];
-  
-  // Pass the coordinate matricies to the shader.
-  shaderProgram.setMatrix      ("matrix", matrix);
-
   //------------------------------------------------------------- 13. Render Loop
   
   while (!glfwWindowShouldClose(window))
@@ -474,12 +421,7 @@ int main (){
 
       // clip = projection * view * model * local....
       
-      // set delta time; 
-      timer.current_frame = glfwGetTime();
-      timer.delta_time    = timer.current_frame 
-                          - timer.last_frame;
-
-      timer.last_frame    = timer.current_frame;
+      float time = glfwGetTime() * 10.0f;
 
       // local space matrix
       matrix.local = mat4                               ( 1.0f  ); // create identity matrix
@@ -490,24 +432,19 @@ int main (){
       //                                                   );
       float angles[3];
 
-      float time = timer.current_frame;
+      angles[x] = math::radians(time) * 10.0f;
+      angles[y] = math::radians(time) * 20.0f;
+      angles[z] = math::radians(time) * 30.0f;
 
-      angles[x]  = math::radians(time) * 10.0f;
-      angles[y]  = math::radians(time) * 20.0f;
-      angles[z]  = math::radians(time) * 30.0f;
+      matrix.local = matrix.local * mat4::rotateXYZ     ( angles  );
 
-      matrix.local = matrix.local * mat4::rotateXYZ     ( angles );
-
-      matrix.local = matrix.local * mat4::translate     ( vec3 ( sin(time) 
-                                                               , sin(time)
-                                                               , sin(time) 
-                                                               ) );
+      matrix.local = matrix.local * mat4::translate     ( vec3 ( sin(time) * 0.1f, sin(time) * 0.1f, sin(time) * 0.1f ) );
 
       //matrix.local = matrix.local *  mat4::translate  ( vec3  ( location[x],
       //                                                          location[y], 
       //                                                          location[z] ) 
       //                                                        );
-      
+
 
       // model space matrix
       matrix.model = mat4 (1.0f); // create identity matrix
@@ -517,47 +454,48 @@ int main (){
                                                                      0.0f  ) 
                                                   );
 
-      //Camera / view space
-    
-      //camera.direction.x = cos(math::radians(euler.yaw)) * cos(math::radians(euler.pitch));
-      //camera.direction.y = sin(math::radians(euler.pitch));
-      //camera.direction.z = sin(math::radians(euler.yaw)) * cos(math::radians(euler.pitch));
-    
-      camera.target = camera.position + camera.direction;
 
-      matrix.view   = mat4::lookAt(camera.position,
-                                   camera.target,
-                                   camera.up);
-
-
-      //// view space matrix
-      //matrix.view = mat4 (1.0f); // create identity matrix
+      // view space matrix
+      matrix.view = mat4 (1.0f); // create identity matrix
       matrix.view = matrix.view * mat4::translate ( vec3  ( 0.0f, 0.0f, -3.0f ) );
       matrix.view = matrix.view * mat4::translate ( vec3  ( location[x], 
                                                             location[y], 
                                                             location[z] )
                                                   );
-      //const float radius    = 10.0f;
-      //float camX = sin(time / 10.0f) * radius;
-      //float camZ = cos(time / 10.0f) * radius;
+      const float radius    = 10.0f;
+      float camX = sin(time / 10.0f) * radius;
+      float camZ = cos(time / 10.0f) * radius;
 
-      //matrix.view = matrix.view 
-      //            * mat4::lookAt  ( vec3  ( camX, 0.0f, camZ  ),
-      //                              vec3  ( 0.0,  0.0,  0.0   ),
-      //                              vec3  ( 0.0,  1.0,  0.0   )
-      //                            );
+      matrix.view = matrix.view 
+                  * mat4::lookAt  ( vec3  ( camX, 0.0f, camZ  ),
+                                    vec3  ( 0.0,  0.0,  0.0   ),
+                                    vec3  ( 0.0,  1.0,  0.0   )
+                                  );
 
-   
+     
+
+      // projection matricies
+      mat4 projection[2];
+
+      projection[orthographic] = mat4::ortho        (frustum.left,
+                                                     frustum.right,
+                                                     frustum.bottom,
+                                                     frustum.top,
+                                                     frustum.near,
+                                                     frustum.far
+                                                    );
+
       projection[perspective]  = mat4::perspective  (fov, 
                                                     (float)window_dimensions[width] 
                                                   / (float)window_dimensions[height],
                                                      frustum.near,
                                                      frustum.far
                                                     );
-      
+  
       // select which perspective projection matrix to use:
       matrix.projection = projection[perspective];
-
+      
+      // Pass the coordinate matricies to the shader.
       shaderProgram.setMatrix      ("matrix", matrix);
 
       // set weights
@@ -574,9 +512,9 @@ int main (){
         float angle  = 20.0f * i;
 
         matrix.model = matrix.model * mat4::rotate( math::radians ( angle ),
-                                                    vec3          ( 1.0f,
-                                                                    0.0f,
-                                                                    0.0f  ) 
+                                                    vec3  ( 1.0f,
+                                                            0.0f,
+                                                            0.0f  ) 
                                                   );
 
         shaderProgram.setMat4("matrix.model", matrix.model);
@@ -645,55 +583,13 @@ void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height
   glfwGetFramebufferSize  (window, &frameBuffer[width],&frameBuffer[height]);
   glViewport              (0, 0,    frameBuffer[width], frameBuffer[height]);
 
-  window_dimensions[width]        = frameBuffer[width];
-  window_dimensions[height]       = frameBuffer[height];
-}
-
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    // Camera mouse movement code goes here
-    
-    if (firstMouse){
-      last[x]    = xpos;
-      last[y]    = ypos;
-      firstMouse = false;
-    }
-
-    float offset[2];
-
-    offset[x]   = xpos - last[x];
-    offset[y]   = last[y] - ypos;
-
-    last[x]     = xpos;
-    last[y]     = ypos;
-
-    const float sensitivity = 0.1f;
-
-    offset[x]   *= sensitivity;
-    offset[y]   *= sensitivity;
-
-    euler.yaw   += offset[x];
-    euler.pitch += offset[y];
-
-    if (euler.pitch >= 89.0f)
-      euler.pitch = 89.0f;
-    if (euler.pitch <= -89.0f)
-      euler.pitch = -89.0f; 
-
-    camera.direction.x = cos(math::radians(euler.yaw)) 
-                       * cos(math::radians(euler.pitch));
-    camera.direction.y = sin(math::radians(euler.pitch));
-    camera.direction.z = sin(math::radians(euler.yaw)) 
-                       * cos(math::radians(euler.pitch));
-
-    camera.direction      = vec3::normalized(camera.direction);
-
+  window_dimensions[width]  = frameBuffer[width];
+  window_dimensions[height] = frameBuffer[height];
 }
 
 // Key Hooks
 void processInput(GLFWwindow *window)
 {
-
   if  (glfwGetKey (window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       glfwSetWindowShouldClose(window, true);
 
@@ -712,19 +608,27 @@ void processInput(GLFWwindow *window)
   }
 
   if  (glfwGetKey (window, GLFW_KEY_UP)     == GLFW_PRESS){
-        location[y] += 0.1f;
+        location[y] += 0.01f;
+    if (location[y] >= 1.4f)
+        location[y] =  1.4f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_DOWN)   == GLFW_PRESS){
-        location[y] -= 0.1f;
+        location[y] -= 0.01f;
+    if (location[y] <= -1.4f)
+        location[y] =  -1.4f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_RIGHT)  == GLFW_PRESS){
-        location[x] += 0.1f;
+        location[x] += 0.01f;
+    if (location[x] >= 1.4f)
+        location[x] =  1.4f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_LEFT)   == GLFW_PRESS){
-        location[x] -= 0.1f;
+        location[x] -= 0.01f;
+    if (location[x] <= -1.4f)
+        location[x] = -1.4f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
@@ -785,26 +689,5 @@ void processInput(GLFWwindow *window)
         fov -= math::radians(1.0f);
     if (fov <= math::radians(1.0f))
         fov =  math::radians(1.0f);
-  }
-
-  //    CAMERA MOVEMENT
-  camera.speed = 10.0f * timer.delta_time;
-
-  if  (glfwGetKey (window, GLFW_KEY_W)   == GLFW_PRESS){
-    camera.position += camera.speed * camera.direction;
-    //camera.position.z += 0.05f;
-  }
-
-  if  (glfwGetKey (window, GLFW_KEY_S)   == GLFW_PRESS ){
-    camera.position -= camera.speed * camera.direction;
-    //camera.position.z -= 0.05f;
-  }
-
-  if (glfwGetKey  (window, GLFW_KEY_A)   == GLFW_PRESS){
-    camera.position -= vec3::normalized(vec3::cross(camera.direction, camera.up)) * camera.speed;
-  }
-  
-  if (glfwGetKey  (window, GLFW_KEY_D)   == GLFW_PRESS){
-    camera.position += vec3::normalized(vec3::cross(camera.direction, camera.up)) * camera.speed;
   }
 }
