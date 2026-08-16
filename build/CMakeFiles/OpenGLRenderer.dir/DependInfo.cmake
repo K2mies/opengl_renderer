@@ -9,15 +9,16 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c" "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/MathUtils.cpp" "CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Shader.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Texture.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Scene/Camera.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o.d"
+  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Utils/MathUtils.cpp" "CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o.d"
   "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o.d"
-  "/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o" "gcc" "CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

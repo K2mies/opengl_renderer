@@ -86,38 +86,52 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/main.cpp -o CMakeFiles/OpenGLRenderer.dir/src/main.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp
-CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Shader.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Shader.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp > CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Shader.cpp > CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Shader.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Shader.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp
-CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Texture.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Texture.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp > CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Texture.cpp > CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Texture.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Objects/Texture.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.s
+
+CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Scene/Camera.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Scene/Camera.cpp
+
+CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Scene/Camera.cpp > CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.i
+
+CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Scene/Camera.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.s
 
 CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
 CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp
 CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp
 
 CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.i: cmake_force
@@ -128,80 +142,80 @@ CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/stb_image.cpp -o CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/MathUtils.cpp
-CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/MathUtils.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Utils/MathUtils.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Utils/MathUtils.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/MathUtils.cpp > CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Utils/MathUtils.cpp > CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/MathUtils.cpp -o CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Utils/MathUtils.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec4.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec4.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp > CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec4.cpp > CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec4.cpp -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec4.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec3.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec3.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp > CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec3.cpp > CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Vec3.cpp -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Vec3.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat4.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat4.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp > CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat4.cpp > CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat4.cpp -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat4.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.s
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o: CMakeFiles/OpenGLRenderer.dir/flags.make
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o -MF CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o.d -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp > CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.i
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp > CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.i
 
-CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/typedefs/Mat3.cpp -o CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.s
+CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp -o CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.s
 
 CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o: CMakeFiles/OpenGLRenderer.dir/flags.make
 CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o: /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c
 CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o: CMakeFiles/OpenGLRenderer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o -MF CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o.d -o CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o -c /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/glad/src/glad.c
 
 CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.i: cmake_force
@@ -215,34 +229,36 @@ CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.s: cmake_force
 # Object files for target OpenGLRenderer
 OpenGLRenderer_OBJECTS = \
 "CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o" \
 "CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o" \
-"CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o" \
+"CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o" \
 "CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o"
 
 # External object files for target OpenGLRenderer
 OpenGLRenderer_EXTERNAL_OBJECTS =
 
 OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o
 OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o
-OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o
+OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o
 OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o
 OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/build.make
 OpenGLRenderer: /opt/homebrew/lib/libglfw.3.4.dylib
 OpenGLRenderer: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 OpenGLRenderer: CMakeFiles/OpenGLRenderer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable OpenGLRenderer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable OpenGLRenderer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/OpenGLRenderer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

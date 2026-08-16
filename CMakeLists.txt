@@ -12,14 +12,15 @@ find_package(glfw3 REQUIRED)
 
 add_executable(OpenGLRenderer
     src/main.cpp
-    src/Shader.cpp
-    src/Texture.cpp
+    src/Objects/Shader.cpp
+    src/Objects/Texture.cpp
+    src/Scene/Camera.cpp
     src/stb_image.cpp
-    src/MathUtils.cpp
-    src/typedefs/Vec4.cpp
-    src/typedefs/Vec3.cpp
-    src/typedefs/Mat4.cpp
-    src/typedefs/Mat3.cpp
+    src/Utils/MathUtils.cpp
+    src/Typedefs/Vec4.cpp
+    src/Typedefs/Vec3.cpp
+    src/Typedefs/Mat4.cpp
+    src/Typedefs/Mat3.cpp
     third_party/glad/src/glad.c
 )
 

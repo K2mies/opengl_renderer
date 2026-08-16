@@ -17,6 +17,8 @@
 #include "Shader.h"
 #include "Texture.h"
 
+#include "Camera.h"
+
 // Custom Types
 #include "Vec4.h"
 #include "Vec3.h"
@@ -85,8 +87,6 @@ Frustum frustum {
 
 Matrix  matrix;
 
-Camera  camera;
-
 Time    timer;
 
 Euler   euler;
@@ -102,6 +102,11 @@ float fov;
 
 float last[2];
 bool  firstMouse = true;
+
+//---------------------------------------------------------------- Global Objects
+Camera camera(vec3(0.0f, 0.0f, 3.0f), 
+              vec3(0.0f, 1.0f, 0.0f),
+              YAW, PITCH);
 
 //---------------------------------------------------------- Forward declarations
 
@@ -166,10 +171,6 @@ int main (){
   matrix.view       = mat4(1.0f);
   matrix.projection = mat4(1.0f);
   matrix.clip       = mat4(1.0f);
-
-  camera.position  = vec3(0.0f, 0.0f,  3.0f);
-  camera.direction = vec3(0.0f, 0.0f, -1.0f);
-  camera.up        = vec3(0.0f, 1.0f,  0.0f);
 
   timer.delta_time  = 0.0f;
   timer.last_frame  = 0.0f;
@@ -523,20 +524,20 @@ int main (){
       //camera.direction.y = sin(math::radians(euler.pitch));
       //camera.direction.z = sin(math::radians(euler.yaw)) * cos(math::radians(euler.pitch));
     
-      camera.target = camera.position + camera.direction;
+      //camera.target = camera.position + camera.direction;
 
-      matrix.view   = mat4::lookAt(camera.position,
-                                   camera.target,
-                                   camera.up);
+      //matrix.view   = mat4::lookAt(camera.position,
+      //                             camera.target,
+      //                             camera.up);
 
 
       //// view space matrix
       //matrix.view = mat4 (1.0f); // create identity matrix
-      matrix.view = matrix.view * mat4::translate ( vec3  ( 0.0f, 0.0f, -3.0f ) );
-      matrix.view = matrix.view * mat4::translate ( vec3  ( location[x], 
-                                                            location[y], 
-                                                            location[z] )
-                                                  );
+      //matrix.view = matrix.view * mat4::translate ( vec3  ( 0.0f, 0.0f, -3.0f ) );
+      //matrix.view = matrix.view * mat4::translate ( vec3  ( location[x], 
+      //                                                      location[y], 
+      //                                                      location[z] )
+      //                                            );
       //const float radius    = 10.0f;
       //float camX = sin(time / 10.0f) * radius;
       //float camZ = cos(time / 10.0f) * radius;
@@ -559,6 +560,9 @@ int main (){
       matrix.projection = projection[perspective];
 
       shaderProgram.setMatrix      ("matrix", matrix);
+
+      mat4 view = camera.getViewMatrix();
+      shaderProgram.setMat4("matrix.view", view);
 
       // set weights
       shaderProgram.setWeight      ("weight", weight); 
@@ -649,45 +653,40 @@ void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height
   window_dimensions[height]       = frameBuffer[height];
 }
 
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset){
+
+  float offset[2];
+
+  offset[x] = static_cast<float>(xoffset);
+  offset[y] = static_cast<float>(yoffset);
+
+  camera.processMouseScroll(offset);
+}
+
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     // Camera mouse movement code goes here
+    float pos[2];
+
+    pos[x] = static_cast<float>(xpos);
+    pos[y] = static_cast<float>(ypos);
     
     if (firstMouse){
-      last[x]    = xpos;
-      last[y]    = ypos;
+      last[x]    = pos[x];
+      last[y]    = pos[y];
+
       firstMouse = false;
     }
 
     float offset[2];
 
-    offset[x]   = xpos - last[x];
-    offset[y]   = last[y] - ypos;
+    offset[x]   =  pos[x] - last[x];
+    offset[y]   = last[y] -  pos[y];
 
-    last[x]     = xpos;
-    last[y]     = ypos;
+    last[x]     = pos[x];
+    last[y]     = pos[y];
 
-    const float sensitivity = 0.1f;
-
-    offset[x]   *= sensitivity;
-    offset[y]   *= sensitivity;
-
-    euler.yaw   += offset[x];
-    euler.pitch += offset[y];
-
-    if (euler.pitch >= 89.0f)
-      euler.pitch = 89.0f;
-    if (euler.pitch <= -89.0f)
-      euler.pitch = -89.0f; 
-
-    camera.direction.x = cos(math::radians(euler.yaw)) 
-                       * cos(math::radians(euler.pitch));
-    camera.direction.y = sin(math::radians(euler.pitch));
-    camera.direction.z = sin(math::radians(euler.yaw)) 
-                       * cos(math::radians(euler.pitch));
-
-    camera.direction      = vec3::normalized(camera.direction);
-
+    camera.processMouseMovement(offset);
 }
 
 // Key Hooks
@@ -788,23 +787,19 @@ void processInput(GLFWwindow *window)
   }
 
   //    CAMERA MOVEMENT
-  camera.speed = 10.0f * timer.delta_time;
-
-  if  (glfwGetKey (window, GLFW_KEY_W)   == GLFW_PRESS){
-    camera.position += camera.speed * camera.direction;
-    //camera.position.z += 0.05f;
+  if (glfwGetKey(window, GLFW_KEY_W)    == GLFW_PRESS){
+    camera.processKeyboard(FORWARD,  timer.delta_time);
   }
 
-  if  (glfwGetKey (window, GLFW_KEY_S)   == GLFW_PRESS ){
-    camera.position -= camera.speed * camera.direction;
-    //camera.position.z -= 0.05f;
+  if (glfwGetKey(window, GLFW_KEY_S)    == GLFW_PRESS){
+    camera.processKeyboard(BACKWARD, timer.delta_time);
   }
 
-  if (glfwGetKey  (window, GLFW_KEY_A)   == GLFW_PRESS){
-    camera.position -= vec3::normalized(vec3::cross(camera.direction, camera.up)) * camera.speed;
+  if (glfwGetKey(window, GLFW_KEY_A)    == GLFW_PRESS){
+    camera.processKeyboard(LEFT,     timer.delta_time);
   }
-  
-  if (glfwGetKey  (window, GLFW_KEY_D)   == GLFW_PRESS){
-    camera.position += vec3::normalized(vec3::cross(camera.direction, camera.up)) * camera.speed;
+
+  if (glfwGetKey(window, GLFW_KEY_D)    == GLFW_PRESS){
+    camera.processKeyboard(RIGHT,    timer.delta_time);
   }
 }

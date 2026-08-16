@@ -129,77 +129,197 @@ OpenGLRenderer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/build
 .PHONY : OpenGLRenderer/fast
 
-src/MathUtils.o: src/MathUtils.cpp.o
-.PHONY : src/MathUtils.o
+src/Objects/Shader.o: src/Objects/Shader.cpp.o
+.PHONY : src/Objects/Shader.o
 
 # target to build an object file
-src/MathUtils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.o
-.PHONY : src/MathUtils.cpp.o
+src/Objects/Shader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o
+.PHONY : src/Objects/Shader.cpp.o
 
-src/MathUtils.i: src/MathUtils.cpp.i
-.PHONY : src/MathUtils.i
+src/Objects/Shader.i: src/Objects/Shader.cpp.i
+.PHONY : src/Objects/Shader.i
 
 # target to preprocess a source file
-src/MathUtils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.i
-.PHONY : src/MathUtils.cpp.i
+src/Objects/Shader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.i
+.PHONY : src/Objects/Shader.cpp.i
 
-src/MathUtils.s: src/MathUtils.cpp.s
-.PHONY : src/MathUtils.s
+src/Objects/Shader.s: src/Objects/Shader.cpp.s
+.PHONY : src/Objects/Shader.s
 
 # target to generate assembly for a file
-src/MathUtils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/MathUtils.cpp.s
-.PHONY : src/MathUtils.cpp.s
+src/Objects/Shader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.s
+.PHONY : src/Objects/Shader.cpp.s
 
-src/Shader.o: src/Shader.cpp.o
-.PHONY : src/Shader.o
+src/Objects/Texture.o: src/Objects/Texture.cpp.o
+.PHONY : src/Objects/Texture.o
 
 # target to build an object file
-src/Shader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.o
-.PHONY : src/Shader.cpp.o
+src/Objects/Texture.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.o
+.PHONY : src/Objects/Texture.cpp.o
 
-src/Shader.i: src/Shader.cpp.i
-.PHONY : src/Shader.i
+src/Objects/Texture.i: src/Objects/Texture.cpp.i
+.PHONY : src/Objects/Texture.i
 
 # target to preprocess a source file
-src/Shader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.i
-.PHONY : src/Shader.cpp.i
+src/Objects/Texture.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.i
+.PHONY : src/Objects/Texture.cpp.i
 
-src/Shader.s: src/Shader.cpp.s
-.PHONY : src/Shader.s
+src/Objects/Texture.s: src/Objects/Texture.cpp.s
+.PHONY : src/Objects/Texture.s
 
 # target to generate assembly for a file
-src/Shader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Shader.cpp.s
-.PHONY : src/Shader.cpp.s
+src/Objects/Texture.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Objects/Texture.cpp.s
+.PHONY : src/Objects/Texture.cpp.s
 
-src/Texture.o: src/Texture.cpp.o
-.PHONY : src/Texture.o
+src/Scene/Camera.o: src/Scene/Camera.cpp.o
+.PHONY : src/Scene/Camera.o
 
 # target to build an object file
-src/Texture.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.o
-.PHONY : src/Texture.cpp.o
+src/Scene/Camera.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.o
+.PHONY : src/Scene/Camera.cpp.o
 
-src/Texture.i: src/Texture.cpp.i
-.PHONY : src/Texture.i
+src/Scene/Camera.i: src/Scene/Camera.cpp.i
+.PHONY : src/Scene/Camera.i
 
 # target to preprocess a source file
-src/Texture.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.i
-.PHONY : src/Texture.cpp.i
+src/Scene/Camera.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.i
+.PHONY : src/Scene/Camera.cpp.i
 
-src/Texture.s: src/Texture.cpp.s
-.PHONY : src/Texture.s
+src/Scene/Camera.s: src/Scene/Camera.cpp.s
+.PHONY : src/Scene/Camera.s
 
 # target to generate assembly for a file
-src/Texture.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Texture.cpp.s
-.PHONY : src/Texture.cpp.s
+src/Scene/Camera.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.s
+.PHONY : src/Scene/Camera.cpp.s
+
+src/Typedefs/Mat3.o: src/Typedefs/Mat3.cpp.o
+.PHONY : src/Typedefs/Mat3.o
+
+# target to build an object file
+src/Typedefs/Mat3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.o
+.PHONY : src/Typedefs/Mat3.cpp.o
+
+src/Typedefs/Mat3.i: src/Typedefs/Mat3.cpp.i
+.PHONY : src/Typedefs/Mat3.i
+
+# target to preprocess a source file
+src/Typedefs/Mat3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.i
+.PHONY : src/Typedefs/Mat3.cpp.i
+
+src/Typedefs/Mat3.s: src/Typedefs/Mat3.cpp.s
+.PHONY : src/Typedefs/Mat3.s
+
+# target to generate assembly for a file
+src/Typedefs/Mat3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat3.cpp.s
+.PHONY : src/Typedefs/Mat3.cpp.s
+
+src/Typedefs/Mat4.o: src/Typedefs/Mat4.cpp.o
+.PHONY : src/Typedefs/Mat4.o
+
+# target to build an object file
+src/Typedefs/Mat4.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.o
+.PHONY : src/Typedefs/Mat4.cpp.o
+
+src/Typedefs/Mat4.i: src/Typedefs/Mat4.cpp.i
+.PHONY : src/Typedefs/Mat4.i
+
+# target to preprocess a source file
+src/Typedefs/Mat4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.i
+.PHONY : src/Typedefs/Mat4.cpp.i
+
+src/Typedefs/Mat4.s: src/Typedefs/Mat4.cpp.s
+.PHONY : src/Typedefs/Mat4.s
+
+# target to generate assembly for a file
+src/Typedefs/Mat4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.s
+.PHONY : src/Typedefs/Mat4.cpp.s
+
+src/Typedefs/Vec3.o: src/Typedefs/Vec3.cpp.o
+.PHONY : src/Typedefs/Vec3.o
+
+# target to build an object file
+src/Typedefs/Vec3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.o
+.PHONY : src/Typedefs/Vec3.cpp.o
+
+src/Typedefs/Vec3.i: src/Typedefs/Vec3.cpp.i
+.PHONY : src/Typedefs/Vec3.i
+
+# target to preprocess a source file
+src/Typedefs/Vec3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.i
+.PHONY : src/Typedefs/Vec3.cpp.i
+
+src/Typedefs/Vec3.s: src/Typedefs/Vec3.cpp.s
+.PHONY : src/Typedefs/Vec3.s
+
+# target to generate assembly for a file
+src/Typedefs/Vec3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec3.cpp.s
+.PHONY : src/Typedefs/Vec3.cpp.s
+
+src/Typedefs/Vec4.o: src/Typedefs/Vec4.cpp.o
+.PHONY : src/Typedefs/Vec4.o
+
+# target to build an object file
+src/Typedefs/Vec4.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.o
+.PHONY : src/Typedefs/Vec4.cpp.o
+
+src/Typedefs/Vec4.i: src/Typedefs/Vec4.cpp.i
+.PHONY : src/Typedefs/Vec4.i
+
+# target to preprocess a source file
+src/Typedefs/Vec4.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.i
+.PHONY : src/Typedefs/Vec4.cpp.i
+
+src/Typedefs/Vec4.s: src/Typedefs/Vec4.cpp.s
+.PHONY : src/Typedefs/Vec4.s
+
+# target to generate assembly for a file
+src/Typedefs/Vec4.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec4.cpp.s
+.PHONY : src/Typedefs/Vec4.cpp.s
+
+src/Utils/MathUtils.o: src/Utils/MathUtils.cpp.o
+.PHONY : src/Utils/MathUtils.o
+
+# target to build an object file
+src/Utils/MathUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.o
+.PHONY : src/Utils/MathUtils.cpp.o
+
+src/Utils/MathUtils.i: src/Utils/MathUtils.cpp.i
+.PHONY : src/Utils/MathUtils.i
+
+# target to preprocess a source file
+src/Utils/MathUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.i
+.PHONY : src/Utils/MathUtils.cpp.i
+
+src/Utils/MathUtils.s: src/Utils/MathUtils.cpp.s
+.PHONY : src/Utils/MathUtils.s
+
+# target to generate assembly for a file
+src/Utils/MathUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Utils/MathUtils.cpp.s
+.PHONY : src/Utils/MathUtils.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -249,102 +369,6 @@ src/stb_image.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/stb_image.cpp.s
 .PHONY : src/stb_image.cpp.s
 
-src/typedefs/Mat3.o: src/typedefs/Mat3.cpp.o
-.PHONY : src/typedefs/Mat3.o
-
-# target to build an object file
-src/typedefs/Mat3.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.o
-.PHONY : src/typedefs/Mat3.cpp.o
-
-src/typedefs/Mat3.i: src/typedefs/Mat3.cpp.i
-.PHONY : src/typedefs/Mat3.i
-
-# target to preprocess a source file
-src/typedefs/Mat3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.i
-.PHONY : src/typedefs/Mat3.cpp.i
-
-src/typedefs/Mat3.s: src/typedefs/Mat3.cpp.s
-.PHONY : src/typedefs/Mat3.s
-
-# target to generate assembly for a file
-src/typedefs/Mat3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat3.cpp.s
-.PHONY : src/typedefs/Mat3.cpp.s
-
-src/typedefs/Mat4.o: src/typedefs/Mat4.cpp.o
-.PHONY : src/typedefs/Mat4.o
-
-# target to build an object file
-src/typedefs/Mat4.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.o
-.PHONY : src/typedefs/Mat4.cpp.o
-
-src/typedefs/Mat4.i: src/typedefs/Mat4.cpp.i
-.PHONY : src/typedefs/Mat4.i
-
-# target to preprocess a source file
-src/typedefs/Mat4.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.i
-.PHONY : src/typedefs/Mat4.cpp.i
-
-src/typedefs/Mat4.s: src/typedefs/Mat4.cpp.s
-.PHONY : src/typedefs/Mat4.s
-
-# target to generate assembly for a file
-src/typedefs/Mat4.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Mat4.cpp.s
-.PHONY : src/typedefs/Mat4.cpp.s
-
-src/typedefs/Vec3.o: src/typedefs/Vec3.cpp.o
-.PHONY : src/typedefs/Vec3.o
-
-# target to build an object file
-src/typedefs/Vec3.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.o
-.PHONY : src/typedefs/Vec3.cpp.o
-
-src/typedefs/Vec3.i: src/typedefs/Vec3.cpp.i
-.PHONY : src/typedefs/Vec3.i
-
-# target to preprocess a source file
-src/typedefs/Vec3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.i
-.PHONY : src/typedefs/Vec3.cpp.i
-
-src/typedefs/Vec3.s: src/typedefs/Vec3.cpp.s
-.PHONY : src/typedefs/Vec3.s
-
-# target to generate assembly for a file
-src/typedefs/Vec3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec3.cpp.s
-.PHONY : src/typedefs/Vec3.cpp.s
-
-src/typedefs/Vec4.o: src/typedefs/Vec4.cpp.o
-.PHONY : src/typedefs/Vec4.o
-
-# target to build an object file
-src/typedefs/Vec4.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.o
-.PHONY : src/typedefs/Vec4.cpp.o
-
-src/typedefs/Vec4.i: src/typedefs/Vec4.cpp.i
-.PHONY : src/typedefs/Vec4.i
-
-# target to preprocess a source file
-src/typedefs/Vec4.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.i
-.PHONY : src/typedefs/Vec4.cpp.i
-
-src/typedefs/Vec4.s: src/typedefs/Vec4.cpp.s
-.PHONY : src/typedefs/Vec4.s
-
-# target to generate assembly for a file
-src/typedefs/Vec4.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/typedefs/Vec4.cpp.s
-.PHONY : src/typedefs/Vec4.cpp.s
-
 third_party/glad/src/glad.o: third_party/glad/src/glad.c.o
 .PHONY : third_party/glad/src/glad.o
 
@@ -378,33 +402,36 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... OpenGLRenderer"
-	@echo "... src/MathUtils.o"
-	@echo "... src/MathUtils.i"
-	@echo "... src/MathUtils.s"
-	@echo "... src/Shader.o"
-	@echo "... src/Shader.i"
-	@echo "... src/Shader.s"
-	@echo "... src/Texture.o"
-	@echo "... src/Texture.i"
-	@echo "... src/Texture.s"
+	@echo "... src/Objects/Shader.o"
+	@echo "... src/Objects/Shader.i"
+	@echo "... src/Objects/Shader.s"
+	@echo "... src/Objects/Texture.o"
+	@echo "... src/Objects/Texture.i"
+	@echo "... src/Objects/Texture.s"
+	@echo "... src/Scene/Camera.o"
+	@echo "... src/Scene/Camera.i"
+	@echo "... src/Scene/Camera.s"
+	@echo "... src/Typedefs/Mat3.o"
+	@echo "... src/Typedefs/Mat3.i"
+	@echo "... src/Typedefs/Mat3.s"
+	@echo "... src/Typedefs/Mat4.o"
+	@echo "... src/Typedefs/Mat4.i"
+	@echo "... src/Typedefs/Mat4.s"
+	@echo "... src/Typedefs/Vec3.o"
+	@echo "... src/Typedefs/Vec3.i"
+	@echo "... src/Typedefs/Vec3.s"
+	@echo "... src/Typedefs/Vec4.o"
+	@echo "... src/Typedefs/Vec4.i"
+	@echo "... src/Typedefs/Vec4.s"
+	@echo "... src/Utils/MathUtils.o"
+	@echo "... src/Utils/MathUtils.i"
+	@echo "... src/Utils/MathUtils.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/stb_image.o"
 	@echo "... src/stb_image.i"
 	@echo "... src/stb_image.s"
-	@echo "... src/typedefs/Mat3.o"
-	@echo "... src/typedefs/Mat3.i"
-	@echo "... src/typedefs/Mat3.s"
-	@echo "... src/typedefs/Mat4.o"
-	@echo "... src/typedefs/Mat4.i"
-	@echo "... src/typedefs/Mat4.s"
-	@echo "... src/typedefs/Vec3.o"
-	@echo "... src/typedefs/Vec3.i"
-	@echo "... src/typedefs/Vec3.s"
-	@echo "... src/typedefs/Vec4.o"
-	@echo "... src/typedefs/Vec4.i"
-	@echo "... src/typedefs/Vec4.s"
 	@echo "... third_party/glad/src/glad.o"
 	@echo "... third_party/glad/src/glad.i"
 	@echo "... third_party/glad/src/glad.s"
