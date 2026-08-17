@@ -58,9 +58,12 @@ public:
 
   
   float   dot       ( const vec3& other )       const;
+  static  float  dot( const vec3& vector_a, 
+                      const vec3& vector_b  );
   
   vec3    cross     ( const vec3& other )       const;
-  static  vec3      cross                      (const vec3& vector_a, const vec3& vector_b);
+  static  vec3      cross                    (  const vec3& vector_a, 
+                                                const vec3& vector_b );
 
 
   //----------------------------------------------------------- destructor
@@ -68,7 +71,7 @@ public:
 };
 
 //--------------------------------------------------------- non-member functions 
-vec3		      operator	*    ( float num, const vec3& obj );
-std::ostream&	operator	<<	( std::ostream& out, const vec3& obj );
+vec3		      operator  *   ( float num, const vec3& obj );
+std::ostream&	operator  <<  ( std::ostream& out, const vec3& obj );
 
 #endif

@@ -235,6 +235,14 @@ float vec3::dot   ( const vec3& other ) const{
 
 }
 
+float  vec3::dot( const vec3& vector_a, const vec3& vector_b  ){
+  
+  return vector_a.x * vector_b.x
+       + vector_a.y * vector_b.y
+       + vector_a.z * vector_b.z;
+
+}
+
 vec3  vec3::cross ( const vec3& other ) const{
 
   return vec3(

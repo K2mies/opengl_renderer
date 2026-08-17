@@ -22,6 +22,7 @@
 // Custom Types
 #include "Vec4.h"
 #include "Vec3.h"
+#include "Vec2.h"
 #include "Mat4.h"
 #include "Mat3.h"
 
@@ -103,14 +104,17 @@ float fov;
 float last[2];
 bool  firstMouse = true;
 
+vec3  position   = vec3(0.0f, 0.0f, 3.0f);
+vec3  up         = vec3(0.0f, 1.0f, 0.0f);
+
+
 //---------------------------------------------------------------- Global Objects
-Camera camera(vec3(0.0f, 0.0f, 3.0f), 
-              vec3(0.0f, 1.0f, 0.0f),
-              YAW, PITCH);
+Camera camera(position, up, YAW, PITCH);
 
 //---------------------------------------------------------- Forward declarations
 
 void framebuffer_size_callback  (GLFWwindow *window, int /*width*/, int /*height*/);
+void scroll_callback            (GLFWwindow *window, double xoffset, double yoffset);
 void mouse_callback             (GLFWwindow* window, double xpos, double ypos);
 void processInput               (GLFWwindow *window);
 void implamentation_info        ();
@@ -139,25 +143,18 @@ int main (){
   scale   [y]       = 0.5f;
   scale   [z]       = 0.5f;
 
+  last    [x]       = 400.0f;
+  last    [y]       = 300.0f;
+
   pointSize         = 40.f;
 
   fov               = math::radians(45.0f);
-
-  last[x]           = 400.0f;
-  last[y]           = 300.0f;
 
   weight.blend      = 0.5f;
 
   weight.texture    = 0.5f;
   weight.vertex     = 0.25f;
   weight.location   = 0.25f;
-
-  //frustum.left    = 0.0f;
-  //frustum.right   = 800.0f;
-  //frustum.bottom  = 0.0f;
-  //frustum.top     = 600.0f;
-  //frustum.near    = 0.1f;
-  //frustum.far     = 100.0f;
 
   frustum.left      =  -1.0f;
   frustum.right     =   1.0f;
@@ -175,9 +172,10 @@ int main (){
   timer.delta_time  = 0.0f;
   timer.last_frame  = 0.0f;
 
-  euler.pitch       = 0.0f;
+  euler.pitch       =   0.0f;
   euler.yaw         = -90.0f;
-  euler.roll        = 0.0f;
+  euler.roll        =   0.0f;
+
   //---------------------------------------------------------- 1. Initialize GLFW
 
   if (!glfwInit()){
@@ -425,7 +423,7 @@ int main (){
   //print useful information about the openGL implamentation
   implamentation_info();
 
-  //------------------------------------------------------- 12. Projection matrix
+  //------------------------------------------------------- 13. Projection matrix
   
   mat4 projection[2];
   projection[orthographic] = mat4::ortho        (frustum.left,
@@ -449,7 +447,7 @@ int main (){
   // Pass the coordinate matricies to the shader.
   shaderProgram.setMatrix      ("matrix", matrix);
 
-  //------------------------------------------------------------- 13. Render Loop
+  //------------------------------------------------------------- 14. Render Loop
   
   while (!glfwWindowShouldClose(window))
   {
@@ -484,11 +482,6 @@ int main (){
 
       // local space matrix
       matrix.local = mat4                               ( 1.0f  ); // create identity matrix
-      //matrix.local = matrix.local *  mat4::rotate       ( math::radians ( time  ) * 10.f, 
-      //                                            vec3  ( 1.0f, 
-      //                                                    1.0f,
-      //                                                    1.0f )
-      //                                                   );
       float angles[3];
 
       float time = timer.current_frame;
@@ -504,11 +497,6 @@ int main (){
                                                                , sin(time) 
                                                                ) );
 
-      //matrix.local = matrix.local *  mat4::translate  ( vec3  ( location[x],
-      //                                                          location[y], 
-      //                                                          location[z] ) 
-      //                                                        );
-      
 
       // model space matrix
       matrix.model = mat4 (1.0f); // create identity matrix
@@ -517,37 +505,6 @@ int main (){
                                                                      0.0f, 
                                                                      0.0f  ) 
                                                   );
-
-      //Camera / view space
-    
-      //camera.direction.x = cos(math::radians(euler.yaw)) * cos(math::radians(euler.pitch));
-      //camera.direction.y = sin(math::radians(euler.pitch));
-      //camera.direction.z = sin(math::radians(euler.yaw)) * cos(math::radians(euler.pitch));
-    
-      //camera.target = camera.position + camera.direction;
-
-      //matrix.view   = mat4::lookAt(camera.position,
-      //                             camera.target,
-      //                             camera.up);
-
-
-      //// view space matrix
-      //matrix.view = mat4 (1.0f); // create identity matrix
-      //matrix.view = matrix.view * mat4::translate ( vec3  ( 0.0f, 0.0f, -3.0f ) );
-      //matrix.view = matrix.view * mat4::translate ( vec3  ( location[x], 
-      //                                                      location[y], 
-      //                                                      location[z] )
-      //                                            );
-      //const float radius    = 10.0f;
-      //float camX = sin(time / 10.0f) * radius;
-      //float camZ = cos(time / 10.0f) * radius;
-
-      //matrix.view = matrix.view 
-      //            * mat4::lookAt  ( vec3  ( camX, 0.0f, camZ  ),
-      //                              vec3  ( 0.0,  0.0,  0.0   ),
-      //                              vec3  ( 0.0,  1.0,  0.0   )
-      //                            );
-
    
       projection[perspective]  = mat4::perspective  (fov, 
                                                     (float)window_dimensions[width] 
@@ -559,13 +516,14 @@ int main (){
       // select which perspective projection matrix to use:
       matrix.projection = projection[perspective];
 
-      shaderProgram.setMatrix      ("matrix", matrix);
-
-      mat4 view = camera.getViewMatrix();
-      shaderProgram.setMat4("matrix.view", view);
+      // update view matrix with LookAt every frame
+      matrix.view = camera.getViewMatrix();
+      
+      // set the uniform matrix in the shader
+      shaderProgram.setMatrix      ("matrix",      matrix);
 
       // set weights
-      shaderProgram.setWeight      ("weight", weight); 
+      shaderProgram.setWeight      ("weight",      weight); 
 
       // DRAW...
 
@@ -603,12 +561,13 @@ int main (){
       glfwPollEvents();
   }
   
-  //----------------------------------------------------------------- 14. Cleanup
+  //----------------------------------------------------------------- 15. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
   glDeleteVertexArrays        (1, &objects[VAO]);
   glDeleteBuffers             (1, &objects[VBO]);
   glDeleteBuffers             (1, &objects[EBO]);
+
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;
@@ -666,25 +625,27 @@ void scroll_callback(GLFWwindow *window, double xoffset, double yoffset){
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     // Camera mouse movement code goes here
-    float pos[2];
+    float position[2];
 
-    pos[x] = static_cast<float>(xpos);
-    pos[y] = static_cast<float>(ypos);
+    position[x]  = static_cast<float>(xpos);
+    position[y]  = static_cast<float>(ypos);
     
     if (firstMouse){
-      last[x]    = pos[x];
-      last[y]    = pos[y];
+
+      last[x]    = position[x];
+      last[y]    = position[y];
 
       firstMouse = false;
+
     }
 
     float offset[2];
 
-    offset[x]   =  pos[x] - last[x];
-    offset[y]   = last[y] -  pos[y];
+    offset[x]    = position[x] - last[x];
+    offset[y]    = last[y] -  position[y];
 
-    last[x]     = pos[x];
-    last[y]     = pos[y];
+    last[x]      = position[x];
+    last[y]      = position[y];
 
     camera.processMouseMovement(offset);
 }

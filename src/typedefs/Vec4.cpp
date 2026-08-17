@@ -245,26 +245,38 @@ float vec4::lengthSquared()           const{
 
 void  vec4::normalize(){
 
-  float len = length();
-
-    if (len == 0.0f)
-        return;
-
-    x /= len;
-    y /= len;
-    z /= len;
-    w /= len;
+  *this = normalized();
 
 }
 
-vec4  vec4::normalized()              const{
+vec4 vec4::normalized() const
+{
+    float len = length();
 
-  vec4 temp(*this);
+    if (len == 0.0f)
+        return vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-    temp.normalize();
+    return vec4(
+        x / len,
+        y / len,
+        z / len,
+        w / len
+    );
+}
 
-    return temp;
+vec4 vec4::normalized(const vec4& vector)
+{
+    float len = vector.length();
 
+    if (len == 0.0f)
+        return vec4(0.0f, 0.0f, 0.0f, 0.0f);
+
+    return vec4(
+        vector.x / len,
+        vector.y / len,
+        vector.z / len,
+        vector.w / len
+    );
 }
 
 float vec4::dot(  const vec4& other ) const{
@@ -274,6 +286,14 @@ float vec4::dot(  const vec4& other ) const{
          + z * other.z
          + w * other.w;
 
+}
+
+float vec4::dot (  const vec4& vector_a, const vec4& vector_b){
+
+  return vector_a.x * vector_b.x
+      +  vector_a.y * vector_b.y
+      +  vector_a.z * vector_b.z
+      +  vector_a.w * vector_b.w;
 }
 
 //--------------------------------------------------------- non-member functions 

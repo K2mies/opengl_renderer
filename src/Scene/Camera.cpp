@@ -15,15 +15,15 @@ Camera::Camera            ( const vec3 &position,
                             float pitch ){
 
   this->position = position;
-  this->worldup = up;
+  this->worldup  = up;
   
-  this->yaw     = yaw;
-  this->pitch   = pitch;
-  this->roll    = 0.0f;
+  this->yaw      = yaw;
+  this->pitch    = pitch;
+  this->roll     = 0.0f;
 
-  speed         =  2.5f;
-  sensitivity   =  0.1f;
-  zoom          = 45.0f;
+  speed          =  2.5f;
+  sensitivity    =  0.1f;
+  zoom           = 45.0f;
 
   updateCameraVectors();
 
@@ -76,6 +76,9 @@ void Camera::processKeyboard( Camera_Movement direction, float deltaTime  ){
 
   if (direction == RIGHT)
     position += right * velocity;
+
+  //turns into a true fps camera
+  //position.y = 0.0f;
 }
 
 void Camera::processMouseMovement(float offset[2], GLboolean constrainPitch){

@@ -331,7 +331,7 @@ mat4 mat4::perspective  (  float fov,
     float tanHalfFov = std::tan(  fov / 2.0f  );
 
     result[0].x = 1.0f / (  aspect * tanHalfFov );
-    result[1].y = 1.0f / tanHalfFov;
+    result[1].y = 1.0f /             tanHalfFov;
 
     result[2].z = -(  farPlane + nearPlane  )
                  / (  farPlane - nearPlane  );
@@ -375,9 +375,9 @@ mat4 mat4::lookAt(const vec3& eye,
                   const vec3& center,
                   const vec3& up)
 {
-    vec3 forward  = (center - eye).normalized();
-    vec3 right    = forward.cross(up).normalized();
-    vec3 cameraUp = right.cross(forward);
+    vec3 forward  = vec3::normalized  (center - eye);
+    vec3 right    = vec3::cross       (forward, up).normalized();
+    vec3 cameraUp = vec3::cross       (right, forward);
 
     mat4 result(1.0f);
 
@@ -393,10 +393,10 @@ mat4 mat4::lookAt(const vec3& eye,
     result[1].z = -forward.y;
     result[2].z = -forward.z;
 
-    result[3].x = -right.dot(eye);
-    result[3].y = -cameraUp.dot(eye);
-    result[3].z =  forward.dot(eye);
-
+    result[3].x = -right.dot    (eye);
+    result[3].y = -cameraUp.dot (eye);
+    result[3].z =  forward.dot  (eye);
+  
     return result;
 }
 

@@ -56,12 +56,15 @@ public:
   float   length()                              const;
   
   float   lengthSquared()                       const;
-  
+    
   void    normalize();
   
-  vec4    normalized()                          const;
+  static  vec4       normalized              (  const vec4& vector  );
+  vec4               normalized         ()      const;
   
-  float   dot(  const vec4& other )             const;
+  float   dot       (  const vec4& other )             const;
+  static  float dot (  const vec4& vector_a, 
+                       const vec4& vector_b);
 
 	~vec4   () = default;
 };
