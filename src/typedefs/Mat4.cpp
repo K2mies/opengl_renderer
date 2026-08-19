@@ -1,5 +1,5 @@
 #include "Mat4.h"
-#include "Mat3.h"
+
 #include <stdexcept>
 #include <iomanip>
 #include <cmath>
@@ -400,6 +400,336 @@ mat4 mat4::lookAt(const vec3& eye,
     return result;
 }
 
+mat4 mat4::transpose() const
+{
+    mat4 result;
+
+    result[0].x = column[0].x;
+    result[0].y = column[1].x;
+    result[0].z = column[2].x;
+    result[0].w = column[3].x;
+
+    result[1].x = column[0].y;
+    result[1].y = column[1].y;
+    result[1].z = column[2].y;
+    result[1].w = column[3].y;
+
+    result[2].x = column[0].z;
+    result[2].y = column[1].z;
+    result[2].z = column[2].z;
+    result[2].w = column[3].z;
+
+    result[3].x = column[0].w;
+    result[3].y = column[1].w;
+    result[3].z = column[2].w;
+    result[3].w = column[3].w;
+
+    return result;
+}
+
+mat4 mat4::transpose(const mat4& matrix)
+{
+    return matrix.transpose();
+}
+
+float mat4::determinant() const
+{
+    return
+
+          column[0].x *
+        (
+              column[1].y *
+            (
+                  column[2].z * column[3].w
+                - column[3].z * column[2].w
+            )
+            - column[2].y *
+            (
+                  column[1].z * column[3].w
+                - column[3].z * column[1].w
+            )
+            + column[3].y *
+            (
+                  column[1].z * column[2].w
+                - column[2].z * column[1].w
+            )
+        )
+        - column[1].x *
+        (
+              column[0].y *
+            (
+                  column[2].z * column[3].w
+                - column[3].z * column[2].w
+            )
+            - column[2].y *
+            (
+                  column[0].z * column[3].w
+                - column[3].z * column[0].w
+            )
+            + column[3].y *
+            (
+                  column[0].z * column[2].w
+                - column[2].z * column[0].w
+            )
+        )
+        + column[2].x *
+        (
+              column[0].y *
+            (
+                  column[1].z * column[3].w
+                - column[3].z * column[1].w
+            )
+            - column[1].y *
+            (
+                  column[0].z * column[3].w
+                - column[3].z * column[0].w
+            )
+            + column[3].y *
+            (
+                  column[0].z * column[1].w
+                - column[1].z * column[0].w
+            )
+        )
+        - column[3].x *
+        (
+              column[0].y *
+            (
+                  column[1].z * column[2].w
+                - column[2].z * column[1].w
+            )
+            - column[1].y *
+            (
+                  column[0].z * column[2].w
+                - column[2].z * column[0].w
+            )
+            + column[2].y *
+            (
+                  column[0].z * column[1].w
+                - column[1].z * column[0].w
+            )
+        );
+}
+
+float mat4::determinant(const mat4& matrix)
+{
+    return matrix.determinant();
+}
+
+mat4 mat4::inverse() const
+{
+    float coef00 =
+          column[2].z * column[3].w
+        - column[3].z * column[2].w;
+
+    float coef02 =
+          column[1].z * column[3].w
+        - column[3].z * column[1].w;
+
+    float coef03 =
+          column[1].z * column[2].w
+        - column[2].z * column[1].w;
+
+    float coef04 =
+          column[2].y * column[3].w
+        - column[3].y * column[2].w;
+
+    float coef06 =
+          column[1].y * column[3].w
+        - column[3].y * column[1].w;
+
+    float coef07 =
+          column[1].y * column[2].w
+        - column[2].y * column[1].w;
+
+    float coef08 =
+          column[2].y * column[3].z
+        - column[3].y * column[2].z;
+
+    float coef10 =
+          column[1].y * column[3].z
+        - column[3].y * column[1].z;
+
+    float coef11 =
+          column[1].y * column[2].z
+        - column[2].y * column[1].z;
+
+    float coef12 =
+          column[2].x * column[3].w
+        - column[3].x * column[2].w;
+
+    float coef14 =
+          column[1].x * column[3].w
+        - column[3].x * column[1].w;
+
+    float coef15 =
+          column[1].x * column[2].w
+        - column[2].x * column[1].w;
+
+    float coef16 =
+          column[2].x * column[3].z
+        - column[3].x * column[2].z;
+
+    float coef18 =
+          column[1].x * column[3].z
+        - column[3].x * column[1].z;
+
+    float coef19 =
+          column[1].x * column[2].z
+        - column[2].x * column[1].z;
+
+    float coef20 =
+          column[2].x * column[3].y
+        - column[3].x * column[2].y;
+
+    float coef22 =
+          column[1].x * column[3].y
+        - column[3].x * column[1].y;
+
+    float coef23 =
+          column[1].x * column[2].y
+        - column[2].x * column[1].y;
+
+    vec4 fac0(
+        coef00,
+        coef00,
+        coef02,
+        coef03
+    );
+
+    vec4 fac1(
+        coef04,
+        coef04,
+        coef06,
+        coef07
+    );
+
+    vec4 fac2(
+        coef08,
+        coef08,
+        coef10,
+        coef11
+    );
+
+    vec4 fac3(
+        coef12,
+        coef12,
+        coef14,
+        coef15
+    );
+
+    vec4 fac4(
+        coef16,
+        coef16,
+        coef18,
+        coef19
+    );
+
+    vec4 fac5(
+        coef20,
+        coef20,
+        coef22,
+        coef23
+    );
+
+    vec4 vec0(
+        column[1].x,
+        column[0].x,
+        column[0].x,
+        column[0].x
+    );
+
+    vec4 vec1(
+        column[1].y,
+        column[0].y,
+        column[0].y,
+        column[0].y
+    );
+
+    vec4 vec2(
+        column[1].z,
+        column[0].z,
+        column[0].z,
+        column[0].z
+    );
+
+    vec4 vec3(
+        column[1].w,
+        column[0].w,
+        column[0].w,
+        column[0].w
+    );
+
+    vec4 inv0 =
+          vec1 * fac0
+        - vec2 * fac1
+        + vec3 * fac2;
+
+    vec4 inv1 =
+          vec0 * fac0
+        - vec2 * fac3
+        + vec3 * fac4;
+
+    vec4 inv2 =
+          vec0 * fac1
+        - vec1 * fac3
+        + vec3 * fac5;
+
+    vec4 inv3 =
+          vec0 * fac2
+        - vec1 * fac4
+        + vec2 * fac5;
+
+    vec4 signA(
+         1.0f,
+        -1.0f,
+         1.0f,
+        -1.0f
+    );
+
+    vec4 signB(
+        -1.0f,
+         1.0f,
+        -1.0f,
+         1.0f
+    );
+
+    mat4 result(
+        inv0 * signA,
+        inv1 * signB,
+        inv2 * signA,
+        inv3 * signB
+    );
+
+    vec4 row0(
+        result[0].x,
+        result[1].x,
+        result[2].x,
+        result[3].x
+    );
+
+    float determinant =
+        column[0].x * row0.x
+      + column[0].y * row0.y
+      + column[0].z * row0.z
+      + column[0].w * row0.w;
+
+    if (determinant == 0.0f)
+        throw std::runtime_error("mat4 cannot invert singular matrix");
+
+    float inverseDeterminant = 1.0f / determinant;
+
+    result[0] *= inverseDeterminant;
+    result[1] *= inverseDeterminant;
+    result[2] *= inverseDeterminant;
+    result[3] *= inverseDeterminant;
+
+    return result;
+}
+
+mat4 mat4::inverse(const mat4& matrix)
+{
+    return matrix.inverse();
+}
 
 //--------------------------------------------------------- non-member functions 
 std::ostream& operator<<(std::ostream& out, const mat4& obj)

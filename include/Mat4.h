@@ -77,6 +77,15 @@ public:
                                             const vec3& center,
                                             const vec3& up    ); 
 
+          mat4            transpose      () const;
+  static  mat4            transpose      (  const mat4& matrix );
+
+          float           determinant    () const;
+  static  float           determinant    (  const mat4& matrix );
+
+          mat4            inverse        () const;
+  static  mat4            inverse        (  const mat4& matrix );
+
 	//----------------------------------------------------------- destructor
 	~mat4   () = default;
 };

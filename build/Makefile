@@ -201,6 +201,30 @@ src/Scene/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Scene/Camera.cpp.s
 .PHONY : src/Scene/Camera.cpp.s
 
+src/Typedefs/Mat2.o: src/Typedefs/Mat2.cpp.o
+.PHONY : src/Typedefs/Mat2.o
+
+# target to build an object file
+src/Typedefs/Mat2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat2.cpp.o
+.PHONY : src/Typedefs/Mat2.cpp.o
+
+src/Typedefs/Mat2.i: src/Typedefs/Mat2.cpp.i
+.PHONY : src/Typedefs/Mat2.i
+
+# target to preprocess a source file
+src/Typedefs/Mat2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat2.cpp.i
+.PHONY : src/Typedefs/Mat2.cpp.i
+
+src/Typedefs/Mat2.s: src/Typedefs/Mat2.cpp.s
+.PHONY : src/Typedefs/Mat2.s
+
+# target to generate assembly for a file
+src/Typedefs/Mat2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat2.cpp.s
+.PHONY : src/Typedefs/Mat2.cpp.s
+
 src/Typedefs/Mat3.o: src/Typedefs/Mat3.cpp.o
 .PHONY : src/Typedefs/Mat3.o
 
@@ -248,6 +272,30 @@ src/Typedefs/Mat4.s: src/Typedefs/Mat4.cpp.s
 src/Typedefs/Mat4.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Mat4.cpp.s
 .PHONY : src/Typedefs/Mat4.cpp.s
+
+src/Typedefs/Vec2.o: src/Typedefs/Vec2.cpp.o
+.PHONY : src/Typedefs/Vec2.o
+
+# target to build an object file
+src/Typedefs/Vec2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec2.cpp.o
+.PHONY : src/Typedefs/Vec2.cpp.o
+
+src/Typedefs/Vec2.i: src/Typedefs/Vec2.cpp.i
+.PHONY : src/Typedefs/Vec2.i
+
+# target to preprocess a source file
+src/Typedefs/Vec2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec2.cpp.i
+.PHONY : src/Typedefs/Vec2.cpp.i
+
+src/Typedefs/Vec2.s: src/Typedefs/Vec2.cpp.s
+.PHONY : src/Typedefs/Vec2.s
+
+# target to generate assembly for a file
+src/Typedefs/Vec2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/OpenGLRenderer.dir/build.make CMakeFiles/OpenGLRenderer.dir/src/Typedefs/Vec2.cpp.s
+.PHONY : src/Typedefs/Vec2.cpp.s
 
 src/Typedefs/Vec3.o: src/Typedefs/Vec3.cpp.o
 .PHONY : src/Typedefs/Vec3.o
@@ -411,12 +459,18 @@ help:
 	@echo "... src/Scene/Camera.o"
 	@echo "... src/Scene/Camera.i"
 	@echo "... src/Scene/Camera.s"
+	@echo "... src/Typedefs/Mat2.o"
+	@echo "... src/Typedefs/Mat2.i"
+	@echo "... src/Typedefs/Mat2.s"
 	@echo "... src/Typedefs/Mat3.o"
 	@echo "... src/Typedefs/Mat3.i"
 	@echo "... src/Typedefs/Mat3.s"
 	@echo "... src/Typedefs/Mat4.o"
 	@echo "... src/Typedefs/Mat4.i"
 	@echo "... src/Typedefs/Mat4.s"
+	@echo "... src/Typedefs/Vec2.o"
+	@echo "... src/Typedefs/Vec2.i"
+	@echo "... src/Typedefs/Vec2.s"
 	@echo "... src/Typedefs/Vec3.o"
 	@echo "... src/Typedefs/Vec3.i"
 	@echo "... src/Typedefs/Vec3.s"

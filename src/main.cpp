@@ -124,7 +124,8 @@ void implamentation_info        ();
 int main (){ 
 
   //----------------------------------------------------------------------- TESTS
- 
+  
+
   //----------------------------------------------------- 0. Initialize variables
 
   window_dimensions[width]   = 800;
@@ -491,7 +492,6 @@ int main (){
       angles[z]  = math::radians(time) * 30.0f;
 
       matrix.local = matrix.local * mat4::rotateXYZ     ( angles );
-
       matrix.local = matrix.local * mat4::translate     ( vec3 ( sin(time) 
                                                                , sin(time)
                                                                , sin(time) 
@@ -632,8 +632,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     
     if (firstMouse){
 
-      last[x]    = position[x];
-      last[y]    = position[y];
+      last  [x]  = position[x];
+      last  [y]  = position[y];
 
       firstMouse = false;
 
@@ -641,11 +641,11 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
     float offset[2];
 
-    offset[x]    = position[x] - last[x];
-    offset[y]    = last[y] -  position[y];
+    offset  [x]  = position[x] - last    [x];
+    offset  [y]  = last    [y] - position[y];
 
-    last[x]      = position[x];
-    last[y]      = position[y];
+    last    [x]  = position[x];
+    last    [y]  = position[y];
 
     camera.processMouseMovement(offset);
 }

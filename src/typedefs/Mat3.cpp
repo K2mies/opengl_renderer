@@ -270,6 +270,133 @@ mat3 mat3::rotate(float angle, const vec3& axis)
     return result;
 }
 
+mat3 mat3::transpose() const{
+    
+    mat3 result;
+
+    result[0].x = column[0].x;
+    result[0].y = column[1].x;
+    result[0].z = column[2].x;
+
+    result[1].x = column[0].y;
+    result[1].y = column[1].y;
+    result[1].z = column[2].y;
+
+    result[2].x = column[0].z;
+    result[2].y = column[1].z;
+    result[2].z = column[2].z;
+
+    return result;
+}
+
+mat3 mat3::transpose(const mat3& matrix)
+{
+    return matrix.transpose();
+}
+
+float mat3::determinant() const
+{
+    return
+
+          column[0].x
+        * (
+              column[1].y * column[2].z
+            - column[2].y * column[1].z
+          )
+
+        - column[1].x
+        * (
+              column[0].y * column[2].z
+            - column[2].y * column[0].z
+          )
+
+        + column[2].x
+        * (
+              column[0].y * column[1].z
+            - column[1].y * column[0].z
+          );
+}
+
+float mat3::determinant(const mat3& matrix)
+{
+    return matrix.determinant();
+}
+
+mat3 mat3::inverse() const
+{
+    float det = determinant();
+
+    if (det == 0.0f)
+        throw std::runtime_error("mat3 cannot invert singular matrix");
+
+    float invDet = 1.0f / det;
+
+    mat3 result;
+
+    result[0].x =
+    (
+          column[1].y * column[2].z
+        - column[2].y * column[1].z
+    ) * invDet;
+
+    result[0].y =
+    (
+          column[2].y * column[0].z
+        - column[0].y * column[2].z
+    ) * invDet;
+
+    result[0].z =
+    (
+          column[0].y * column[1].z
+        - column[1].y * column[0].z
+    ) * invDet;
+
+
+    result[1].x =
+    (
+          column[2].x * column[1].z
+        - column[1].x * column[2].z
+    ) * invDet;
+
+    result[1].y =
+    (
+          column[0].x * column[2].z
+        - column[2].x * column[0].z
+    ) * invDet;
+
+    result[1].z =
+    (
+          column[1].x * column[0].z
+        - column[0].x * column[1].z
+    ) * invDet;
+
+
+    result[2].x =
+    (
+          column[1].x * column[2].y
+        - column[2].x * column[1].y
+    ) * invDet;
+
+    result[2].y =
+    (
+          column[2].x * column[0].y
+        - column[0].x * column[2].y
+    ) * invDet;
+
+    result[2].z =
+    (
+          column[0].x * column[1].y
+        - column[1].x * column[0].y
+    ) * invDet;
+
+    return result;
+}
+
+mat3 mat3::inverse(const mat3& matrix)
+{
+    return matrix.inverse();
+}
+
 //--------------------------------------------------------- non-member functions 
 mat3 operator*(float num, const mat3& obj)
 {

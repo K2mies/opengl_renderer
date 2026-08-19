@@ -19,8 +19,10 @@ add_executable(OpenGLRenderer
     src/Utils/MathUtils.cpp
     src/Typedefs/Vec4.cpp
     src/Typedefs/Vec3.cpp
+    src/Typedefs/Vec2.cpp
     src/Typedefs/Mat4.cpp
     src/Typedefs/Mat3.cpp
+    src/Typedefs/Mat2.cpp
     third_party/glad/src/glad.c
 )
 
