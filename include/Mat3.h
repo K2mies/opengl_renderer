@@ -64,6 +64,7 @@ public:
 
     static mat3 rotateZ       (float);
 
+    static mat3 rotateXYZ     (float angles[3]);
     static mat3 rotate        (float angle, const vec3& axis);
 
     mat3        transpose     ()                                    const;

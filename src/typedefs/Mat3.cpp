@@ -4,6 +4,14 @@
 #include <iomanip>
 #include <cmath>
 
+enum AxisType {
+
+  x = 0,
+  y = 1,
+  z = 2,
+  w = 3
+};
+
 //--------------------------------------------------------- constructors
 mat3::mat3(){
 
@@ -243,6 +251,16 @@ mat3 mat3::rotateZ ( float angle ){
 
     return result;
 
+}
+mat3 mat3::rotateXYZ     (float angles[3]){
+  
+  mat3 result;
+  
+  result = result * mat3::rotateX ( angles[x] );
+  result = result * mat3::rotateY ( angles[y] );
+  result = result * mat3::rotateZ ( angles[z] );
+
+  return result;
 }
 
 mat3 mat3::rotate(float angle, const vec3& axis)
