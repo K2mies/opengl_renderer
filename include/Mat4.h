@@ -51,7 +51,13 @@ public:
   
   static  mat4            identity       ();
   static  mat4            translate      (  const vec3& );
+
   static  mat4            scale          (  const vec3& );
+  static  mat4            scale          (  const float scale[3] );
+  static  mat4            scale          (  const float scale    );
+  static  mat4            scale          (  const float scale_x, 
+                                            const float scale_y, 
+                                            const float scale_z  );
   
   static  mat4            rotateX        (  float );
   static  mat4            rotateY        (  float );
@@ -75,7 +81,7 @@ public:
 
   static  mat4            lookAt         (  const vec3& eye,
                                             const vec3& center,
-                                            const vec3& up    ); 
+                                            const vec3& up     ); 
 
           mat4            transpose      () const;
   static  mat4            transpose      (  const mat4& matrix );

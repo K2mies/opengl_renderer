@@ -52,3 +52,9 @@ struct Time
   float last_frame;
   float current_frame;
 };
+
+struct Color
+{
+  vec3  object;
+  vec3  light;
+};

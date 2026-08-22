@@ -77,6 +77,12 @@ void Camera::processKeyboard( Camera_Movement direction, float deltaTime  ){
   if (direction == RIGHT)
     position += right * velocity;
 
+  if (direction == UP)
+    position += up    * velocity;
+
+  if (direction == DOWN)
+    position -= up    * velocity;
+
   //turns into a true fps camera
   //position.y = 0.0f;
 }

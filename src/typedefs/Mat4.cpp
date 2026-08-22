@@ -234,6 +234,43 @@ mat4 mat4::scale        ( const vec3& scale ){
 
 }
 
+mat4 mat4::scale        ( const float scale[3] ){
+
+    mat4 result(1.0f);
+
+    result[0].x = scale[x];
+    result[1].y = scale[y];
+    result[2].z = scale[z];
+
+    return result;
+
+}
+
+mat4 mat4::scale        ( const float scale ){
+
+    mat4 result(1.0f);
+
+    result[0].x = scale;
+    result[1].y = scale;
+    result[2].z = scale;
+
+    return result;
+
+}
+
+mat4 mat4::scale        ( const float scale_x, const float scale_y, const float scale_z ){
+
+    mat4 result(1.0f);
+
+    result[0].x = scale_x;
+    result[1].y = scale_y;
+    result[2].z = scale_z;
+
+    return result;
+
+}
+
+
 mat4 mat4::rotateX ( float angle ){
 
   mat4  result(1.0f);

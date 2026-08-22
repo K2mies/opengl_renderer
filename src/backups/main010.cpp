@@ -5,6 +5,13 @@
 #include <GLFW/glfw3.h>
 #include "stb_image.h"
 
+// GLM 
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
+
+//#define GLM_ENABLE_EXPERIMENTAL
+//#include <glm/gtx/string_cast.hpp>
 
 // Objects / Classes
 #include "Shader.h"
@@ -85,8 +92,6 @@ Time    timer;
 
 Euler   euler;
 
-Color   color;
-
 //-------------------------------------------------------------- Global Variables
 
 float pointSize;
@@ -101,8 +106,6 @@ bool  firstMouse = true;
 
 vec3  position   = vec3(0.0f, 0.0f, 3.0f);
 vec3  up         = vec3(0.0f, 1.0f, 0.0f);
-
-vec3  light_position = vec3(1.2f, 1.0f, 2.0f);
 
 
 //---------------------------------------------------------------- Global Objects
@@ -174,9 +177,6 @@ int main (){
   euler.yaw         = -90.0f;
   euler.roll        =   0.0f;
 
-  color.object      = vec3(1.0f, 0.5f, 0.31f);
-  color.light       = vec3(1.0f, 1.0f, 1.0f);
-
   //---------------------------------------------------------- 1. Initialize GLFW
 
   if (!glfwInit()){
@@ -236,17 +236,11 @@ int main (){
   }
 
  //---------------------------------------------------- 5. Create Shader Program
-    
-  Shader lightShader (
-    "../assets/Shaders/light.vert",
-    "../assets/Shaders/light.frag"
-  );
-
-  Shader colorShader (
-    "../assets/Shaders/colors.vert",
-    "../assets/Shaders/colors.frag"
-  );
-
+  
+  Shader shaderProgram (
+    "../assets/Shaders/coord.vert",
+    "../assets/Shaders/coord.frag"
+  );   
   // configure global opengl state
   // -----------------------------
     glEnable(GL_DEPTH_TEST);
@@ -260,45 +254,45 @@ int main (){
   
       //======================================================== Back (-Z)
   
-      -0.5f, -0.5f, -0.5f,   // 0
-       0.5f, -0.5f, -0.5f,   // 1
-       0.5f,  0.5f, -0.5f,   // 2
-      -0.5f,  0.5f, -0.5f,   // 3
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   // 0
+       0.5f, -0.5f, -0.5f,   1.0f, 0.0f,   // 1
+       0.5f,  0.5f, -0.5f,   1.0f, 1.0f,   // 2
+      -0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   // 3
   
       //======================================================= Front (+Z)
   
-      -0.5f, -0.5f,  0.5f,   // 4
-       0.5f, -0.5f,  0.5f,   // 5
-       0.5f,  0.5f,  0.5f,   // 6
-      -0.5f,  0.5f,  0.5f,   // 7
+      -0.5f, -0.5f,  0.5f,   0.0f, 0.0f,   // 4
+       0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   // 5
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   // 6
+      -0.5f,  0.5f,  0.5f,   0.0f, 1.0f,   // 7
   
       //======================================================== Left (-X)
   
-      -0.5f, -0.5f, -0.5f,   // 8
-      -0.5f, -0.5f,  0.5f,   // 9
-      -0.5f,  0.5f,  0.5f,   //10
-      -0.5f,  0.5f, -0.5f,   //11
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   // 8
+      -0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   // 9
+      -0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //10
+      -0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   //11
   
       //======================================================= Right (+X)
   
-       0.5f, -0.5f, -0.5f,   //12
-       0.5f, -0.5f,  0.5f,   //13
-       0.5f,  0.5f,  0.5f,   //14
-       0.5f,  0.5f, -0.5f,   //15
+       0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   //12
+       0.5f, -0.5f,  0.5f,   1.0f, 0.0f,   //13
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //14
+       0.5f,  0.5f, -0.5f,   0.0f, 1.0f,   //15
   
       //======================================================= Bottom (-Y)
   
-      -0.5f, -0.5f, -0.5f,   //16
-       0.5f, -0.5f, -0.5f,   //17
-       0.5f, -0.5f,  0.5f,   //18
-      -0.5f, -0.5f,  0.5f,   //19
+      -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,   //16
+       0.5f, -0.5f, -0.5f,   1.0f, 0.0f,   //17
+       0.5f, -0.5f,  0.5f,   1.0f, 1.0f,   //18
+      -0.5f, -0.5f,  0.5f,   0.0f, 1.0f,   //19
   
       //========================================================== Top (+Y)
   
-      -0.5f,  0.5f, -0.5f,   //20
-       0.5f,  0.5f, -0.5f,   //21
-       0.5f,  0.5f,  0.5f,   //22
-      -0.5f,  0.5f,  0.5f    //23
+      -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,   //20
+       0.5f,  0.5f, -0.5f,   1.0f, 0.0f,   //21
+       0.5f,  0.5f,  0.5f,   1.0f, 1.0f,   //22
+      -0.5f,  0.5f,  0.5f,   0.0f, 1.0f    //23
   };
 
     // EBO indicies
@@ -330,27 +324,42 @@ int main (){
 
     };
 
+    // world space positions of our cubes
+    vec3 cubePositions[] = {
+
+       vec3( 0.0f,  0.0f,  0.0f),
+       vec3( 2.0f,  5.0f, -15.0f),
+       vec3(-1.5f, -2.2f, -2.5f),
+       vec3(-3.8f, -2.0f, -12.3f),
+       vec3( 2.4f, -0.4f, -3.5f),
+       vec3(-1.7f,  3.0f, -7.5f),
+       vec3( 1.3f, -2.0f, -2.5f),
+       vec3( 1.5f,  2.0f, -2.5f),
+       vec3( 1.5f,  0.2f, -1.5f),
+       vec3(-1.3f,  1.0f, -1.5f)
+
+    };
 
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
-  // CUBE OBJECT---------------------------------------------
-  unsigned int cube_objs[3];
+  //initialise all VBO's and VAO's as openGL objects
+  unsigned int objects[3];
 
-  glGenVertexArrays (1, &cube_objs[VAO]);
-  glGenBuffers      (1, &cube_objs[VBO]);
-  glGenBuffers      (1, &cube_objs[EBO]);
+  glGenVertexArrays (1, &objects[VAO]);
+  glGenBuffers      (1, &objects[VBO]);
+  glGenBuffers      (1, &objects[EBO]);
 
   // Setup
   // --------------------
-  glBindVertexArray (cube_objs[VAO]);
+  glBindVertexArray (objects[VAO]);
 
-  glBindBuffer      (GL_ARRAY_BUFFER,   cube_objs[VBO]);
+  glBindBuffer      (GL_ARRAY_BUFFER,   objects[VBO]);
   glBufferData      (GL_ARRAY_BUFFER,
                                         sizeof(vertices), 
                                         vertices, 
                                         GL_STATIC_DRAW);
   
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_objs[EBO]);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, objects[EBO]);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER,
                                         sizeof(indices),
                                         indices,
@@ -362,56 +371,41 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-      3 * sizeof(float),
+    5 * sizeof(float),
     (void*)0
   );
 
   glEnableVertexAttribArray (0);
 
-
-  // LIGHT OBJECT--------------------------------------------
-  unsigned int light_objs[3];
-
-  glGenVertexArrays (1, &light_objs[VAO]);
-  glGenBuffers      (1, &light_objs[VBO]);
-  glGenBuffers      (1, &light_objs[EBO]);
-
-  glBindVertexArray (    light_objs[VAO]);
-
-  glBindBuffer      (GL_ARRAY_BUFFER,   light_objs[VBO]);
-  glBufferData      (GL_ARRAY_BUFFER,
-                                        sizeof(vertices), 
-                                        vertices, 
-                                        GL_STATIC_DRAW);
   
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
-                                        sizeof(indices),
-                                        indices,
-                                        GL_STATIC_DRAW);
-
-  // Attribute #0 (LOCATION) :
-  glVertexAttribPointer (
-    0, 
-    3,
+  // Attribute #2 (UV) :
+  glVertexAttribPointer(
+    1,
+    2,
     GL_FLOAT,
     GL_FALSE,
-      3 * sizeof(float),
-    (void*)0
+    5 * sizeof(float),
+    (void*)(3 * sizeof(float))
   );
 
-  glEnableVertexAttribArray(0);
-
- 
+  glEnableVertexAttribArray    (1);
 
   // Unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray            (0);
 
- 
+  //----------------------------------------------------------------- 8. Textures 
+  
+  Texture containerTexture ("../assets/Textures/container.jpg");
+  Texture faceTexture      ("../assets/Textures/awesomeface.png");
 
   //--------------------------------------------- 9. Build/Compile Shader Program
 
+  shaderProgram.use();
+
+  // Send textures to the shader program uniforms
+  shaderProgram.setInt     ("ourTexture1", 0);
+  shaderProgram.setInt     ("ourTexture2", 1);
 
   //-------------------------------------------------------- 10. Set the viewport 
   
@@ -452,19 +446,12 @@ int main (){
   matrix.projection = projection[perspective];
   
   // Pass the coordinate matricies to the shader.
-  colorShader.setMatrix      ("matrix", matrix);
-  lightShader.setMatrix      ("matrix", matrix);
+  shaderProgram.setMatrix      ("matrix", matrix);
 
   //------------------------------------------------------------- 14. Render Loop
   
   while (!glfwWindowShouldClose(window))
-  {   
-      // set delta time; 
-      timer.current_frame = glfwGetTime();
-      timer.delta_time    = timer.current_frame 
-                          - timer.last_frame;
-
-      timer.last_frame    = timer.current_frame;
+  {
       // Input
       processInput        (window);
 
@@ -472,18 +459,53 @@ int main (){
       glClearColor        (0.2f, 0.3f, 0.3f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+      // Use our shader program
+      shaderProgram.use();
+     
       // Update the point size
       glPointSize         (pointSize);
+      
+      // Bind Textures to GL_TEXTURE0 + unit.
+      containerTexture.bind (0);
+      faceTexture.bind      (1);
+      
+      // Bind the relvent VAO
+      glBindVertexArray     (objects[VAO]); 
 
-      // Use our Lightshader program
-      colorShader.use();
+      // clip = projection * view * model * local....
+      
+      // set delta time; 
+      timer.current_frame = glfwGetTime();
+      timer.delta_time    = timer.current_frame 
+                          - timer.last_frame;
+
+      timer.last_frame    = timer.current_frame;
+
+      // local space matrix
+      matrix.local = mat4                               ( 1.0f  ); // create identity matrix
+      float angles[3];
+
+      float time = timer.current_frame;
+
+      angles[x]  = math::radians(time) * 10.0f;
+      angles[y]  = math::radians(time) * 20.0f;
+      angles[z]  = math::radians(time) * 30.0f;
+
+      matrix.local = matrix.local * mat4::rotateXYZ     ( angles );
+      matrix.local = matrix.local * mat4::translate     ( vec3 ( sin(time) 
+                                                               , sin(time)
+                                                               , sin(time) 
+                                                               ) );
 
 
-
-      colorShader.setVec3("lightColor",  color.light);
-      colorShader.setVec3("objectColor", color.object);
-
- 
+      // model space matrix
+      matrix.model = mat4 (1.0f); // create identity matrix
+      matrix.model = matrix.model * mat4::rotate  ( math::radians ( -55.0f  ), 
+                                                             vec3 (  1.0f,
+                                                                     0.0f, 
+                                                                     0.0f  ) 
+                                                  );
+   
       projection[perspective]  = mat4::perspective  (fov, 
                                                     (float)window_dimensions[width] 
                                                   / (float)window_dimensions[height],
@@ -495,44 +517,43 @@ int main (){
       matrix.projection = projection[perspective];
 
       // update view matrix with LookAt every frame
-      matrix.view   = camera.getViewMatrix();
-
-      matrix.model  = mat4(1.0f);
-     
-      colorShader.setMatrix      ("matrix",      matrix);
+      matrix.view = camera.getViewMatrix();
       
+      // set the uniform matrix in the shader
+      shaderProgram.setMatrix      ("matrix",      matrix);
 
-      // Draw the Cube
-      glBindVertexArray(cube_objs[VAO]);
-      glDrawElements(
-        GL_TRIANGLES,
-        36,
-        GL_UNSIGNED_INT,
-        0
-      );
-      glDrawArrays(GL_POINTS, 0, 36);
+      // set weights
+      shaderProgram.setWeight      ("weight",      weight); 
 
-      // setup the lgiht object
-      lightShader.use();
+      // DRAW...
 
-      lightShader.setVec3("lightColor", color.light);
+      for (unsigned int i = 0; i < 10; i++)  {
 
-      matrix.model = mat4(1.0);
-      matrix.model = matrix.model * mat4::translate (light_position);
-      matrix.model = matrix.model * mat4::scale     (0.2f);
+        // calculate the model matrix for each object and pass it to shader before drawing
+        matrix.model = mat4(1.0f);
+        matrix.model = matrix.model * mat4::translate(cubePositions[i]);
 
-      lightShader.setMatrix     ("matrix",       matrix);
+        float angle  = 20.0f * i;
 
-      glBindVertexArray(light_objs[VAO]);
-      glDrawElements(
-        GL_TRIANGLES,
-        36,
-        GL_UNSIGNED_INT,
-        0
-      );
-      glDrawArrays(GL_POINTS, 0, 36);
-      
- 
+        matrix.model = matrix.model * mat4::rotate( math::radians ( angle ),
+                                                    vec3          ( 1.0f,
+                                                                    0.0f,
+                                                                    0.0f  ) 
+                                                  );
+
+        shaderProgram.setMat4("matrix.model", matrix.model);
+
+        glDrawElements(
+                        GL_TRIANGLES,
+                        36,
+                        GL_UNSIGNED_INT,
+                        nullptr
+                      );
+
+        glDrawArrays(GL_POINTS, 0, 36);
+
+      }
+
       // Swap the buffers / present the finished frame.
       glfwSwapBuffers               (window);
 
@@ -543,13 +564,10 @@ int main (){
   //----------------------------------------------------------------- 15. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays        (1, &cube_objs  [VAO]);
-  glDeleteBuffers             (1, &cube_objs  [VBO]);
-  glDeleteBuffers             (1, &cube_objs  [EBO]);
+  glDeleteVertexArrays        (1, &objects[VAO]);
+  glDeleteBuffers             (1, &objects[VBO]);
+  glDeleteBuffers             (1, &objects[EBO]);
 
-  glDeleteVertexArrays        (1, &light_objs [VAO]);
-  glDeleteBuffers             (1, &light_objs [VBO]);
-  glDeleteBuffers             (1, &light_objs [EBO]);
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;
@@ -653,12 +671,32 @@ void processInput(GLFWwindow *window)
     }
   }
 
+  if  (glfwGetKey (window, GLFW_KEY_UP)     == GLFW_PRESS){
+        location[y] += 0.1f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_DOWN)   == GLFW_PRESS){
+        location[y] -= 0.1f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_RIGHT)  == GLFW_PRESS){
+        location[x] += 0.1f;
+  }
+
+  if  (glfwGetKey (window, GLFW_KEY_LEFT)   == GLFW_PRESS){
+        location[x] -= 0.1f;
+  }
+
   if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
-      color.light = color.light - vec3(0.01f, 0.0f, 0.0f);
+        weight.texture -= 0.01f;
+    if (weight.texture <= 0.0f)
+        weight.texture =  0.0f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_4)   == GLFW_PRESS){
-      color.light = color.light + vec3(0.01f, 0.0f, 0.0f);
+        weight.texture += 0.01f;
+    if (weight.texture >= 1.0f)
+        weight.texture =  1.0f;
   }
 
    if  (glfwGetKey (window, GLFW_KEY_5)   == GLFW_PRESS){
@@ -724,13 +762,5 @@ void processInput(GLFWwindow *window)
 
   if (glfwGetKey(window, GLFW_KEY_D)    == GLFW_PRESS){
     camera.processKeyboard(RIGHT,    timer.delta_time);
-  }
-
-  if (glfwGetKey(window, GLFW_KEY_UP)   == GLFW_PRESS){
-    camera.processKeyboard(UP,        timer.delta_time);
-  }
-
-  if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
-    camera.processKeyboard(DOWN,      timer.delta_time);
   }
 }

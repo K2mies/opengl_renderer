@@ -47,6 +47,15 @@ class Shader  {
                                             float z,
                                             float w)      const;
 
+    void setVec2  (const std::string& name, 
+                   const        vec2& vector)             const;
+
+    void setVec3  (const std::string& name, 
+                   const        vec3& vector)             const;
+
+    void setVec4  (const std::string& name, 
+                   const        vec4& vector)             const;
+
     //------------------------------------- set matrix functions
 //    void setMat2(const std::string &name,   const glm::mat2 &mat)
 //
