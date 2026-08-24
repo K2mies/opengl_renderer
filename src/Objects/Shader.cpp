@@ -205,6 +205,7 @@ void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
     setMat4(name + ".view",       matrix.view);
     setMat4(name + ".projection", matrix.projection);
     setMat4(name + ".clip",       matrix.clip);
+    setMat3(name + ".normal",     matrix.normal);
 
 }
 // utility function for checking shader compilation/linking errors.

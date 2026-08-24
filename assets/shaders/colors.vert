@@ -2,9 +2,11 @@
 
 //------------------------------------------------ attributes
 layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
 
 //---------------------------------------------------- in/out
-
+out vec3 Normal;
+out vec3 fragmentPosition;
 //-------------------------------------------------- uniforms
 
 //------------------------------------------------- matricies
@@ -14,6 +16,7 @@ struct    Matrix {
           mat4 model;
           mat4 view;
           mat4 projection;
+          mat3 normal;
 };
 
 uniform   Matrix matrix;
@@ -25,5 +28,9 @@ void main() {
                       * matrix.model 
                       * matrix.local;
 
-    gl_Position       = clip_space * vec4(aPos, 1.0);  
+    gl_Position       = clip_space * vec4(aPos, 1.0);
+
+    fragmentPosition  = vec3(matrix.model * vec4(aPos, 1.0));
+
+    Normal            = matrix.normal * aNormal;
 }

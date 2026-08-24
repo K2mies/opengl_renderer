@@ -1,5 +1,6 @@
 #include  "Vec4.h"
 #include <cmath>
+#include "MathUtils.h"
 
 //----------------------------------------------------------------- constructors
 vec4::vec4()  {
@@ -230,7 +231,7 @@ bool  vec4::operator != ( const vec4& other ) const
 
 float vec4::length()                  const{
 
-  return std::sqrt( lengthSquared() );
+  return math::sqrt( lengthSquared() );
 
 }
 

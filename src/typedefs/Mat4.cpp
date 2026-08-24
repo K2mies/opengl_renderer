@@ -768,6 +768,56 @@ mat4 mat4::inverse(const mat4& matrix)
     return matrix.inverse();
 }
 
+mat3 mat4::upperLeft3x3() const
+{
+    return mat3(
+        vec3(column[0].x, column[0].y, column[0].z),
+        vec3(column[1].x, column[1].y, column[1].z),
+        vec3(column[2].x, column[2].y, column[2].z)
+    );
+}
+
+mat3 mat4::upperLeft3x3(const mat4& matrix)
+{
+    return mat3(
+
+           vec3(matrix.column[0].x,
+                matrix.column[0].y,
+                matrix.column[0].z),
+
+           vec3(matrix.column[1].x,
+                matrix.column[1].y,
+                matrix.column[1].z),
+
+           vec3(matrix.column[2].x,
+                matrix.column[2].y,
+                matrix.column[2].z)
+    );
+}
+
+mat3 mat4::normalMatrix() const
+{
+    mat3 normal;
+
+    normal = upperLeft3x3();
+    normal = normal.inverse();
+    normal = normal.transpose();
+
+    return normal;
+}
+
+mat3 mat4::normalMatrix(const mat4& matrix)
+{
+    
+    mat3 normal;
+
+    normal = matrix.upperLeft3x3();
+    normal = normal.inverse();
+    normal = normal.transpose();
+
+    return normal;
+}
+
 //--------------------------------------------------------- non-member functions 
 std::ostream& operator<<(std::ostream& out, const mat4& obj)
 {

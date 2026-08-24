@@ -255,59 +255,90 @@ int main (){
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
- 
+
     float vertices[] = {
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+  
+      //======================================================== Back (-Z)
+  
+      -0.5f, -0.5f, -0.5f,   // 0
+       0.5f, -0.5f, -0.5f,   // 1
+       0.5f,  0.5f, -0.5f,   // 2
+      -0.5f,  0.5f, -0.5f,   // 3
+  
+      //======================================================= Front (+Z)
+  
+      -0.5f, -0.5f,  0.5f,   // 4
+       0.5f, -0.5f,  0.5f,   // 5
+       0.5f,  0.5f,  0.5f,   // 6
+      -0.5f,  0.5f,  0.5f,   // 7
+  
+      //======================================================== Left (-X)
+  
+      -0.5f, -0.5f, -0.5f,   // 8
+      -0.5f, -0.5f,  0.5f,   // 9
+      -0.5f,  0.5f,  0.5f,   //10
+      -0.5f,  0.5f, -0.5f,   //11
+  
+      //======================================================= Right (+X)
+  
+       0.5f, -0.5f, -0.5f,   //12
+       0.5f, -0.5f,  0.5f,   //13
+       0.5f,  0.5f,  0.5f,   //14
+       0.5f,  0.5f, -0.5f,   //15
+  
+      //======================================================= Bottom (-Y)
+  
+      -0.5f, -0.5f, -0.5f,   //16
+       0.5f, -0.5f, -0.5f,   //17
+       0.5f, -0.5f,  0.5f,   //18
+      -0.5f, -0.5f,  0.5f,   //19
+  
+      //========================================================== Top (+Y)
+  
+      -0.5f,  0.5f, -0.5f,   //20
+       0.5f,  0.5f, -0.5f,   //21
+       0.5f,  0.5f,  0.5f,   //22
+      -0.5f,  0.5f,  0.5f    //23
+  };
 
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    // EBO indicies
+    unsigned int indices[] = {
 
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        // back
+         0,  1,  2,
+         2,  3,  0,
+    
+        // front
+         4,  5,  6,
+         6,  7,  4,
+    
+        // left
+         8,  9, 10,
+        10, 11,  8,
+    
+        // right
+        12, 13, 14,
+        14, 15, 12,
+    
+        // bottom
+        16, 17, 18,
+        18, 19, 16,
+    
+        // top
+        20, 21, 22,
+        22, 23, 20
 
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
 
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
-  unsigned int cube_objs[2];
+  unsigned int cube_objs[3];
 
   glGenVertexArrays (1, &cube_objs[VAO]);
   glGenBuffers      (1, &cube_objs[VBO]);
+  glGenBuffers      (1, &cube_objs[EBO]);
 
   // Setup
   // --------------------
@@ -318,6 +349,12 @@ int main (){
                                         sizeof(vertices), 
                                         vertices, 
                                         GL_STATIC_DRAW);
+  
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_objs[EBO]);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                                        sizeof(indices),
+                                        indices,
+                                        GL_STATIC_DRAW);
 
   // Attribute #0 (LOCATION) :
   glVertexAttribPointer (
@@ -325,30 +362,19 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-      6 * sizeof(float),
+      3 * sizeof(float),
     (void*)0
   );
 
   glEnableVertexAttribArray (0);
 
-   // Attribute #1 (NORMAL) :
-  glVertexAttribPointer (
-    1, 
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-      6 * sizeof(float),
-    (void*)(3 * sizeof(float))
-  );
-
-  glEnableVertexAttribArray (1);
-
 
   // LIGHT OBJECT--------------------------------------------
-  unsigned int light_objs[2];
+  unsigned int light_objs[3];
 
   glGenVertexArrays (1, &light_objs[VAO]);
   glGenBuffers      (1, &light_objs[VBO]);
+  glGenBuffers      (1, &light_objs[EBO]);
 
   glBindVertexArray (    light_objs[VAO]);
 
@@ -358,13 +384,19 @@ int main (){
                                         vertices, 
                                         GL_STATIC_DRAW);
   
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                                        sizeof(indices),
+                                        indices,
+                                        GL_STATIC_DRAW);
+
   // Attribute #0 (LOCATION) :
   glVertexAttribPointer (
     0, 
     3,
     GL_FLOAT,
     GL_FALSE,
-      6 * sizeof(float),
+      3 * sizeof(float),
     (void*)0
   );
 
@@ -448,9 +480,8 @@ int main (){
 
 
 
-      colorShader.setVec3("lightColor",       color.light);
-      colorShader.setVec3("objectColor",     color.object);
-      colorShader.setVec3("lightPosition", light_position);
+      colorShader.setVec3("lightColor",  color.light);
+      colorShader.setVec3("objectColor", color.object);
 
  
       projection[perspective]  = mat4::perspective  (fov, 
@@ -468,20 +499,17 @@ int main (){
 
       matrix.model  = mat4(1.0f);
      
-      matrix.normal = mat4::normalMatrix(matrix.model);
-
       colorShader.setMatrix      ("matrix",      matrix);
       
 
       // Draw the Cube
       glBindVertexArray(cube_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
       glDrawArrays(GL_POINTS, 0, 36);
 
       // setup the lgiht object
@@ -489,25 +517,19 @@ int main (){
 
       lightShader.setVec3("lightColor", color.light);
 
-      matrix.model  = mat4(1.0);
-      matrix.model  = matrix.model 
-                    * mat4::translate (light_position);
-    
-      matrix.model  = matrix.model 
-                    * mat4::scale     (0.2f);
-
-      matrix.normal = mat4::normalMatrix(matrix.model);
+      matrix.model = mat4(1.0);
+      matrix.model = matrix.model * mat4::translate (light_position);
+      matrix.model = matrix.model * mat4::scale     (0.2f);
 
       lightShader.setMatrix     ("matrix",       matrix);
 
       glBindVertexArray(light_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
       glDrawArrays(GL_POINTS, 0, 36);
       
  
@@ -523,9 +545,11 @@ int main (){
   // Destroy vertex buffer, Array , Element buffer object and program
   glDeleteVertexArrays        (1, &cube_objs  [VAO]);
   glDeleteBuffers             (1, &cube_objs  [VBO]);
+  glDeleteBuffers             (1, &cube_objs  [EBO]);
 
   glDeleteVertexArrays        (1, &light_objs [VAO]);
   glDeleteBuffers             (1, &light_objs [VBO]);
+  glDeleteBuffers             (1, &light_objs [EBO]);
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;

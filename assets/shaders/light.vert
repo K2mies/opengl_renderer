@@ -14,6 +14,7 @@ struct    Matrix {
           mat4 model;
           mat4 view;
           mat4 projection;
+          mat3 normal;
 };
 
 uniform   Matrix matrix;

@@ -5,6 +5,7 @@
 
 #include "Vec3.h"
 #include "Vec4.h"
+#include "Mat3.h"
 
 class mat4
 {
@@ -91,6 +92,13 @@ public:
 
           mat4            inverse        () const;
   static  mat4            inverse        (  const mat4& matrix );
+  
+  mat3                    upperLeft3x3()    const;
+  static  mat3            upperLeft3x3   (  const mat4& matrix) ;
+
+  mat3                    normalMatrix()    const;
+  static  mat3            normalMatrix   (  const mat4& matrix );
+
 
 	//----------------------------------------------------------- destructor
 	~mat4   () = default;
