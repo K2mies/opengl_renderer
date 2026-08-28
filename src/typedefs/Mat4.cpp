@@ -222,6 +222,15 @@ mat4 mat4::translate    ( const vec3& offset ){
 
 }
 
+mat4 mat4::translate  (const float offset[3] ){
+  
+  mat4 result(1.0f);
+
+  result[3] = vec4(offset[x], offset[y], offset[z], 1.0f);
+
+  return result;
+}
+
 mat4 mat4::scale        ( const vec3& scale ){
 
     mat4 result(1.0f);
@@ -697,24 +706,24 @@ mat4 mat4::inverse() const
     );
 
     vec4 inv0 =
-          vec1 * fac0
-        - vec2 * fac1
-        + vec3 * fac2;
+         vec1 * fac0
+       - vec2 * fac1
+       + vec3 * fac2;
 
     vec4 inv1 =
-          vec0 * fac0
-        - vec2 * fac3
-        + vec3 * fac4;
+         vec0 * fac0
+       - vec2 * fac3
+       + vec3 * fac4;
 
     vec4 inv2 =
-          vec0 * fac1
-        - vec1 * fac3
-        + vec3 * fac5;
+         vec0 * fac1
+       - vec1 * fac3
+       + vec3 * fac5;
 
     vec4 inv3 =
-          vec0 * fac2
-        - vec1 * fac4
-        + vec2 * fac5;
+         vec0 * fac2
+       - vec1 * fac4
+       + vec2 * fac5;
 
     vec4 signA(
          1.0f,

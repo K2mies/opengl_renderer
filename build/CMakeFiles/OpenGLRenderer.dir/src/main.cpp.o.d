@@ -1110,6 +1110,7 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec3.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec4.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat3.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat2.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Vec2.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Texture.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Camera.h \

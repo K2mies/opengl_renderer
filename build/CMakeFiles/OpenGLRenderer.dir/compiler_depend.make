@@ -822,6 +822,7 @@ CMakeFiles/OpenGLRenderer.dir/src/Objects/Shader.cpp.o: /Users/hvidsten/Document
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat2.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat3.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/MathUtils.h \
@@ -8513,6 +8514,7 @@ CMakeFiles/OpenGLRenderer.dir/src/main.cpp.o: /Users/hvidsten/Documents/WORK/CGI
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdint.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Camera.h \
+  /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat2.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat3.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h \
   /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/MathUtils.h \
@@ -9190,8 +9192,6 @@ CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o: /Users/hvidsten/Doc
 
 /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/src/Typedefs/Mat3.cpp:
 
-/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat2.h:
-
 /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Camera.h:
 
 /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/third_party/stb/stb_image.h:
@@ -9439,6 +9439,8 @@ CMakeFiles/OpenGLRenderer.dir/third_party/glad/src/glad.c.o: /Users/hvidsten/Doc
 /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/MathUtils.h:
 
 /Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat4.h:
+
+/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/include/Mat2.h:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h:
 

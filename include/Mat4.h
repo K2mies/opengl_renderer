@@ -51,7 +51,9 @@ public:
   const float*            data()                const;
   
   static  mat4            identity       ();
+
   static  mat4            translate      (  const vec3& );
+  static  mat4            translate      (  const float offset[3] );
 
   static  mat4            scale          (  const vec3& );
   static  mat4            scale          (  const float scale[3] );

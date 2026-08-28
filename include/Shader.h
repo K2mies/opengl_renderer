@@ -57,10 +57,10 @@ class Shader  {
                    const        vec4& vector)             const;
 
     //------------------------------------- set matrix functions
-//    void setMat2(const std::string &name,   const glm::mat2 &mat)
-//
-//                                                          const;
-//
+    void setMat2(const std::string &name,   const mat2 &matrix)
+
+                                                          const;
+
     void setMat3(const std::string &name,   const mat3 &matrix)
 
                                                           const;

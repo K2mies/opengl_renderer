@@ -7,6 +7,7 @@
 
 #include "Mat4.h"
 #include "Mat3.h"
+#include "Mat2.h"
 #include "Vec4.h"
 #include "Vec3.h"
 #include "MathUtils.h"
@@ -165,14 +166,14 @@ void Shader::setVec4  (const std::string& name, const vec4& vector) const
 }
 
 //------------------------------------- set matrix functions
-//void Shader::setMat2(const std::string &name,   const glm::mat2 &mat) const {
-//   glUniformMatrix2fv(
-//        glGetUniformLocation(ID, name.c_str()),
-//        1,
-//        GL_FALSE,
-//        glm::value_ptr(mat)
-//  );
-//}
+void Shader::setMat2(const std::string &name,   const mat2 &matrix) const {
+   glUniformMatrix2fv(
+        glGetUniformLocation(ID, name.c_str()),
+        1,
+        GL_FALSE,
+        matrix.data()
+  );
+}
 
 void Shader::setMat3(const std::string &name,   const mat3 &matrix) const {
   glUniformMatrix3fv(

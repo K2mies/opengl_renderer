@@ -300,7 +300,6 @@ int main (){
       -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
-
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
@@ -426,7 +425,7 @@ int main (){
   //------------------------------------------------------------- 14. Render Loop
   
   while (!glfwWindowShouldClose(window))
-  {   
+ {   
       // set delta time; 
       timer.current_frame = glfwGetTime();
       timer.delta_time    = timer.current_frame 
@@ -437,7 +436,7 @@ int main (){
       processInput        (window);
 
       // Set Background Color 
-      glClearColor        (0.2f, 0.3f, 0.3f, 1.0f);
+      glClearColor        (0.1f, 0.1f, 0.1f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // Update the point size
@@ -451,6 +450,8 @@ int main (){
       colorShader.setVec3("lightColor",       color.light);
       colorShader.setVec3("objectColor",     color.object);
       colorShader.setVec3("lightPosition", light_position);
+
+      colorShader.setVec3("viewPosition", camera.position);
 
  
       projection[perspective]  = mat4::perspective  (fov, 
@@ -488,6 +489,11 @@ int main (){
       lightShader.use();
 
       lightShader.setVec3("lightColor", color.light);
+
+
+      float time = glfwGetTime();
+      light_position.y = sin(time);
+      
 
       matrix.model  = mat4(1.0);
       matrix.model  = matrix.model 
