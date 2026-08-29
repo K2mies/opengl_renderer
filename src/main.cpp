@@ -445,8 +445,6 @@ int main (){
       // Use our Lightshader program
       colorShader.use();
 
-
-
       colorShader.setVec3("lightColor",       color.light);
       colorShader.setVec3("objectColor",     color.object);
       colorShader.setVec3("lightPosition", light_position);
@@ -468,6 +466,16 @@ int main (){
       matrix.view   = camera.getViewMatrix();
 
       matrix.model  = mat4(1.0f);
+
+      // create time variable to use for offsets
+      float time; 
+            time    = glfwGetTime    ();
+            time    = math::radians  (time);
+            time    = time * 30.0f;
+      
+      
+      matrix.model  = matrix.model
+                    * mat4::rotate(time, vec3(1.0f, 0.0f, 0.0f));
      
       matrix.normal = mat4::normalMatrix(matrix.model);
 
@@ -490,8 +498,8 @@ int main (){
 
       lightShader.setVec3("lightColor", color.light);
 
-
-      float time = glfwGetTime();
+      
+      // Move the light object upand down on the y
       light_position.y = sin(time);
       
 

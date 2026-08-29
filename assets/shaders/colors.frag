@@ -30,20 +30,20 @@ void main()
 
     vec3  diffuse           = diff * lightColor;
 
-    vec3  viewDirection     = normalize(viewPosition - fragmentPosition);
-    vec3  reflectDirection  = reflect(-lightDirection, normal);
+    vec3  viewDirection     = normalize (viewPosition - fragmentPosition);
+    vec3  reflectDirection  = reflect   (-lightDirection, normal);
 
     float spec;
-          spec = dot(viewDirection, reflectDirection);
-          spec = max(spec, 0.0);
-          spec = pow(spec, 32);
+          spec              = dot(viewDirection, reflectDirection);
+          spec              = max(spec, 0.0);
+          spec              = pow(spec, 32);
 
-    vec3  specular = specularStrength * spec * lightColor;
+    vec3  specular          = specularStrength * spec * lightColor;
 
     vec3  result;
           result            = ambient + diffuse + specular;
           result            = result  * objectColor;
 
-         FragColor         = vec4(result, 1.0);
+          FragColor         = vec4(result, 1.0);
 
 }
