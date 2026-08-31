@@ -10,6 +10,9 @@ compile_commands.json
 # nvim log
 nvim.log
 
+# clangd
+.cache/
+
 # Editor
 .vscode/
 .idea/
