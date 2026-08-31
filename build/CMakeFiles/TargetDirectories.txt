@@ -1,3 +1,0 @@
-/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles/OpenGLRenderer.dir
-/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles/edit_cache.dir
-/Users/hvidsten/Documents/WORK/CGI_PROGRAMMING/git_opengl_renderer/build/CMakeFiles/rebuild_cache.dir
