@@ -247,6 +247,11 @@ int main (){
     "../assets/Shaders/colors.frag"
   );
 
+  //Shader colorShader (
+  //  "../assets/Shaders/gouraud.vert",
+  //  "../assets/Shaders/gouraud.frag"
+  //);
+
   // configure global opengl state
   // -----------------------------
     glEnable(GL_DEPTH_TEST);
@@ -256,57 +261,80 @@ int main (){
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
  
-    float vertices[] = {
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+  float vertices[] = {
+  
+      //================================================ Back (-Z)
+      // position                  // normal
+      -0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 0
+       0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 1
+       0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 2
+      -0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 3
+  
+      //================================================ Front (+Z)
+      -0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 4
+       0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 5
+       0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 6
+      -0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 7
+  
+      //================================================ Left (-X)
+      -0.5f, -0.5f, -0.5f,       -1.0f,  0.0f,  0.0f, // 8
+      -0.5f, -0.5f,  0.5f,       -1.0f,  0.0f,  0.0f, // 9
+      -0.5f,  0.5f,  0.5f,       -1.0f,  0.0f,  0.0f, //10
+      -0.5f,  0.5f, -0.5f,       -1.0f,  0.0f,  0.0f, //11
+  
+      //================================================ Right (+X)
+       0.5f, -0.5f, -0.5f,        1.0f,  0.0f,  0.0f, //12
+       0.5f, -0.5f,  0.5f,        1.0f,  0.0f,  0.0f, //13
+       0.5f,  0.5f,  0.5f,        1.0f,  0.0f,  0.0f, //14
+       0.5f,  0.5f, -0.5f,        1.0f,  0.0f,  0.0f, //15
+  
+      //================================================ Bottom (-Y)
+      -0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f, //16
+       0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f, //17
+       0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f, //18
+      -0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f, //19
+  
+      //================================================ Top (+Y)
+      -0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f, //20
+       0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f, //21
+       0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f, //22
+      -0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f  //23
+  };
 
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-    };
-
+  unsigned int indices[] = {
+  
+      // Back
+       0,  1,  2,
+       2,  3,  0,
+  
+      // Front
+       4,  5,  6,
+       6,  7,  4,
+  
+      // Left
+       8,  9, 10,
+      10, 11,  8,
+  
+      // Right
+      12, 13, 14,
+      14, 15, 12,
+  
+      // Bottom
+      16, 17, 18,
+      18, 19, 16,
+  
+      // Top
+      20, 21, 22,
+      22, 23, 20
+  };
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
-  unsigned int cube_objs[2];
+  unsigned int cube_objs[3];
 
   glGenVertexArrays (1, &cube_objs[VAO]);
   glGenBuffers      (1, &cube_objs[VBO]);
+  glGenBuffers      (1, &cube_objs[EBO]);
 
   // Setup
   // --------------------
@@ -317,6 +345,16 @@ int main (){
                                         sizeof(vertices), 
                                         vertices, 
                                         GL_STATIC_DRAW);
+
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_objs[EBO]);
+  
+  glBufferData(
+      GL_ELEMENT_ARRAY_BUFFER,
+      sizeof(indices),
+      indices,
+      GL_STATIC_DRAW
+  );
 
   // Attribute #0 (LOCATION) :
   glVertexAttribPointer (
@@ -344,10 +382,11 @@ int main (){
 
 
   // LIGHT OBJECT--------------------------------------------
-  unsigned int light_objs[2];
+  unsigned int light_objs[3];
 
   glGenVertexArrays (1, &light_objs[VAO]);
   glGenBuffers      (1, &light_objs[VBO]);
+  glGenBuffers      (1, &light_objs[EBO]);
 
   glBindVertexArray (    light_objs[VAO]);
 
@@ -356,6 +395,15 @@ int main (){
                                         sizeof(vertices), 
                                         vertices, 
                                         GL_STATIC_DRAW);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
+  
+  glBufferData(
+      GL_ELEMENT_ARRAY_BUFFER,
+      sizeof(indices),
+      indices,
+      GL_STATIC_DRAW
+  );
   
   // Attribute #0 (LOCATION) :
   glVertexAttribPointer (
@@ -475,7 +523,7 @@ int main (){
       
       
       matrix.model  = matrix.model
-                    * mat4::rotate(time, vec3(1.0f, 0.0f, 0.0f));
+                    * mat4::rotate(time, vec3(1.0f, 1.0f, 0.0f));
      
       matrix.normal = mat4::normalMatrix(matrix.model);
 
@@ -484,14 +532,14 @@ int main (){
 
       // Draw the Cube
       glBindVertexArray(cube_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
-      glDrawArrays(GL_POINTS, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawArrays(GL_POINTS, 0, 24);
 
       // setup the lgiht object
       lightShader.use();
@@ -515,14 +563,14 @@ int main (){
       lightShader.setMatrix     ("matrix",       matrix);
 
       glBindVertexArray(light_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
-      glDrawArrays(GL_POINTS, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawArrays(GL_POINTS, 0, 24);
       
  
       // Swap the buffers / present the finished frame.

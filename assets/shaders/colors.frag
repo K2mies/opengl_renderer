@@ -11,39 +11,87 @@ in  vec3 Normal;
 in  vec3 fragmentPosition;
 out vec4 FragColor;
 
+//--------------------------------------------------- structs
+struct    Pass {
+
+          float strength;
+          float intensity;
+          float shininess;
+          vec3  color;
+};
+
+struct    Position {
+          
+          vec3  light;
+          vec3  view;
+          vec3  fragment;
+};
+
+struct    Direction {
+         
+          vec3 light;
+          vec3 view;
+          vec3 reflect;
+
+};
+
 void main()
 { 
-    float ambientStrength   = 0.1;
-    float specularStrength  = 0.5;
+    Direction direction;
 
-    vec3  ambient           = ambientStrength * lightColor;
+    Position  position;
+              position.light    = lightPosition;
+              position.view     = viewPosition;
+              position.fragment = fragmentPosition;
 
-    vec3  normal            = normalize(Normal);
+    // Ambient
+    // ---------------------------------------------------------- 
 
-    vec3  lightDirection;
-          lightDirection    = lightPosition - fragmentPosition;
-          lightDirection    = normalize(lightDirection);
+    Pass  ambient;
+          ambient.strength    = 0.1;
+          ambient.color       = ambient.strength * lightColor;
     
-    float diff;
-          diff              = dot(normal, lightDirection);
-          diff              = max(diff,   0.0);
+    // Diffuse
+    // ---------------------------------------------------------- 
+    vec3  normal              = normalize(Normal);
 
-    vec3  diffuse           = diff * lightColor;
+          direction.light     = position.light
+                              - position.fragment;
+          direction.light     = normalize(direction.light);
 
-    vec3  viewDirection     = normalize (viewPosition - fragmentPosition);
-    vec3  reflectDirection  = reflect   (-lightDirection, normal);
+    Pass  diffuse;
+          diffuse.intensity   = dot(normal, direction.light);
+          diffuse.intensity   = max(diffuse.intensity, 0.0);
 
-    float spec;
-          spec              = dot(viewDirection, reflectDirection);
-          spec              = max(spec, 0.0);
-          spec              = pow(spec, 32);
+          diffuse.color       = diffuse.intensity * lightColor;
+    
+    // specular
+    // ---------------------------------------------------------- 
+          direction.view      = normalize (  position.view 
+                                           - position.fragment);
+          direction.reflect   = reflect   ( -direction.light, normal);
+    
+    Pass  specular;
+          specular.strength   = 0.5;
+          specular.shininess  = 32;
 
-    vec3  specular          = specularStrength * spec * lightColor;
+          specular.intensity  = dot(direction.view, direction.reflect);
+          specular.intensity  = max(specular.intensity, 0.0);
+          specular.intensity  = pow(specular.intensity, specular.shininess);
 
+          specular.color      = specular.strength 
+                              * specular.intensity
+                              * lightColor;
+
+    // output
+    // ---------------------------------------------------------- 
     vec3  result;
-          result            = ambient + diffuse + specular;
-          result            = result  * objectColor;
+          result             = ambient.color 
+                             + diffuse.color 
+                             + specular.color;
 
-          FragColor         = vec4(result, 1.0);
+          result             = result  * objectColor;
+
+          FragColor          = vec4(result, 1.0);
 
 }
