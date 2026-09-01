@@ -78,8 +78,11 @@ class Shader  {
 
                                                           const;
 
-    void setMaterial(const std::string& name,
-                     const Material& material)            const;
+    void setMaterial  (const std::string& name,
+                       const Material& material)          const;
+
+    void setLight     (const std::string& name, 
+                       const Light& light)                const;
 
   private:
     //-- function for checking shader compilation/linking errors.

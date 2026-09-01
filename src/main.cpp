@@ -89,6 +89,8 @@ Color     color;
 
 Material  material;
 
+Light     light;
+
 //-------------------------------------------------------------- Global Variables
 
 float pointSize;
@@ -474,7 +476,8 @@ int main (){
   // Pass the coordinate matricies to the shader.
   colorShader.setMatrix      ("matrix", matrix);
   lightShader.setMatrix      ("matrix", matrix);
-  
+
+
   // Set material properties.
 
   // default
@@ -532,6 +535,23 @@ int main (){
 
       colorShader.setVec3("viewPosition", camera.position);
 
+      //  set light
+      //light.ambient  = vec3(0.2f, 0.2f, 0.2f);
+      //light.diffuse  = vec3(0.5f, 0.5f, 0.5f);
+      light.specular = vec3(1.0f, 1.0f, 1.0f);
+
+      float light_color[3];
+            light_color[x] = sin(glfwGetTime() * 2.0f);
+            light_color[y] = sin(glfwGetTime() * 0.7f);
+            light_color[z] = sin(glfwGetTime() * 1.3f);
+
+      vec3  lightColor = vec3(light_color);
+
+      light.diffuse = lightColor    * vec3(0.5f);
+      light.ambient = light.diffuse * vec3(0.2f);
+
+      colorShader.setLight("light", light);
+
  
       projection[perspective]  = mat4::perspective  (fov, 
                                                     (float)window_dimensions[width] 
@@ -578,6 +598,8 @@ int main (){
       lightShader.use();
 
       lightShader.setVec3("lightColor", color.light);
+      lightShader.setLight("light", light);
+
 
       
       // Move the light object upand down on the y

@@ -46,6 +46,17 @@ struct    Material {
 
 uniform   Material material;
 
+struct    Light {
+
+          vec3  position;
+
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+};
+
+uniform   Light light;
+
 void main()
 { 
     Direction direction;
@@ -58,11 +69,8 @@ void main()
     // Ambient
     // ---------------------------------------------------------- 
 
-    //Pass  ambient;
-    //      ambient.strength     = 0.1;
-    //      ambient.color        = ambient.strength * lightColor;
     Pass    ambient;
-            ambient.color      = lightColor * material.ambient;
+            ambient.color      = light.ambient * material.ambient;
     
     // Diffuse
     // ---------------------------------------------------------- 
@@ -76,8 +84,7 @@ void main()
           diffuse.intensity    = dot(normal, direction.light);
           diffuse.intensity    = max(diffuse.intensity, 0.0);
 
-          //diffuse.color        = diffuse.intensity * lightColor;
-          diffuse.color        = lightColor 
+          diffuse.color        = light.diffuse
                                * (diffuse.intensity * material.diffuse);
     
     // specular
@@ -87,20 +94,13 @@ void main()
           direction.reflect    = reflect   ( -direction.light, normal);
     
     Pass  specular;
-          specular.strength    = 0.5;
-          specular.shininess   = 32;
-
           specular.intensity   = dot(direction.view, direction.reflect);
           specular.intensity   = max(specular.intensity, 0.0);
           specular.intensity   = pow(specular.intensity, material.shininess);
 
-          specular.color       = lightColor 
+          specular.color       = light.specular 
                                * (specular.intensity 
                                * material.specular);
-
-          //specular.color       = specular.strength 
-          //                     * specular.intensity
-          //                     * lightColor;
 
     // output
     // ---------------------------------------------------------- 
@@ -108,8 +108,6 @@ void main()
           result              = ambient.color 
                               + diffuse.color 
                               + specular.color;
-
-          //result              = result * objectColor;
 
           FragColor           = vec4(result, 1.0);
 

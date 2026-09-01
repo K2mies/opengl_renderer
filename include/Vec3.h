@@ -15,6 +15,8 @@ public:
 
 	//--------------------------------------------------------- constructors
 	vec3    ();
+  vec3    ( float num );
+  vec3    ( float axis[3] )  ;
 	vec3    ( float num1, float num2, float num3 );
 	vec3    ( const vec3& source );
 

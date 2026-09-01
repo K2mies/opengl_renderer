@@ -1,12 +1,28 @@
 #include  "Vec3.h"
 
 //----------------------------------------------------------------- constructors
+
 vec3::vec3(){
 
 	this->x = 0.0f;
 	this->y = 0.0f;
 	this->z = 0.0f;
 
+}
+
+vec3::vec3( float num){
+
+  this->x = num;
+  this->y = num;
+  this->z = num;
+}
+
+vec3::vec3( float axis[3]){
+
+  this->x = axis[0];
+  this->y = axis[1];
+  this->z = axis[2];
+ 
 }
 
 vec3::vec3( float num1, float num2, float num3){

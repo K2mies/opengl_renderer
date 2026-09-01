@@ -215,6 +215,13 @@ void Shader::setMaterial(const std::string& name, const Material& material) cons
     setVec3   (name + ".specular",   material.specular);
     setFloat  (name + ".shininess",  material.shininess);
 }
+
+void Shader::setLight(const std::string& name, const Light& light) const{
+    setVec3   (name + ".position",   light.position);
+    setVec3   (name + ".ambient",    light.ambient);
+    setVec3   (name + ".diffuse",    light.diffuse);
+    setVec3   (name + ".specular",   light.specular);
+}
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
 void Shader::checkCompileErrors(unsigned int shader, std::string type)  {
