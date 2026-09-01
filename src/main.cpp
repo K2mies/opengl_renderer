@@ -79,13 +79,15 @@ Frustum frustum {
 
 };
 
-Matrix  matrix;
+Matrix    matrix;
 
-Time    timer;
+Time      timer;
 
-Euler   euler;
+Euler     euler;
 
-Color   color;
+Color     color;
+
+Material  material;
 
 //-------------------------------------------------------------- Global Variables
 
@@ -243,8 +245,8 @@ int main (){
   );
 
   Shader colorShader (
-    "../assets/Shaders/colors.vert",
-    "../assets/Shaders/colors.frag"
+    "../assets/Shaders/material.vert",
+    "../assets/Shaders/material.frag"
   );
 
   //Shader colorShader (
@@ -465,10 +467,41 @@ int main (){
   
   // select which perspective projection matrix to use:
   matrix.projection = projection[perspective];
-  
+ 
+  // activate the shader 
+  colorShader.use();
+
   // Pass the coordinate matricies to the shader.
   colorShader.setMatrix      ("matrix", matrix);
   lightShader.setMatrix      ("matrix", matrix);
+  
+  // Set material properties.
+
+  // default
+  material.ambient   = vec3(1.0f, 0.5f, 0.31f);
+  material.diffuse   = vec3(1.0f, 0.5f, 0.31f);
+  material.specular  = vec3(0.5f, 0.5f, 0.5f);
+  material.shininess = 32.0f;
+
+  //// black plastic
+  //material.ambient   = vec3(0.0f, 0.0f, 0.0f);
+  //material.diffuse   = vec3(0.01f, 0.01f, 0.01f);
+  //material.specular  = vec3(0.5f, 0.5f, 0.5f);
+  //material.shininess = 0.25f;
+
+  //// Ruby
+  //material.ambient   = vec3(0.1745, 0.01175, 0.01175);
+  //material.diffuse   = vec3(0.61424, 0.04136, 0.04136);
+  //material.specular  = vec3(0.727811, 0.626959, 0.626595);
+  //material.shininess = 0.6f;
+
+  //// Obsidian
+  //material.ambient   = vec3(0.05375,	0.05,	0.06625);
+  //material.diffuse   = vec3(0.18275,	0.17,	0.22525);
+  //material.specular  = vec3(0.332741,	0.328634,	0.346435);
+  //material.shininess = 0.3f;
+  
+  colorShader.setMaterial    ("material", material);
 
   //------------------------------------------------------------- 14. Render Loop
   

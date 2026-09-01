@@ -194,20 +194,26 @@ void Shader::setMat4(const std::string &name,   const mat4 &matrix) const {
 
 //------------------------------------------------ set types
 void Shader::setWeight(const std::string& name, const Weight& weight) const {
-    setFloat(name + ".texture",  weight.texture);
-    setFloat(name + ".vertex",   weight.vertex);
-    setFloat(name + ".location", weight.location);
-    setFloat(name + ".blend",    weight.blend);
+    setFloat  (name + ".texture",    weight.texture);
+    setFloat  (name + ".vertex",     weight.vertex);
+    setFloat  (name + ".location",   weight.location);
+    setFloat  (name + ".blend",      weight.blend);
 }
 
 void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
-    setMat4(name + ".local",      matrix.local);
-    setMat4(name + ".model",      matrix.model);
-    setMat4(name + ".view",       matrix.view);
-    setMat4(name + ".projection", matrix.projection);
-    setMat4(name + ".clip",       matrix.clip);
-    setMat3(name + ".normal",     matrix.normal);
+    setMat4   (name + ".local",      matrix.local);
+    setMat4   (name + ".model",      matrix.model);
+    setMat4   (name + ".view",       matrix.view);
+    setMat4   (name + ".projection", matrix.projection);
+    setMat4   (name + ".clip",       matrix.clip);
+    setMat3   (name + ".normal",     matrix.normal);
+}
 
+void Shader::setMaterial(const std::string& name, const Material& material) const {
+    setVec3   (name + ".ambient",    material.ambient);
+    setVec3   (name + ".diffuse",    material.diffuse);
+    setVec3   (name + ".specular",   material.specular);
+    setFloat  (name + ".shininess",  material.shininess);
 }
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
