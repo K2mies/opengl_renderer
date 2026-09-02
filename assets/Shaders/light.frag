@@ -13,9 +13,9 @@ struct  Light {
 
 };
 
-uniform Light  light;
+uniform Light  lighting;
 
 void main()
 {
-    FragColor   = vec4(light.diffuse, 1.0);
+    FragColor   = vec4(lighting.diffuse, 1.0);
 }

@@ -181,6 +181,8 @@ int main (){
   color.object      = vec3(1.0f, 0.5f, 0.31f);
   color.light       = vec3(1.0f, 1.0f, 1.0f);
 
+  light.position    = vec3(1.2f, 1.0f, 2.0f);
+
   //---------------------------------------------------------- 1. Initialize GLFW
 
   if (!glfwInit()){
@@ -246,15 +248,16 @@ int main (){
     "../assets/Shaders/light.frag"
   );
 
-  Shader colorShader (
-    "../assets/Shaders/material.vert",
-    "../assets/Shaders/material.frag"
-  );
-
   //Shader colorShader (
-  //  "../assets/Shaders/gouraud.vert",
-  //  "../assets/Shaders/gouraud.frag"
+  //  "../assets/Shaders/material.vert",
+  //  "../assets/Shaders/material.frag"
   //);
+
+  // GOURAUD SHADING
+  Shader colorShader (
+    "../assets/Shaders/gouraud.vert",
+    "../assets/Shaders/gouraud.frag"
+  );
 
   // configure global opengl state
   // -----------------------------
@@ -481,10 +484,10 @@ int main (){
   // Set material properties.
 
   // default
-  material.ambient   = vec3(1.0f, 0.5f, 0.31f);
-  material.diffuse   = vec3(1.0f, 0.5f, 0.31f);
-  material.specular  = vec3(0.5f, 0.5f, 0.5f);
-  material.shininess = 32.0f;
+  //material.ambient   = vec3(1.0f, 0.5f, 0.31f);
+  //material.diffuse   = vec3(1.0f, 0.5f, 0.31f);
+  //material.specular  = vec3(0.5f, 0.5f, 0.5f);
+  //material.shininess = 32.0f;
 
   //// black plastic
   //material.ambient   = vec3(0.0f, 0.0f, 0.0f);
@@ -503,7 +506,13 @@ int main (){
   //material.diffuse   = vec3(0.18275,	0.17,	0.22525);
   //material.specular  = vec3(0.332741,	0.328634,	0.346435);
   //material.shininess = 0.3f;
-  
+
+  //cyan plastic container
+  material.ambient   = vec3(0.0f, 0.1f, 0.06f);
+  material.diffuse   = vec3(0.0f, 0.50980392f, 0.50980392f);
+  material.specular  = vec3(0.50196078f, 0.50196078f, 0.50196078f);
+  material.shininess = 32.0f;
+
   colorShader.setMaterial    ("material", material);
 
   //------------------------------------------------------------- 14. Render Loop
@@ -529,15 +538,19 @@ int main (){
       // Use our Lightshader program
       colorShader.use();
 
-      colorShader.setVec3("lightColor",       color.light);
-      colorShader.setVec3("objectColor",     color.object);
-      colorShader.setVec3("lightPosition", light_position);
+      //colorShader.setVec3("lightColor",       color.light);
+      //colorShader.setVec3("objectColor",     color.object);
+      //colorShader.setVec3("lightPosition", light_position);
 
       colorShader.setVec3("viewPosition", camera.position);
 
       //  set light
       //light.ambient  = vec3(0.2f, 0.2f, 0.2f);
       //light.diffuse  = vec3(0.5f, 0.5f, 0.5f);
+      //light.specular = vec3(1.0f, 1.0f, 1.0f);
+
+      light.ambient  = vec3(1.0f, 1.0f, 1.0f);
+      light.diffuse  = vec3(1.0f, 1.0f, 1.0f);
       light.specular = vec3(1.0f, 1.0f, 1.0f);
 
       float light_color[3];
@@ -550,7 +563,7 @@ int main (){
       light.diffuse = lightColor    * vec3(0.5f);
       light.ambient = light.diffuse * vec3(0.2f);
 
-      colorShader.setLight("light", light);
+      colorShader.setLight("lighting", light);
 
  
       projection[perspective]  = mat4::perspective  (fov, 
@@ -585,12 +598,12 @@ int main (){
 
       // Draw the Cube
       glBindVertexArray(cube_objs[VAO]);
-      glDrawElements(
-        GL_TRIANGLES,
-        36,
-        GL_UNSIGNED_INT,
-        0
-      );
+      //glDrawElements(
+      //  GL_TRIANGLES,
+      //  36,
+      //  GL_UNSIGNED_INT,
+      //  0
+      //);
       //glDrawArrays(GL_TRIANGLES, 0, 36);
       glDrawArrays(GL_POINTS, 0, 24);
 
@@ -598,17 +611,19 @@ int main (){
       lightShader.use();
 
       lightShader.setVec3("lightColor", color.light);
-      lightShader.setLight("light", light);
+      lightShader.setLight("lighting", light);
 
 
       
       // Move the light object upand down on the y
       light_position.y = sin(time);
+
+      light.position.y = sin(time);
       
 
       matrix.model  = mat4(1.0);
       matrix.model  = matrix.model 
-                    * mat4::translate (light_position);
+                    * mat4::translate (light.position);
     
       matrix.model  = matrix.model 
                     * mat4::scale     (0.2f);
@@ -616,6 +631,7 @@ int main (){
       matrix.normal = mat4::normalMatrix(matrix.model);
 
       lightShader.setMatrix     ("matrix",       matrix);
+      lightShader.setLight      ("lighting",      light);
 
       glBindVertexArray(light_objs[VAO]);
       glDrawElements(

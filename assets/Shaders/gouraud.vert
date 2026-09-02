@@ -8,9 +8,7 @@ layout (location = 1) in vec3 aNormal;
 out vec3 LightingColor;
 
 //-------------------------------------------------- uniforms
-uniform vec3 lightPosition;
 uniform vec3 viewPosition;
-uniform vec3 lightColor;
 
 //------------------------------------------------- matricies
 struct    Matrix {
@@ -24,26 +22,48 @@ struct    Matrix {
 
 struct    Pass {
           
-          float opacity;
           float intensity;
           vec3  color;
 };
 
-struct    Direction {
+struct    Spacial {
+        
+          vec3 position;
+          vec3 direction;
 
-          vec3  light;
-          vec3  view;
-          vec3  reflect;
 };
 
-struct    Position {
+struct    Material {
 
-          vec3 fragment;
-          vec3 light;
-          vec3 view;
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+          float shininess;
+
 };
 
-uniform   Matrix matrix;
+struct    Lighting  {
+
+          vec3  position;
+          
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+};
+
+struct    Light {
+
+          vec3 position;
+          vec3 direction;
+    
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+};
+
+uniform   Matrix   matrix;
+uniform   Material material;
+uniform   Lighting lighting;
 
 void main() {
     
@@ -54,57 +74,61 @@ void main() {
 
     gl_Position       = clip_space * vec4(aPos, 1.0);
     
+    Light     light;
+              light.position    = lighting.position;
+              light.direction   = vec3(0.0);
 
-    Direction direction;
-    Position  position;
+              light.ambient     = lighting.ambient;
+              light.diffuse     = lighting.diffuse;
+              light.specular    = lighting.specular;
 
-    position.light = lightPosition;
-    position.view  = viewPosition;
+    Spacial   view;
+              view.position     = viewPosition;
+
+    Spacial   fragment;
+    Spacial   reflection;
 
     // gouraud shading
     // ---------------------------------------------------------- 
     vec4    position4           = vec4(aPos, 1.0);
-            position.fragment   = vec3(matrix.model * position4);
+            fragment.position   = vec3(matrix.model * position4);
 
     vec3    Normal              = matrix.normal * aNormal;
 
     // Ambient
     // ---------------------------------------------------------- 
     Pass    ambient;
-            ambient.intensity   = 0.1;
-            ambient.color       = ambient.intensity 
-                                * lightColor;
+            ambient.color       = light.ambient * material.ambient; 
 
     // Diffuse
     // ---------------------------------------------------------- 
     vec3    normal              = normalize(Normal);
-            direction.light     = normalize(position.light 
-                                          - position.fragment);
+            light.direction     = normalize(light.position 
+                                          - fragment.position);
 
     Pass    diffuse;
-            diffuse.intensity   = dot(normal, direction.light);
+            diffuse.intensity   = dot(normal, light.direction);
             diffuse.intensity   = max(diffuse.intensity, 0.0);
 
-            diffuse.color       = diffuse.intensity * lightColor;
+            diffuse.color       = light.diffuse 
+                                * (diffuse.intensity * material.diffuse);
 
     // specular
     // ---------------------------------------------------------- 
-             direction.view     = normalize  (position.view 
-                                            - position.fragment);
+             view.direction        = normalize  ( view.position 
+                                                - fragment.position);
 
-             direction.reflect  = reflect    (-direction.light,
-                                               normal);
+             reflection.direction  = reflect    (-light.direction,
+                                                  normal);
 
     Pass     specular;
-             specular.opacity   = 1.0;
-             specular.intensity = dot(direction.view,
-                                      direction.reflect);
+             specular.intensity = dot(view.direction,
+                                      reflection.direction);
              specular.intensity = max(specular.intensity, 0.0);
-             specular.intensity = pow(specular.intensity, 32);
+             specular.intensity = pow(specular.intensity, material.shininess);
 
-             specular.color     = specular.opacity 
-                                * specular.intensity 
-                                * lightColor;
+             specular.color     = light.specular
+                                * (specular.intensity * material.specular);
     
     // output
     // ---------------------------------------------------------- 

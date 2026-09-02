@@ -1,15 +1,12 @@
 #version 330 core
 
 //-------------------------------------------------- uniforms
-uniform vec3 objectColor;
-uniform vec3 lightColor;
-uniform vec3 lightPosition;
 uniform vec3 viewPosition;
 
 //---------------------------------------------------- in/out
-in  vec3 Normal;
-in  vec3 fragmentPosition;
-out vec4 FragColor;
+in      vec3 Normal;
+in      vec3 fragmentPosition;
+out     vec4 FragColor;
 
 //--------------------------------------------------- structs
 struct    Pass {
@@ -20,19 +17,10 @@ struct    Pass {
           vec3  color;
 };
 
-struct    Position {
+struct    Spacial {
           
-          vec3  light;
-          vec3  view;
-          vec3  fragment;
-};
-
-struct    Direction {
-         
-          vec3 light;
-          vec3 view;
-          vec3 reflect;
-
+          vec3 position;
+          vec3 direction;
 };
 
 struct    Material {
@@ -44,9 +32,7 @@ struct    Material {
 
 };
 
-uniform   Material material;
-
-struct    Light {
+struct    Lighting {
 
           vec3  position;
 
@@ -55,16 +41,38 @@ struct    Light {
           vec3  specular;
 };
 
-uniform   Light light;
+struct    Light {
+
+          vec3  position;
+          vec3  direction;
+          
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+};
+
+uniform   Material material;
+uniform   Lighting lighting;
 
 void main()
 { 
-    Direction direction;
+    //Direction direction;
+    
+    Light     light;
+              light.position    = lighting.position;
+              light.direction   = vec3(0.0);
 
-    Position  position;
-              position.light    = lightPosition;
-              position.view     = viewPosition;
-              position.fragment = fragmentPosition;
+              light.ambient     = lighting.ambient;
+              light.diffuse     = lighting.diffuse;
+              light.specular    = lighting.specular;
+
+    Spacial   view;
+              view.position     = viewPosition;
+
+    Spacial   fragment;
+              fragment.position = fragmentPosition;
+
+    Spacial   reflection;
 
     // Ambient
     // ---------------------------------------------------------- 
@@ -76,12 +84,12 @@ void main()
     // ---------------------------------------------------------- 
     vec3  normal               = normalize(Normal);
 
-          direction.light      = position.light
-                               - position.fragment;
-          direction.light      = normalize(direction.light);
+          light.direction      = light.position
+                               - fragment.position;
+          light.direction      = normalize(light.direction);
 
     Pass  diffuse;
-          diffuse.intensity    = dot(normal, direction.light);
+          diffuse.intensity    = dot(normal, light.direction);
           diffuse.intensity    = max(diffuse.intensity, 0.0);
 
           diffuse.color        = light.diffuse
@@ -89,12 +97,12 @@ void main()
     
     // specular
     // ---------------------------------------------------------- 
-          direction.view       = normalize (  position.view 
-                                            - position.fragment);
-          direction.reflect    = reflect   ( -direction.light, normal);
+          view.direction       = normalize (  view.position 
+                                            - fragment.position);
+          reflection.direction = reflect   ( -light.direction, normal);
     
     Pass  specular;
-          specular.intensity   = dot(direction.view, direction.reflect);
+          specular.intensity   = dot(view.direction, reflection.direction);
           specular.intensity   = max(specular.intensity, 0.0);
           specular.intensity   = pow(specular.intensity, material.shininess);
 
