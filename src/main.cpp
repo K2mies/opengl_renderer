@@ -440,6 +440,8 @@ int main (){
   Material material;
   material.diffuse.load ("../assets/Textures/diffuse.png");
   material.specular.load("../assets/Textures/specular.png");
+  material.emission.load("../assets/textures/emission.jpg");
+  //material.specular.load("../assets/Textures/color_specular.png");
   material.shininess = 32.0f;
 
   //--------------------------------------------- 9. Build/Compile Shader Program
@@ -553,9 +555,11 @@ int main (){
       // Bind Textures to GL_TEXTURE0 + unit.
       material.diffuse.bind   (0);
       material.specular.bind  (1);
+      material.emission.bind  (2);
 
       colorShader.setInt    ("material.diffuse",  0);
       colorShader.setInt    ("material.specular", 1);
+      colorShader.setInt    ("material.emission", 2);
       //colorShader.setVec3   ("material.specular",  material.specular);
       colorShader.setFloat  ("material.shininess", material.shininess);
 

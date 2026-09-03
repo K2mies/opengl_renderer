@@ -28,6 +28,7 @@ struct    Material {
 
           sampler2D diffuse;
           sampler2D specular;
+          sampler2D emission;
           float     shininess;
 };
 
@@ -80,8 +81,6 @@ void main()
           ambient.color             = texture(material.diffuse, TexCoords).rgb;
           ambient.color             = light.ambient * ambient.color;
 
-
-    
     // Diffuse
     // ---------------------------------------------------------- 
     vec3  normal                  = normalize(Normal);
@@ -113,14 +112,15 @@ void main()
           specular.intensity      = pow(specular.intensity, 
                                         material.shininess);
 
-          //specular.color          =  light.specular 
-          //                        * (specular.intensity * material.specular);
-          specular.color            = texture(material.specular, TexCoords).rgb;
-          specular.color            = light.specular 
-                                    * specular.intensity 
-                                    * specular.color;
-          
-          //vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
+          specular.color          = texture(material.specular, TexCoords).rgb;
+          specular.color         = vec3(1.0, 1.0, 1.0) - specular.color;
+          specular.color          = light.specular 
+                                  * specular.intensity 
+                                  * specular.color;
+    // emission
+    // ---------------------------------------------------------- 
+    Pass  emission;
+          emission.color          = texture(material.emission, TexCoords).rgb;
 
     // output
     // ---------------------------------------------------------- 
@@ -128,7 +128,8 @@ void main()
     vec3  result;
           result                  =  ambient.color 
                                   +  diffuse.color 
-                                  +  specular.color;
+                                  +  specular.color
+                                  *  emission.color;
 
           FragColor               =  vec4(result, 1.0);
 }

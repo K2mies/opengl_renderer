@@ -67,6 +67,7 @@ struct Material
 {
   Texture diffuse;
   Texture specular;
+  Texture emission;
 
   float   shininess;
 };
