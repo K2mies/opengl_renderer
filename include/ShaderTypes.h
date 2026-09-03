@@ -66,7 +66,7 @@ struct Color
 struct Material
 {
   Texture diffuse;
-  vec3    specular;
+  Texture specular;
 
   float   shininess;
 };

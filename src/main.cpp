@@ -438,7 +438,8 @@ int main (){
   
   //Texture diffuseMap ("../assets/Textures/container2.png");
   Material material;
-  material.diffuse.load ("../assets/Textures/container2.png");
+  material.diffuse.load ("../assets/Textures/diffuse.png");
+  material.specular.load("../assets/Textures/specular.png");
   material.shininess = 32.0f;
 
   //--------------------------------------------- 9. Build/Compile Shader Program
@@ -550,10 +551,12 @@ int main (){
       colorShader.use();
 
       // Bind Textures to GL_TEXTURE0 + unit.
-      material.diffuse.bind (0);
-      material.specular     = vec3(1.0, 1.0, 1.0);
+      material.diffuse.bind   (0);
+      material.specular.bind  (1);
+
       colorShader.setInt    ("material.diffuse",  0);
-      colorShader.setVec3   ("material.specular",  material.specular);
+      colorShader.setInt    ("material.specular", 1);
+      //colorShader.setVec3   ("material.specular",  material.specular);
       colorShader.setFloat  ("material.shininess", material.shininess);
 
       //colorShader.setVec3("lightColor",       color.light);
@@ -563,23 +566,23 @@ int main (){
       colorShader.setVec3("viewPosition", camera.position);
 
       //  set light
-      //light.ambient  = vec3(0.2f, 0.2f, 0.2f);
-      //light.diffuse  = vec3(0.5f, 0.5f, 0.5f);
-      //light.specular = vec3(1.0f, 1.0f, 1.0f);
-
-      light.ambient  = vec3(1.0f, 1.0f, 1.0f);
-      light.diffuse  = vec3(1.0f, 1.0f, 1.0f);
+      light.ambient  = vec3(0.2f, 0.2f, 0.2f);
+      light.diffuse  = vec3(0.5f, 0.5f, 0.5f);
       light.specular = vec3(1.0f, 1.0f, 1.0f);
 
-      float light_color[3];
-            light_color[x] = sin(glfwGetTime() * 2.0f);
-            light_color[y] = sin(glfwGetTime() * 0.7f);
-            light_color[z] = sin(glfwGetTime() * 1.3f);
+      //light.ambient  = vec3(1.0f, 1.0f, 1.0f);
+      //light.diffuse  = vec3(1.0f, 1.0f, 1.0f);
+      //light.specular = vec3(1.0f, 1.0f, 1.0f);
 
-      vec3  lightColor = vec3(light_color);
+      //float light_color[3];
+      //      light_color[x] = sin(glfwGetTime() * 2.0f);
+      //      light_color[y] = sin(glfwGetTime() * 0.7f);
+      //      light_color[z] = sin(glfwGetTime() * 1.3f);
 
-      light.diffuse = lightColor    * vec3(0.5f);
-      light.ambient = light.diffuse * vec3(0.2f);
+      //vec3  lightColor = vec3(light_color);
+
+      //light.diffuse = lightColor    * vec3(0.5f);
+      //light.ambient = light.diffuse * vec3(0.2f);
 
       colorShader.setLight("lighting", light);
 

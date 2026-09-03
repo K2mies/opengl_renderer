@@ -1,13 +1,13 @@
 #version 330 core
 
 //-------------------------------------------------- uniforms
-uniform vec3 viewPosition;
+uniform   vec3 viewPosition;
 
 //---------------------------------------------------- in/out
-in      vec3 Normal;
-in      vec2 TexCoords;
-in      vec3 fragmentPosition;
-out     vec4 FragColor;
+in        vec3 Normal;
+in        vec2 TexCoords;
+in        vec3 fragmentPosition;
+out       vec4 FragColor;
 
 //--------------------------------------------------- structs
 struct    Pass {
@@ -27,7 +27,7 @@ struct    Spacial {
 struct    Material {
 
           sampler2D diffuse;
-          vec3      specular;
+          sampler2D specular;
           float     shininess;
 };
 
@@ -78,7 +78,8 @@ void main()
 
     Pass  ambient;
           ambient.color             = texture(material.diffuse, TexCoords).rgb;
-          ambient.color             = light.ambient * vec3(ambient.color);
+          ambient.color             = light.ambient * ambient.color;
+
 
     
     // Diffuse
@@ -97,7 +98,7 @@ void main()
           diffuse.color           = texture(material.diffuse, TexCoords).rgb;
           diffuse.color           = light.diffuse 
                                   * diffuse.intensity 
-                                  * vec3(diffuse.color);
+                                  * diffuse.color;
     
     // specular
     // ---------------------------------------------------------- 
@@ -112,8 +113,14 @@ void main()
           specular.intensity      = pow(specular.intensity, 
                                         material.shininess);
 
-          specular.color          =  light.specular 
-                                  * (specular.intensity * material.specular);
+          //specular.color          =  light.specular 
+          //                        * (specular.intensity * material.specular);
+          specular.color            = texture(material.specular, TexCoords).rgb;
+          specular.color            = light.specular 
+                                    * specular.intensity 
+                                    * specular.color;
+          
+          //vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
 
     // output
     // ---------------------------------------------------------- 
