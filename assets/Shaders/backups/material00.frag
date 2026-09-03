@@ -5,7 +5,6 @@ uniform vec3 viewPosition;
 
 //---------------------------------------------------- in/out
 in      vec3 Normal;
-in      vec2 TexCoords;
 in      vec3 fragmentPosition;
 out     vec4 FragColor;
 
@@ -26,9 +25,10 @@ struct    Spacial {
 
 struct    Material {
 
-          sampler2D diffuse;
-          vec3      specular;
-          float     shininess;
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+          float shininess;
 };
 
 struct    Lighting {
@@ -77,9 +77,7 @@ void main()
     // ---------------------------------------------------------- 
 
     Pass  ambient;
-          ambient.color             = texture(material.diffuse, TexCoords).rgb;
-          ambient.color             = light.ambient * vec3(ambient.color);
-
+          ambient.color           = light.ambient * material.ambient;
     
     // Diffuse
     // ---------------------------------------------------------- 
@@ -94,10 +92,8 @@ void main()
           diffuse.intensity       = dot(normal, light.direction);
           diffuse.intensity       = max(diffuse.intensity, 0.0);
 
-          diffuse.color           = texture(material.diffuse, TexCoords).rgb;
-          diffuse.color           = light.diffuse 
-                                  * diffuse.intensity 
-                                  * vec3(diffuse.color);
+          diffuse.color           =  light.diffuse
+                                  * (diffuse.intensity * material.diffuse);
     
     // specular
     // ---------------------------------------------------------- 
@@ -124,4 +120,5 @@ void main()
                                   +  specular.color;
 
           FragColor               =  vec4(result, 1.0);
+
 }

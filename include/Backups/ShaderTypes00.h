@@ -11,8 +11,6 @@
 #include "Vec3.h"
 #include "Vec2.h"
 
-#include "Texture.h"
-
 struct Weight
 {
     float texture;
@@ -65,10 +63,10 @@ struct Color
 
 struct Material
 {
-  Texture diffuse;
-  vec3    specular;
-
-  float   shininess;
+  vec3  ambient;
+  vec3  diffuse;
+  vec3  specular;
+  float shininess;
 };
 
 struct  Light

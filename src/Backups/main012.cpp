@@ -10,7 +10,6 @@
 // Objects / Classes
 #include "Shader.h"
 #include "Texture.h"
-#include "ShaderTypes.h"
 
 #include "Camera.h"
 
@@ -269,62 +268,73 @@ int main (){
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
-
+ 
   float vertices[] = {
-    // positions          // normals           // texture coords
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+  
+      //================================================ Back (-Z)
+      // position                  // normal
+      -0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 0
+       0.5f, -0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 1
+       0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 2
+      -0.5f,  0.5f, -0.5f,        0.0f,  0.0f, -1.0f, // 3
+  
+      //================================================ Front (+Z)
+      -0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 4
+       0.5f, -0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 5
+       0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 6
+      -0.5f,  0.5f,  0.5f,        0.0f,  0.0f,  1.0f, // 7
+  
+      //================================================ Left (-X)
+      -0.5f, -0.5f, -0.5f,       -1.0f,  0.0f,  0.0f, // 8
+      -0.5f, -0.5f,  0.5f,       -1.0f,  0.0f,  0.0f, // 9
+      -0.5f,  0.5f,  0.5f,       -1.0f,  0.0f,  0.0f, //10
+      -0.5f,  0.5f, -0.5f,       -1.0f,  0.0f,  0.0f, //11
+  
+      //================================================ Right (+X)
+       0.5f, -0.5f, -0.5f,        1.0f,  0.0f,  0.0f, //12
+       0.5f, -0.5f,  0.5f,        1.0f,  0.0f,  0.0f, //13
+       0.5f,  0.5f,  0.5f,        1.0f,  0.0f,  0.0f, //14
+       0.5f,  0.5f, -0.5f,        1.0f,  0.0f,  0.0f, //15
+  
+      //================================================ Bottom (-Y)
+      -0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f, //16
+       0.5f, -0.5f, -0.5f,        0.0f, -1.0f,  0.0f, //17
+       0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f, //18
+      -0.5f, -0.5f,  0.5f,        0.0f, -1.0f,  0.0f, //19
+  
+      //================================================ Top (+Y)
+      -0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f, //20
+       0.5f,  0.5f, -0.5f,        0.0f,  1.0f,  0.0f, //21
+       0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f, //22
+      -0.5f,  0.5f,  0.5f,        0.0f,  1.0f,  0.0f  //23
   };
 
-  unsigned int indices[] =
-  {
-      0, 1, 2, 2, 3, 0,
-      6, 7, 8, 8, 9, 6,
-      12,13,14,14,15,12,
-      18,19,20,20,21,18,
-      24,25,26,26,27,24,
-      30,31,32,32,33,30
+  unsigned int indices[] = {
+  
+      // Back
+       0,  1,  2,
+       2,  3,  0,
+  
+      // Front
+       4,  5,  6,
+       6,  7,  4,
+  
+      // Left
+       8,  9, 10,
+      10, 11,  8,
+  
+      // Right
+      12, 13, 14,
+      14, 15, 12,
+  
+      // Bottom
+      16, 17, 18,
+      18, 19, 16,
+  
+      // Top
+      20, 21, 22,
+      22, 23, 20
   };
-
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
@@ -360,7 +370,7 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-    8 * sizeof(float),
+      6 * sizeof(float),
     (void*)0
   );
 
@@ -372,23 +382,11 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-    8 * sizeof(float),
+      6 * sizeof(float),
     (void*)(3 * sizeof(float))
   );
 
   glEnableVertexAttribArray (1);
-
-  // Attribute #2 (UV) :
-  glVertexAttribPointer (
-    2,
-    2,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)(6 * sizeof(float))
-  );
-
-  glEnableVertexAttribArray (2);
 
 
   // LIGHT OBJECT--------------------------------------------
@@ -421,7 +419,7 @@ int main (){
     3,
     GL_FLOAT,
     GL_FALSE,
-    8 * sizeof(float),
+      6 * sizeof(float),
     (void*)0
   );
 
@@ -434,12 +432,6 @@ int main (){
   glBindVertexArray            (0);
 
  
-  //----------------------------------------------------------------- 8. Textures 
-  
-  //Texture diffuseMap ("../assets/Textures/container2.png");
-  Material material;
-  material.diffuse.load ("../assets/Textures/container2.png");
-  material.shininess = 32.0f;
 
   //--------------------------------------------- 9. Build/Compile Shader Program
 
@@ -485,8 +477,6 @@ int main (){
   // activate the shader 
   colorShader.use();
 
-  //colorShader.setInt("material.diffuse", 0);
-
   // Pass the coordinate matricies to the shader.
   colorShader.setMatrix      ("matrix", matrix);
   lightShader.setMatrix      ("matrix", matrix);
@@ -495,10 +485,10 @@ int main (){
   // Set material properties.
 
   // default
-  //material.ambient   = vec3(1.0f, 0.5f, 0.31f);
-  //material.diffuse   = vec3(1.0f, 0.5f, 0.31f);
-  //material.specular  = vec3(0.5f, 0.5f, 0.5f);
-  //material.shininess = 32.0f;
+  material.ambient   = vec3(1.0f, 0.5f, 0.31f);
+  material.diffuse   = vec3(1.0f, 0.5f, 0.31f);
+  material.specular  = vec3(0.5f, 0.5f, 0.5f);
+  material.shininess = 32.0f;
 
   //// black plastic
   //material.ambient   = vec3(0.0f, 0.0f, 0.0f);
@@ -524,7 +514,7 @@ int main (){
   //material.specular  = vec3(0.50196078f, 0.50196078f, 0.50196078f);
   //material.shininess = 32.0f;
 
-  //colorShader.setMaterial    ("material", material);
+  colorShader.setMaterial    ("material", material);
 
   //------------------------------------------------------------- 14. Render Loop
   
@@ -548,13 +538,6 @@ int main (){
 
       // Use our Lightshader program
       colorShader.use();
-
-      // Bind Textures to GL_TEXTURE0 + unit.
-      material.diffuse.bind (0);
-      material.specular     = vec3(1.0, 1.0, 1.0);
-      colorShader.setInt    ("material.diffuse",  0);
-      colorShader.setVec3   ("material.specular",  material.specular);
-      colorShader.setFloat  ("material.shininess", material.shininess);
 
       //colorShader.setVec3("lightColor",       color.light);
       //colorShader.setVec3("objectColor",     color.object);
@@ -623,13 +606,13 @@ int main (){
 
       // Draw the Cube
       glBindVertexArray(cube_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
       glDrawArrays(GL_POINTS, 0, 24);
 
       // setup the lgiht object
@@ -659,13 +642,13 @@ int main (){
       lightShader.setLight      ("lighting",      light);
 
       glBindVertexArray(light_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawElements(
+        GL_TRIANGLES,
+        36,
+        GL_UNSIGNED_INT,
+        0
+      );
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
       glDrawArrays(GL_POINTS, 0, 24);
       
  

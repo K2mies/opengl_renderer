@@ -209,12 +209,12 @@ void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
     setMat3   (name + ".normal",     matrix.normal);
 }
 
-//void Shader::setMaterial(const std::string& name, const Material& material) const {
-//    setVec3   (name + ".ambient",    material.ambient);
-//    setVec3   (name + ".diffuse",    material.diffuse);
-//    setVec3   (name + ".specular",   material.specular);
-//    setFloat  (name + ".shininess",  material.shininess);
-//}
+void Shader::setMaterial(const std::string& name, const Material& material) const {
+    setVec3   (name + ".ambient",    material.ambient);
+    setVec3   (name + ".diffuse",    material.diffuse);
+    setVec3   (name + ".specular",   material.specular);
+    setFloat  (name + ".shininess",  material.shininess);
+}
 
 void Shader::setLight(const std::string& name, const Light& light) const{
     setVec3   (name + ".position",   light.position);

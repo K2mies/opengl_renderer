@@ -7,16 +7,10 @@
 
 class Texture {
 
-  private:
-
-    unsigned int ID;
-
-    int          width;
-    int          height;
-
-    int          nrChannels;
-
   public:
+
+    //------------------------------------------------------- Default constructor
+    Texture();
 
     //------------------------------------------- Creates and loads a 2D texture.
     explicit Texture  (const std::string& imagePath, bool flipVertically = true);
@@ -28,11 +22,27 @@ class Texture {
     Texture(const Texture&)              = delete;
     Texture& operator=(const Texture&)   = delete;
 
+    //---------------------------------------------------------- Move constructor
+    Texture(Texture&& other)              noexcept;
+    Texture& operator=(Texture&& other)   noexcept;
+
+    //-------------------------------------------------------------- Load texture
+    void load(const std::string& imagePath,          bool flipVertically = true);
+
     //-------------------------------------- Bind this texture to a texture unit.
     void bind(unsigned int textureUnit = 0) const;
 
     //-------------------------------------------------------------------- Getter
     unsigned int getID()  const;
+
+  private:
+
+    unsigned int ID;
+
+    int          width;
+    int          height;
+
+    int          nrChannels;
 
 };
 
