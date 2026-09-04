@@ -23,10 +23,6 @@ struct    Spacial {
           
           vec3 position;
           vec3 direction;
-
-          vec3 ambient;
-          vec3 diffuse;
-          vec3 specular;
 };
 
 struct    Material {
@@ -37,7 +33,7 @@ struct    Material {
           float     shininess;
 };
 
-struct    Light {
+struct    Lighting {
 
           vec3  position;
 
@@ -46,9 +42,19 @@ struct    Light {
           vec3  specular;
 };
 
+struct    Light {
+
+          vec3  position;
+          vec3  direction;
+          
+          vec3  ambient;
+          vec3  diffuse;
+          vec3  specular;
+};
+
 //------------------------------------------- struct uniforms
 uniform   Material material;
-uniform   Light    lighting;
+uniform   Lighting lighting;
 
 void main()
 {   
@@ -59,7 +65,7 @@ void main()
     Spacial   fragment;
               fragment.position     = fragmentPosition;
 
-    Spacial   light;
+    Light     light;
               light.position        = lighting.position;
 
               light.direction       = light.position - fragment.position;
@@ -106,14 +112,13 @@ void main()
               specular.intensity    = pow(specular.intensity, material.shininess);
 
               specular.color        = texture(material.specular, TexCoords).rgb;
-              specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
+              //specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
               specular.color        = light.specular 
                                     * specular.intensity 
                                     * specular.color;
 
     // emission
     // ---------------------------------------------------------- 
-    
     Pass       emission;
                emission.color       = texture(material.emission, TexCoords).rgb;
 
@@ -124,7 +129,7 @@ void main()
                result               =  ambient.color 
                                     +  diffuse.color 
                                     +  specular.color
-                                    *  emission.color;
+                                    +  emission.color;
 
                FragColor            =  vec4(result, 1.0);
 }

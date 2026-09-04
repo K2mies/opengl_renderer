@@ -13,70 +13,70 @@
 
 #include "Texture.h"
 
-struct Weight
+struct  Weight
 {
-    float texture;
-    float vertex;
-    float location;
-    float blend;
+        float   texture;
+        float   vertex;
+        float   location;
+        float   blend;
 };
 
 struct  Euler
 {
-    float pitch;
-    float yaw;
-    float roll;
+        float   pitch;
+        float   yaw;
+        float   roll;
 };
 
 struct  Frustum
 {
-    float left;
-    float right;
-    float bottom;
-    float top;
-    float near;
-    float far;
+        float   left;
+        float   right;
+        float   bottom;
+        float   top;
+        float   near;
+        float   far;
 
 };
 
 struct  Matrix
 {
-    mat4 local;
-    mat4 model;
-    mat4 view;
-    mat4 projection;
-    mat4 clip;
-    mat3 normal;
+        mat4    local;
+        mat4    model;
+        mat4    view;
+        mat4    projection;
+        mat4    clip;
+        mat3    normal;
 
 };
 
-struct Time
+struct  Time
 {
-  float delta_time;
-  float last_frame;
-  float current_frame;
+        float   delta_time;
+        float   last_frame;
+        float   current_frame;
 };
 
-struct Color
+struct  Color
 {
-  vec3  object;
-  vec3  light;
+        vec3    object;
+        vec3    light;
 };
 
-struct Material
+struct  Material
 {
-  Texture diffuse;
-  Texture specular;
-  Texture emission;
+        Texture diffuse;
+        Texture specular;
+        Texture emission;
 
-  float   shininess;
+        float   shininess;
 };
 
 struct  Light
 {
-  vec3  position;
+        vec3    position;
 
-  vec3  ambient;
-  vec3  diffuse;
-  vec3  specular;
+        vec3    ambient;
+        vec3    diffuse;
+        vec3    specular;
 };
