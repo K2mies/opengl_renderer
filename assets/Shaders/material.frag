@@ -112,7 +112,7 @@ void main()
               specular.intensity    = pow(specular.intensity, material.shininess);
 
               specular.color        = texture(material.specular, TexCoords).rgb;
-              specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
+              //specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
               specular.color        = light.specular 
                                     * specular.intensity 
                                     * specular.color;
@@ -126,10 +126,10 @@ void main()
     // ---------------------------------------------------------- 
 
     vec3       result;
-               result                =  ambient.color 
-                                     +  diffuse.color 
-                                     +  specular.color
-                                     *  emission.color;
+               result               =  ambient.color 
+                                    +  diffuse.color 
+                                    +  specular.color
+                                    +  emission.color;
 
-               FragColor             =  vec4(result, 1.0);
+               FragColor            =  vec4(result, 1.0);
 }
