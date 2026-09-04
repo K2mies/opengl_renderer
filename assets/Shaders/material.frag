@@ -1,54 +1,54 @@
 #version 330 core
 
 //-------------------------------------------------- uniforms
-uniform   vec3 viewPosition;
+uniform   vec3        viewPosition;
 
 //---------------------------------------------------- in/out
-in        vec3 Normal;
-in        vec2 TexCoords;
-in        vec3 fragmentPosition;
+in        vec3        Normal;
+in        vec2        TexCoords;
+in        vec3        fragmentPosition;
 
-out       vec4 FragColor;
+out       vec4        FragColor;
 
 //--------------------------------------------------- structs
 struct    Pass {
 
-          float strength;
-          float intensity;
-          float shininess;
-          vec3  color;
+          float       strength;
+          float       intensity;
+          float       shininess;
+          vec3        color;
 };
 
 struct    Spacial {
           
-          vec3 position;
-          vec3 direction;
+          vec3        position;
+          vec3        direction;
 
-          vec3 ambient;
-          vec3 diffuse;
-          vec3 specular;
+          vec3        ambient;
+          vec3        diffuse;
+          vec3        specular;
 };
 
 struct    Material {
 
-          sampler2D diffuse;
-          sampler2D specular;
-          sampler2D emission;
-          float     shininess;
+          sampler2D   diffuse;
+          sampler2D   specular;
+          sampler2D   emission;
+          float       shininess;
 };
 
 struct    Light {
 
-          vec3  position;
+          vec3        position;
 
-          vec3  ambient;
-          vec3  diffuse;
-          vec3  specular;
+          vec3        ambient;
+          vec3        diffuse;
+          vec3        specular;
 };
 
 //------------------------------------------- struct uniforms
-uniform   Material material;
-uniform   Light    lighting;
+uniform   Material    material;
+uniform   Light       lighting;
 
 void main()
 {   
@@ -122,8 +122,8 @@ void main()
 
     vec3       result;
                result               =  ambient.color 
-                                    +  diffuse.color 
-                                    +  specular.color
+                                    +  diffuse.color
+                                    +  specular.color;
                                     *  emission.color;
 
                FragColor            =  vec4(result, 1.0);
