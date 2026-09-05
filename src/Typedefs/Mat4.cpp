@@ -152,7 +152,7 @@ mat4& mat4::operator *= ( float value ){
 
 }  
 
-vec4  mat4::operator * ( const vec4& vector ) const{
+vec4  mat4::operator * ( const vec4& vector ) const {
 
   vec4 result;
 
@@ -183,6 +183,14 @@ vec4  mat4::operator * ( const vec4& vector ) const{
     return result;
 
 }
+
+vec3 mat4::operator * ( const vec3& vector  ) const {
+
+    vec4 result = (*this) * vec4(vector, 1.0f);
+
+    return vec3(result.x, result.y, result.z);
+}
+
 mat4  mat4::operator * ( const mat4& other ) const{
 
     return mat4(

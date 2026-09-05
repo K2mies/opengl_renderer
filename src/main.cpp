@@ -245,15 +245,21 @@ int main (){
 
  //---------------------------------------------------- 5. Create Shader Program
     
-  Shader lightShader (
-    "../assets/Shaders/light.vert",
-    "../assets/Shaders/light.frag"
-  );
+  //Shader lightShader (
+  //  "../assets/Shaders/light.vert",
+  //  "../assets/Shaders/light.frag"
+  //);
 
   Shader colorShader (
     "../assets/Shaders/material.vert",
     "../assets/Shaders/material.frag"
   );
+  
+  //Shader colorShader  (
+  //  "../assets/Shaders/temp.vert",
+  //  "../assets/Shaders/temp.frag"
+  //);
+
 
   // GOURAUD SHADING
   //Shader colorShader (
@@ -325,6 +331,18 @@ int main (){
       30,31,32,32,33,30
   };
 
+  vec3 cubePositions[] = {
+    vec3( 0.0f,  0.0f,  0.0f),
+    vec3( 2.0f,  5.0f, -15.0f),
+    vec3(-1.5f, -2.2f, -2.5f),
+    vec3(-3.8f, -2.0f, -12.3f),
+    vec3( 2.4f, -0.4f, -3.5f),
+    vec3(-1.7f,  3.0f, -7.5f),
+    vec3( 1.3f, -2.0f, -2.5f),
+    vec3( 1.5f,  2.0f, -2.5f),
+    vec3( 1.5f,  0.2f, -1.5f),
+    vec3(-1.3f,  1.0f, -1.5f)
+  };
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
@@ -392,44 +410,44 @@ int main (){
 
 
   // LIGHT OBJECT--------------------------------------------
-  unsigned int light_objs[3];
+  //unsigned int light_objs[3];
 
-  glGenVertexArrays (1, &light_objs[VAO]);
-  glGenBuffers      (1, &light_objs[VBO]);
-  glGenBuffers      (1, &light_objs[EBO]);
+  //glGenVertexArrays (1, &light_objs[VAO]);
+  //glGenBuffers      (1, &light_objs[VBO]);
+  //glGenBuffers      (1, &light_objs[EBO]);
 
-  glBindVertexArray (    light_objs[VAO]);
+  //glBindVertexArray (    light_objs[VAO]);
 
-  glBindBuffer      (GL_ARRAY_BUFFER,   light_objs[VBO]);
-  glBufferData      (GL_ARRAY_BUFFER,
-                                        sizeof(vertices), 
-                                        vertices, 
-                                        GL_STATIC_DRAW);
+  //glBindBuffer      (GL_ARRAY_BUFFER,   light_objs[VBO]);
+  //glBufferData      (GL_ARRAY_BUFFER,
+  //                                      sizeof(vertices), 
+  //                                      vertices, 
+  //                                      GL_STATIC_DRAW);
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
-  
-  glBufferData(
-      GL_ELEMENT_ARRAY_BUFFER,
-      sizeof(indices),
-      indices,
-      GL_STATIC_DRAW
-  );
-  
-  // Attribute #0 (LOCATION) :
-  glVertexAttribPointer (
-    0, 
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)0
-  );
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
+  //
+  //glBufferData(
+  //    GL_ELEMENT_ARRAY_BUFFER,
+  //    sizeof(indices),
+  //    indices,
+  //    GL_STATIC_DRAW
+  //);
+  //
+  //// Attribute #0 (LOCATION) :
+  //glVertexAttribPointer (
+  //  0, 
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  8 * sizeof(float),
+  //  (void*)0
+  //);
 
-  glEnableVertexAttribArray(0);
+  //glEnableVertexAttribArray(0);
 
  
 
-  // Unbind
+  //// Unbind
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray            (0);
 
@@ -492,7 +510,7 @@ int main (){
 
   // Pass the coordinate matricies to the shader.
   colorShader.setMatrix      ("matrix", matrix);
-  lightShader.setMatrix      ("matrix", matrix);
+  //lightShader.setMatrix      ("matrix", matrix);
 
 
   // Set material properties.
@@ -570,9 +588,28 @@ int main (){
       colorShader.setVec3("viewPosition", camera.position);
 
       //  set light
-      light.ambient  = vec3(0.2f, 0.2f, 0.2f);
-      light.diffuse  = vec3(0.5f, 0.5f, 0.5f);
-      light.specular = vec3(1.0f, 1.0f, 1.0f);
+      light.ambient   = vec3(0.2f, 0.2f, 0.2f);
+      light.diffuse   = vec3(0.5f, 0.5f, 0.5f);
+      light.specular  = vec3(1.0f, 1.0f, 1.0f);
+      
+      //light.direction = vec3(-0.2f, -1.0f, -0.3f);
+      
+      float direction[3];
+            direction[x] = -0.2f;
+            direction[y] = -1.0f;
+            direction[z] = -0.3f;
+
+      
+      vec3  axis = vec3(1.0f, 0.0f, 0.0f);
+
+      float time;
+            time = glfwGetTime();
+            time = math::radians(time);
+            time = time * 30.0f;
+
+      light.direction = mat4::rotate(sin(time), axis )
+                      * vec3(direction);
+        
 
       //light.ambient  = vec3(1.0f, 1.0f, 1.0f);
       //light.diffuse  = vec3(1.0f, 1.0f, 1.0f);
@@ -611,69 +648,108 @@ int main (){
       // update view matrix with LookAt every frame
       matrix.view   = camera.getViewMatrix();
 
-      matrix.model  = mat4(1.0f);
+      //matrix.model  = mat4(1.0f);
 
-      // create time variable to use for offsets
-      float time; 
-            time    = glfwGetTime    ();
-            time    = math::radians  (time);
-            time    = time * 30.0f;
-      
-      
-      matrix.model  = matrix.model
-                    * mat4::rotate(time, vec3(1.0f, 1.0f, 0.0f));
+      //// create time variable to use for offsets
+      //float time; 
+      //      time    = glfwGetTime    ();
+      //      time    = math::radians  (time);
+      //      time    = time * 30.0f;
+      //
+      //
+      //matrix.model  = matrix.model
+      //              * mat4::rotate(time, vec3(1.0f, 1.0f, 0.0f));
      
       matrix.normal = mat4::normalMatrix(matrix.model);
 
-      colorShader.setMatrix      ("matrix",      matrix);
+      //colorShader.setMatrix      ("matrix",      matrix);
+
+      for (unsigned int i = 0; i < 10; i++)
+      {
+        matrix.model = mat4(1.0f);
+        matrix.model = matrix.model * mat4::translate(cubePositions[i]);
+        float angle  = 20.0f * i;
+        matrix.model = matrix.model * mat4::rotate(math::radians(angle), vec3(1.0f, 0.3f, 0.5f));
+
+        matrix.model = matrix.model * mat4::rotate(math::radians(glfwGetTime()) * 30.0f, vec3(1.0f, 1.0f, 1.0f));
+
+        float axis[3];
+              axis[x] = 0.0f;
+              axis[y] = cos(glfwGetTime());
+              axis[z] = 0.0f;
+              
+        matrix.model = matrix.model * mat4::translate(axis);
+
+        //float time = glfwGetTime() * 30.0f;
+
+        //float angles[3];
+        //      angles[x] = math::radians(time);
+        //      angles[y] = math::radians(time);
+        //      angles[z] = math::radians(time);
+
+        //matrix.model = matrix.model * mat4::rotateXYZ(angles);
+
+        colorShader.setMatrix("matrix", matrix);
+        
+        glBindVertexArray(cube_objs[VAO]);
+        //glDrawElements(
+        //  GL_TRIANGLES,
+        //  36,
+        //  GL_UNSIGNED_INT,
+        //  0
+        //);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_POINTS, 0, 24);
+        
+      }
       
 
       // Draw the Cube
-      glBindVertexArray(cube_objs[VAO]);
+      //glBindVertexArray(cube_objs[VAO]);
       //glDrawElements(
       //  GL_TRIANGLES,
       //  36,
       //  GL_UNSIGNED_INT,
       //  0
       //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
-      glDrawArrays(GL_POINTS, 0, 24);
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
+      //glDrawArrays(GL_POINTS, 0, 24);
 
       // setup the lgiht object
-      lightShader.use();
+      //lightShader.use();
 
-      lightShader.setVec3("lightColor", color.light);
-      lightShader.setLight("lighting", light);
+      //lightShader.setVec3("lightColor", color.light);
+      //lightShader.setLight("lighting", light);
 
 
-      
-      // Move the light object upand down on the y
-      light_position.y = sin(time);
+      //
+      //// Move the light object upand down on the y
+      //light_position.y = sin(time);
 
-      light.position.y = sin(time);
-      
+      //light.position.y = sin(time);
+      //
 
-      matrix.model  = mat4(1.0);
-      matrix.model  = matrix.model 
-                    * mat4::translate (light.position);
+      //matrix.model  = mat4(1.0);
+      //matrix.model  = matrix.model 
+      //              * mat4::translate (light.position);
     
-      matrix.model  = matrix.model 
-                    * mat4::scale     (0.2f);
+      //matrix.model  = matrix.model 
+      //              * mat4::scale     (0.2f);
 
-      matrix.normal = mat4::normalMatrix(matrix.model);
+      //matrix.normal = mat4::normalMatrix(matrix.model);
 
-      lightShader.setMatrix     ("matrix",       matrix);
-      lightShader.setLight      ("lighting",      light);
+      //lightShader.setMatrix     ("matrix",       matrix);
+      //lightShader.setLight      ("lighting",      light);
 
-      glBindVertexArray(light_objs[VAO]);
-      //glDrawElements(
-      //  GL_TRIANGLES,
-      //  36,
-      //  GL_UNSIGNED_INT,
-      //  0
-      //);
-      glDrawArrays(GL_TRIANGLES, 0, 36);
-      glDrawArrays(GL_POINTS, 0, 24);
+      //glBindVertexArray(light_objs[VAO]);
+      ////glDrawElements(
+      ////  GL_TRIANGLES,
+      ////  36,
+      ////  GL_UNSIGNED_INT,
+      ////  0
+      ////);
+      //glDrawArrays(GL_TRIANGLES, 0, 36);
+      //glDrawArrays(GL_POINTS, 0, 24);
       
  
       // Swap the buffers / present the finished frame.
@@ -686,11 +762,12 @@ int main (){
   //----------------------------------------------------------------- 15. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays        (1, &cube_objs  [VAO]);
-  glDeleteBuffers             (1, &cube_objs  [VBO]);
+  glDeleteVertexArrays        (1, &cube_objs[VAO]);
+  glDeleteBuffers             (1, &cube_objs[VBO]);
+  glDeleteBuffers             (1, &cube_objs[EBO]);
 
-  glDeleteVertexArrays        (1, &light_objs [VAO]);
-  glDeleteBuffers             (1, &light_objs [VBO]);
+  //glDeleteVertexArrays        (1, &light_objs [VAO]);
+  //glDeleteBuffers             (1, &light_objs [VBO]);
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;

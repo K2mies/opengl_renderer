@@ -40,6 +40,7 @@ struct    Material {
 struct    Light {
 
           vec3        position;
+          vec3        direction;
 
           vec3        ambient;
           vec3        diffuse;
@@ -62,8 +63,9 @@ void main()
     Spacial   light;
               light.position        = lighting.position;
 
-              light.direction       = light.position - fragment.position;
-              light.direction       = normalize(light.direction);
+              //light.direction       = light.position - fragment.position;
+              //light.direction       = normalize(light.direction);
+              light.direction       = normalize(-lighting.direction);
 
               light.ambient         = lighting.ambient;
               light.diffuse         = lighting.diffuse;
@@ -106,7 +108,7 @@ void main()
               specular.intensity    = pow(specular.intensity, material.shininess);
 
               specular.color        = texture(material.specular, TexCoords).rgb;
-              specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
+              //specular.color        = vec3(1.0, 1.0, 1.0) - specular.color;  //negate the specular map
               specular.color        = light.specular 
                                     * specular.intensity 
                                     * specular.color;
@@ -124,7 +126,7 @@ void main()
                result               =  ambient.color 
                                     +  diffuse.color
                                     +  specular.color;
-                                    *  emission.color;
+                                    //*  emission.color;
 
                FragColor            =  vec4(result, 1.0);
 }
