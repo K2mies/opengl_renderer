@@ -52,7 +52,8 @@ public:
   const float*            data()                const;
   
   static  mat4            identity       ();
-
+  
+  static  mat4            translate      (  const vec4& );
   static  mat4            translate      (  const vec3& );
   static  mat4            translate      (  const float offset[3] );
 
@@ -67,7 +68,7 @@ public:
   static  mat4            rotateY        (  float );
   static  mat4            rotateZ        (  float );
 
-  static  mat4            rotateXYZ      ( float angles[3]    );
+  static  mat4            rotateXYZ      (  float angles[3]   );
   static  mat4            rotate         (  float angle, 
                                             const vec3& axis  );
 

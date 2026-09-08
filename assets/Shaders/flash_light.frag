@@ -27,6 +27,12 @@ struct    Spacial {
           vec3        ambient;
           vec3        diffuse;
           vec3        specular;
+
+          float       constant;
+          float       linear;
+          float       quadratic;
+
+          float       cutoff;
 };
 
 struct    Material {
@@ -45,6 +51,12 @@ struct    Light {
           vec3        ambient;
           vec3        diffuse;
           vec3        specular;
+          
+          float       constant;
+          float       linear;
+          float       quadratic;
+
+          float       cutoff;
 };
 
 //------------------------------------------- struct uniforms
@@ -63,17 +75,23 @@ void main()
     Spacial   light;
               light.position           = lighting.position;
  
-              //light.direction.xyz     = light.position.xyz - fragment.position.xyz;
-              //light.direction.xyz     = normalize(light.direction.xyz);
-              //light.direction         = vec4(light.direction.xyz, 0.0);
-              
-
-              light.direction.xyz      = normalize(-lighting.direction.xyz);
+              light.direction.xyz      = light.position.xyz - fragment.position.xyz;
+              light.direction.xyz      = normalize(light.direction.xyz);
               light.direction          = vec4(light.direction.xyz, 0.0);
+              
+              // for direction light switch to this
+              //light.direction.xyz      = normalize(-lighting.direction.xyz);
+              //light.direction          = vec4(light.direction.xyz, 0.0);
 
               light.ambient            = lighting.ambient;
               light.diffuse            = lighting.diffuse;
               light.specular           = lighting.specular;
+
+              light.constant           = lighting.constant;
+              light.linear             = lighting.linear;
+              light.quadratic          = lighting.quadratic;
+
+              light.cutoff             = lighting.cutoff;
     
     Spacial   view;
               view.position            = vec4(viewPosition, 1.0);
@@ -85,6 +103,19 @@ void main()
     Spacial   reflection;
               reflection.direction.xyz = reflect(-light.direction.xyz, normal);
               reflection.direction     = vec4(reflection.direction.xyz, 0.0);
+
+    float     distance                 = length(light.position - fragment.position);
+
+    float     attenuation;
+              attenuation              = light.constant 
+                                       + light.linear 
+                                       * distance 
+                                       + light.quadratic  
+                                       * (distance * distance);
+              attenuation              = 1.0 / attenuation;
+
+    float     theta;
+              theta                    = dot( light.direction.xyz, normalize(-lighting.direction.xyz) );
 
     // Ambient
     // ---------------------------------------------------------- 
@@ -127,12 +158,22 @@ void main()
 
     // output
     // ---------------------------------------------------------- 
-
+    
     vec3       result;
-               result                 =  ambient.color 
-                                      +  diffuse.color
-                                      +  specular.color;
-                                      //*  emission.color;
 
+    if (theta > lighting.cutoff)
+    {
+               ambient.color          *= attenuation;
+               diffuse.color          *= attenuation;
+               specular.color         *= attenuation;
+
+               result                 = ambient.color
+                                      + diffuse.color
+                                      + specular.color;
+    }
+    else
+    {
+               result                 = ambient.color;
+    }
                FragColor              =  vec4(result, 1.0);
 }

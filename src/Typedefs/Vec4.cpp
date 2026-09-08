@@ -30,6 +30,20 @@ vec4::vec4( float num1, float num2, float num3 )  {
 
 }
 
+vec4::vec4( const float axis[4] ) {
+  this->x = axis[0];
+  this->y = axis[1];
+  this->z = axis[2];
+  this->w = axis[3];
+}
+
+vec4::vec4( const float axis[3], float w )  {
+  this->x = axis[0];
+  this->y = axis[1];
+  this->z = axis[2];
+  this->w = w;
+}
+
 vec4::vec4( const vec3& axis, float w)  {
 
   this->x = axis.x;
@@ -40,6 +54,37 @@ vec4::vec4( const vec3& axis, float w)  {
 }
 
 vec4::vec4( const vec4& source ){ *this = source; }
+
+//----------------------------------------------------- static type constructors
+vec4 vec4::position(float x, float y, float z)
+{  
+    return vec4(x, y, z, 1.0f);
+}
+
+vec4 vec4::direction(float x, float y, float z)
+{
+    return vec4(x, y, z, 0.0f);
+}
+
+vec4 vec4::position(const vec3& vector)
+{
+    return vec4(vector, 1.0f);
+}
+
+vec4 vec4::direction(const vec3& vector)
+{
+    return vec4(vector, 0.0f);
+}
+
+vec4 vec4::position(const float vector[3])
+{
+    return vec4(vector, 1.0f);
+}
+
+vec4 vec4::direction(const float vector[3])
+{
+    return vec4(vector, 0.0f);
+}
 
 //-------------------------------------------------------------------- operators
 vec4& vec4::operator = ( const vec4& source ) {

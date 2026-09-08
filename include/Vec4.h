@@ -20,9 +20,22 @@ public:
 	vec4    ( float num1, float num2, float num3, float num4 );
 	vec4    ( float num1, float num2, float num3 );
 
+  vec4    ( const float axis[4] );
+  vec4    ( const float axis[3], float w);
+
   vec4    ( const vec3& axis, float w);
 
 	vec4    ( const vec4& source );
+
+	//--------------------------------------------- static type constructors
+  static vec4 position  (float x, float y, float z);
+  static vec4 direction (float x, float y, float z);
+
+  static vec4 position  (const vec3& vector);
+  static vec4 direction (const vec3& vector);
+
+  static vec4 position  (const float vector[3]);
+  static vec4 direction (const float vector[3]);
 
 	//------------------------------------------------------------ operators
 	vec4&	  operator	=	  ( const vec4& source );

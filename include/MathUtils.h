@@ -7,7 +7,11 @@ namespace math
     
     float radians (float degrees);
     float degrees (float radians);
+
     float sqrt    (float value);
+
+    float cos     (float radians);
+    float sin     (float radians);
 
 }
 

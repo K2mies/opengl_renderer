@@ -220,6 +220,21 @@ mat4 mat4::identity(){
 
 }
 
+mat4 mat4::translate(const vec4& offset)
+{
+    if (offset[3] != 1.0f){
+      std::cout 
+      << "translate vector is not a position, invalid input" 
+      << std::endl;
+      return NULL;
+    }
+    mat4 result(1.0f);
+
+    result[3] = offset;
+
+    return result;
+}
+
 mat4 mat4::translate    ( const vec3& offset ){
 
    mat4 result(1.0f);

@@ -16,3 +16,13 @@ float math::sqrt(float value)
 {
     return std::sqrt(value);
 }
+
+float math::cos(float radians)
+{
+    return std::cos(radians);
+}
+
+float math::sin(float radians)
+{
+    return std::sin(radians);
+}

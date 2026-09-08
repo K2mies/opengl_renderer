@@ -110,8 +110,6 @@ vec3  up         = vec3(0.0f, 1.0f, 0.0f);
 
 vec3  light_position = vec3(1.2f, 1.0f, 2.0f);
 
-float cutoff;
-
 
 //---------------------------------------------------------------- Global Objects
 Camera camera(position, up, YAW, PITCH);
@@ -155,8 +153,6 @@ int main (){
   pointSize         = 40.f;
 
   fov               = math::radians(45.0f);
-
-  cutoff            = 12.5;
 
   weight.blend      = 0.5f;
 
@@ -259,21 +255,11 @@ int main (){
   //  "../assets/Shaders/directional_light.frag"
   //);
   
-  //Shader colorShader (
-  //  "../assets/Shaders/point_light.vert",
-  //  "../assets/Shaders/point_light.frag"
-  //);
-
   Shader colorShader (
-    "../assets/Shaders/flash_light.vert",
-    "../assets/Shaders/flash_light.frag"
+    "../assets/Shaders/point_light.vert",
+    "../assets/Shaders/point_light.frag"
   );
-  
-  //Shader colorShader (
-  //  "../assets/Shaders/gouraud_flash_light.vert",
-  //  "../assets/Shaders/gouraud_flash_light.frag"
-  //);
-  
+
   //Shader colorShader  (
   //  "../assets/Shaders/temp.vert",
   //  "../assets/Shaders/temp.frag"
@@ -597,24 +583,65 @@ int main (){
       colorShader.setInt    ("material.diffuse",  0);
       colorShader.setInt    ("material.specular", 1);
       colorShader.setInt    ("material.emission", 2);
+      //colorShader.setVec3   ("material.specular",  material.specular);
       colorShader.setFloat  ("material.shininess", material.shininess);
 
-      colorShader.setVec3   ("viewPosition", camera.position);
+      //colorShader.setVec3("lightColor",       color.light);
+      //colorShader.setVec3("objectColor",     color.object);
+      //colorShader.setVec3("lightPosition", light_position);
+
+      colorShader.setVec3("viewPosition", camera.position);
 
       //  set light
-      light.ambient   = vec3(0.1f, 0.1f, 0.1f);
-      light.diffuse   = vec3(0.8f, 0.8f, 0.8f);
-      light.specular  = vec3(1.0f, 1.0f, 1.0f); 
+      light.ambient   = vec3(0.2f, 0.2f, 0.2f);
+      light.diffuse   = vec3(0.5f, 0.5f, 0.5f);
+      light.specular  = vec3(1.0f, 1.0f, 1.0f);
       
-      light.position  = vec4::position  (camera.position);
-      light.direction = vec4::direction (camera.front);
-      light.cutoff    = math::radians(cutoff);
-      light.cutoff    = math::cos(light.cutoff);
+      //light.direction = vec3(-0.2f, -1.0f, -0.3f);
+      
+      float direction[3];
+            direction[x] = -0.2f;
+            direction[y] = -1.0f;
+            direction[z] = -0.3f;
+      
+      vec3  axis = vec3(1.0f, 0.0f, 0.0f);
 
+      float time;
+            time = glfwGetTime();
+            time = math::radians(time);
+            time = time * 30.0f;
+
+      light.direction = mat4::rotate(time, axis )
+                      * vec4::direction(direction);
+      
+            position[x] = 1.2f;
+            position[y] = 1.0f;
+
+            position[z] = -2.0f;
+            position[z] = position[z] 
+                        + sin(time) 
+                        * 6.0f;
+      
+      light.position  = vec4::position(position);
+      
       light.constant  = 1.0f;
       light.linear    = 0.09f;
       light.quadratic = 0.032f;
         
+
+      //light.ambient  = vec3(1.0f, 1.0f, 1.0f);
+      //light.diffuse  = vec3(1.0f, 1.0f, 1.0f);
+      //light.specular = vec3(1.0f, 1.0f, 1.0f);
+
+      //float light_color[3];
+      //      light_color[x] = sin(glfwGetTime() * 2.0f);
+      //      light_color[y] = sin(glfwGetTime() * 0.7f);
+      //      light_color[z] = sin(glfwGetTime() * 1.3f);
+
+      //vec3  lightColor = vec3(light_color);
+
+      //light.diffuse = lightColor    * vec3(0.5f);
+      //light.ambient = light.diffuse * vec3(0.2f);
 
       colorShader.setLight("lighting", light);
 
@@ -638,6 +665,18 @@ int main (){
 
       // update view matrix with LookAt every frame
       matrix.view   = camera.getViewMatrix();
+
+      //matrix.model  = mat4(1.0f);
+
+      //// create time variable to use for offsets
+      //float time; 
+      //      time    = glfwGetTime    ();
+      //      time    = math::radians  (time);
+      //      time    = time * 30.0f;
+      //
+      //
+      //matrix.model  = matrix.model
+      //              * mat4::rotate(time, vec3(1.0f, 1.0f, 0.0f));
      
       matrix.normal = mat4::normalMatrix(matrix.model);
 
@@ -659,9 +698,26 @@ int main (){
 
         matrix.model = matrix.model 
                      * mat4::rotate(angle, vec3(axis));
-        
-        matrix.normal = mat4::normalMatrix(matrix.model);
 
+        //matrix.model = matrix.model * mat4::rotate(math::radians(glfwGetTime()) * 30.0f, vec3(1.0f, 1.0f, 1.0f));
+
+        //float axis[3];
+        //      axis[x] = 0.0f;
+        //      axis[y] = cos(glfwGetTime());
+        //      axis[z] = 0.0f;
+        //      
+        //matrix.model = matrix.model * mat4::translate(axis);
+
+        //float time = glfwGetTime() * 30.0f;
+        //      time = math::radians(time);
+
+        //float angles[3];
+        //      angles[x] = time;
+        //      angles[y] = time;
+        //      angles[z] = time;
+
+        //matrix.model = matrix.model 
+        //             * mat4::rotateXYZ(angles);
 
         colorShader.setMatrix("matrix", matrix);
         
@@ -689,10 +745,14 @@ int main (){
       //glDrawArrays(GL_TRIANGLES, 0, 36);
       //glDrawArrays(GL_POINTS, 0, 24);
 
-
       // setup the lgiht object
       lightShader.use();
 
+      //lightShader.setVec3("lightColor", color.light);
+      //lightShader.setLight("lighting", light);
+
+
+      //
       //// Move the light object upand down on the y
       //light_position.y = sin(time);
 
@@ -711,15 +771,15 @@ int main (){
       lightShader.setMatrix     ("matrix",       matrix);
       lightShader.setLight      ("lighting",      light);
 
-      //glBindVertexArray(light_objs[VAO]);
+      glBindVertexArray(light_objs[VAO]);
       ////glDrawElements(
       ////  GL_TRIANGLES,
       ////  36,
       ////  GL_UNSIGNED_INT,
       ////  0
       ////);
-      //glDrawArrays(GL_TRIANGLES, 0, 36);
-      //glDrawArrays(GL_POINTS, 0, 24);
+      glDrawArrays(GL_TRIANGLES, 0, 36);
+      glDrawArrays(GL_POINTS, 0, 24);
       
  
       // Swap the buffers / present the finished frame.
@@ -842,13 +902,11 @@ void processInput(GLFWwindow *window)
   }
 
   if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
-      //color.light = color.light - vec3(0.01f, 0.0f, 0.0f);
-      cutoff -= 0.1f;
+      color.light = color.light - vec3(0.01f, 0.0f, 0.0f);
   }
 
   if  (glfwGetKey (window, GLFW_KEY_4)   == GLFW_PRESS){
-      //color.light = color.light + vec3(0.01f, 0.0f, 0.0f);
-      cutoff += 0.1f;
+      color.light = color.light + vec3(0.01f, 0.0f, 0.0f);
   }
 
    if  (glfwGetKey (window, GLFW_KEY_5)   == GLFW_PRESS){

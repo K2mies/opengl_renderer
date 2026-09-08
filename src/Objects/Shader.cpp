@@ -217,46 +217,77 @@ void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
 //}
 
 void Shader::setLight(const std::string& name, const Light& light) const{
-    setVec3   (name + ".position",   light.position);
-    setVec3   (name + ".direction",  light.direction);
+    setVec4   (name + ".position",   light.position);
+    setVec4   (name + ".direction",  light.direction);
+
     setVec3   (name + ".ambient",    light.ambient);
     setVec3   (name + ".diffuse",    light.diffuse);
     setVec3   (name + ".specular",   light.specular);
+
+    setFloat  (name + ".constant",   light.constant);
+    setFloat  (name + ".linear",     light.linear);
+    setFloat  (name + ".quadratic",  light.quadratic);
+
+    setFloat  (name + ".cutoff",     light.cutoff);
 }
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
-void Shader::checkCompileErrors(unsigned int shader, std::string type)  {
 
-  int   success;
-  char  infoLog[1024];
+void Shader::checkCompileErrors(unsigned int shader, std::string type)
+{
+    int success;
+    char infoLog[1024];
 
-  if (type != "PROGRAM"){
+    if (type != "PROGRAM")
+    {
+        glGetShaderiv(
+            shader,
+            GL_COMPILE_STATUS,
+            &success
+        );
 
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+        if (!success)
+        {
+            glGetShaderInfoLog(
+                shader,
+                1024,
+                NULL,
+                infoLog
+            );
 
-    if (!success){
-      glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-      std::cout 
-        << "ERROR::SHADER_COMPILATION_ERROR of type: " 
-        << type << "\n" 
-        << infoLog 
-        << "\n -- --------------------------------------------------- -- " 
-        << std::endl;
+            std::cout
+                << "ERROR::SHADER_COMPILATION_ERROR of type: "
+                << type
+                << "\n"
+                << infoLog
+                << "\n -- --------------------------------------------------- -- "
+                << std::endl;
+        }
     }
-    else {
+    else
+    {
+        glGetProgramiv(
+            shader,
+            GL_LINK_STATUS,
+            &success
+        );
 
-      glGetProgramiv(shader, GL_LINK_STATUS, &success);
+        if (!success)
+        {
+            glGetProgramInfoLog(
+                shader,
+                1024,
+                NULL,
+                infoLog
+            );
 
-      if (!success){
-        glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-        std::cout 
-          << "ERROR::PROGRAM_LINKING_ERROR of type: " 
-          << type 
-          << "\n" 
-          << infoLog 
-          << "\n -- --------------------------------------------------- -- " 
-          << std::endl;
-      }
+            std::cout
+                << "ERROR::PROGRAM_LINKING_ERROR of type: "
+                << type
+                << "\n"
+                << infoLog
+                << "\n -- --------------------------------------------------- -- "
+                << std::endl;
+        }
     }
-  }
 }

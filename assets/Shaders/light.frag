@@ -3,14 +3,18 @@ out vec4 FragColor;
 
 uniform vec3 lightColor;
 
-struct  Light {
+struct    Light {
 
-        vec3  position;
-        
-        vec3  ambient;
-        vec3  diffuse;
-        vec3  specular;
+          vec4        position;
+          vec4        direction;
 
+          vec3        ambient;
+          vec3        diffuse;
+          vec3        specular;
+          
+          float       constant;
+          float       linear;
+          float       quadratic;
 };
 
 uniform Light  lighting;
