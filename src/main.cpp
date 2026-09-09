@@ -111,7 +111,7 @@ vec3  up         = vec3(0.0f, 1.0f, 0.0f);
 vec3  light_position = vec3(1.2f, 1.0f, 2.0f);
 
 float cutoff;
-
+float outer_cutoff;
 
 //---------------------------------------------------------------- Global Objects
 Camera camera(position, up, YAW, PITCH);
@@ -156,7 +156,8 @@ int main (){
 
   fov               = math::radians(45.0f);
 
-  cutoff            = 12.5;
+  cutoff            = 12.5f;
+  outer_cutoff      = 17.5f; 
 
   weight.blend      = 0.5f;
 
@@ -608,8 +609,10 @@ int main (){
       
       light.position  = vec4::position  (camera.position);
       light.direction = vec4::direction (camera.front);
-      light.cutoff    = math::radians(cutoff);
-      light.cutoff    = math::cos(light.cutoff);
+      light.cutoff       = math::radians(cutoff);
+      light.cutoff       = math::cos(light.cutoff);
+      light.outer_cutoff = math::radians(outer_cutoff);
+      light.outer_cutoff = math::cos(light.outer_cutoff);
 
       light.constant  = 1.0f;
       light.linear    = 0.09f;
@@ -844,23 +847,27 @@ void processInput(GLFWwindow *window)
   if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
       //color.light = color.light - vec3(0.01f, 0.0f, 0.0f);
       cutoff -= 0.1f;
+      outer_cutoff -= 0.1f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_4)   == GLFW_PRESS){
       //color.light = color.light + vec3(0.01f, 0.0f, 0.0f);
       cutoff += 0.1f;
+      outer_cutoff += 0.1f;
   }
 
    if  (glfwGetKey (window, GLFW_KEY_5)   == GLFW_PRESS){
-        weight.vertex -= 0.01f;
-    if (weight.vertex <= 0.0f)
-        weight.vertex =  0.0f;
+    outer_cutoff -= 0.1f;  
+    //    weight.vertex -= 0.01f;
+    //if (weight.vertex <= 0.0f)
+    //    weight.vertex =  0.0f;
   }
 
   if  (glfwGetKey (window, GLFW_KEY_6)   == GLFW_PRESS){
-        weight.vertex += 0.01f;
-    if (weight.vertex >= 1.0f)
-        weight.vertex =  1.0f;
+    outer_cutoff += 0.1f;
+    //    weight.vertex += 0.01f;
+    //if (weight.vertex >= 1.0f)
+    //    weight.vertex =  1.0f;
   }
 
  if  (glfwGetKey (window, GLFW_KEY_7)   == GLFW_PRESS){

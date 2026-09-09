@@ -217,18 +217,19 @@ void Shader::setMatrix(const std::string& name, const Matrix& matrix) const {
 //}
 
 void Shader::setLight(const std::string& name, const Light& light) const{
-    setVec4   (name + ".position",   light.position);
-    setVec4   (name + ".direction",  light.direction);
+    setVec4   (name + ".position",     light.position);
+    setVec4   (name + ".direction",    light.direction);
 
-    setVec3   (name + ".ambient",    light.ambient);
-    setVec3   (name + ".diffuse",    light.diffuse);
-    setVec3   (name + ".specular",   light.specular);
+    setVec3   (name + ".ambient",      light.ambient);
+    setVec3   (name + ".diffuse",      light.diffuse);
+    setVec3   (name + ".specular",     light.specular);
 
-    setFloat  (name + ".constant",   light.constant);
-    setFloat  (name + ".linear",     light.linear);
-    setFloat  (name + ".quadratic",  light.quadratic);
+    setFloat  (name + ".constant",     light.constant);
+    setFloat  (name + ".linear",       light.linear);
+    setFloat  (name + ".quadratic",    light.quadratic);
 
-    setFloat  (name + ".cutoff",     light.cutoff);
+    setFloat  (name + ".cutoff",       light.cutoff);
+    setFloat  (name + ".outer_cutoff", light.outer_cutoff);
 }
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------

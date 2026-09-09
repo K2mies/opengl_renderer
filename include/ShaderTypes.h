@@ -86,4 +86,5 @@ struct  Light
         float   quadratic;
 
         float   cutoff;
+        float   outer_cutoff;
 };

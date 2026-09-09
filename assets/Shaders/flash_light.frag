@@ -33,6 +33,7 @@ struct    Spacial {
           float       quadratic;
 
           float       cutoff;
+          float       outer_cutoff;
 };
 
 struct    Material {
@@ -57,6 +58,7 @@ struct    Light {
           float       quadratic;
 
           float       cutoff;
+          float       outer_cutoff;
 };
 
 //------------------------------------------- struct uniforms
@@ -65,7 +67,7 @@ uniform   Light       lighting;
 
 void main()
 {   
-    // Phong lighting
+    // Spotlight lighting
     // ---------------------------------------------------------- 
     vec3      normal                   = normalize(Normal);
 
@@ -92,6 +94,7 @@ void main()
               light.quadratic          = lighting.quadratic;
 
               light.cutoff             = lighting.cutoff;
+              light.outer_cutoff       = lighting.outer_cutoff;
     
     Spacial   view;
               view.position            = vec4(viewPosition, 1.0);
@@ -116,6 +119,14 @@ void main()
 
     float     theta;
               theta                    = dot( light.direction.xyz, normalize(-lighting.direction.xyz) );
+
+    float     epsilon;
+              epsilon                  = light.cutoff - light.outer_cutoff;
+
+    float     intensity;
+              intensity                = (theta - light.outer_cutoff) / epsilon;
+              intensity                = clamp(intensity, 0.0, 1.0);
+    
 
     // Ambient
     // ---------------------------------------------------------- 
@@ -161,19 +172,26 @@ void main()
     
     vec3       result;
 
-    if (theta > lighting.cutoff)
-    {
-               ambient.color          *= attenuation;
-               diffuse.color          *= attenuation;
-               specular.color         *= attenuation;
+    //if (theta > lighting.cutoff)
+    //{
+    //           ambient.color          *= attenuation;
+    //           diffuse.color          *= attenuation;
+    //           specular.color         *= attenuation;
+
+    //           result                 = ambient.color
+    //                                  + diffuse.color
+    //                                  + specular.color;
+    //}
+    //else
+    //{
+    //           result                 = ambient.color;
+    //}
+               diffuse.color          =  diffuse.color  * intensity * attenuation;
+               specular.color         =  specular.color * intensity * attenuation;
 
                result                 = ambient.color
                                       + diffuse.color
                                       + specular.color;
-    }
-    else
-    {
-               result                 = ambient.color;
-    }
+
                FragColor              =  vec4(result, 1.0);
 }
