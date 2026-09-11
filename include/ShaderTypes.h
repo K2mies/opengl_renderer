@@ -88,3 +88,43 @@ struct  Light
         float   cutoff;
         float   outer_cutoff;
 };
+
+struct  SunLight {
+
+        vec4     direction;
+        
+        vec3     ambient;
+        vec3     diffuse;
+        vec3     specular;
+
+};
+
+struct  PointLight {
+        
+        vec4     position;
+    
+        float    constant;
+        float    linear;
+        float    quadratic;
+        
+        vec3     ambient;
+        vec3     diffuse;
+        vec3     specular;
+};
+
+struct  SpotLight
+{
+        vec4    position;
+        vec4    direction;
+
+        vec3    ambient;
+        vec3    diffuse;
+        vec3    specular;
+
+        float   constant;
+        float   linear;
+        float   quadratic;
+
+        float   cutoff;
+        float   outer_cutoff;
+};

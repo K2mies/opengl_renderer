@@ -3,23 +3,22 @@ out vec4 FragColor;
 
 uniform vec3 lightColor;
 
-struct    Light {
-
-          vec4        position;
-          vec4        direction;
-
-          vec3        ambient;
-          vec3        diffuse;
-          vec3        specular;
+struct    PointLight {
           
+          vec4        position;
+    
           float       constant;
           float       linear;
           float       quadratic;
+          
+          vec3        ambient;
+          vec3        diffuse;
+          vec3        specular;
 };
 
-uniform Light  lighting;
+uniform   PointLight  light;
 
 void main()
 {
-    FragColor   = vec4(lighting.diffuse, 1.0);
+    FragColor   = vec4(light.diffuse, 1.0);
 }

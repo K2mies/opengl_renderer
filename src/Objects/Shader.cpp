@@ -231,6 +231,42 @@ void Shader::setLight(const std::string& name, const Light& light) const{
     setFloat  (name + ".cutoff",       light.cutoff);
     setFloat  (name + ".outer_cutoff", light.outer_cutoff);
 }
+
+void Shader::setSunLight(const std::string& name, const SunLight& light) const {
+    setVec4   (name + ".direction",     light.direction);
+
+    setVec3   (name + ".ambient",       light.ambient);
+    setVec3   (name + ".diffuse",       light.diffuse);
+    setVec3   (name + ".specular",      light.specular);
+}
+
+void Shader::setPointLight(const std::string& name, const PointLight& light) const {
+    setVec4   (name + ".position",      light.position);
+
+    setFloat  (name + ".constant",      light.constant);
+    setFloat  (name + ".linear",        light.linear);
+    setFloat  (name + ".quadratic",     light.quadratic);
+
+    setVec3   (name + ".ambient",       light.ambient);
+    setVec3   (name + ".diffuse",       light.diffuse);
+    setVec3   (name + ".specular",      light.specular);
+}
+
+void Shader::setSpotLight(const std::string& name, const SpotLight& light) const {
+    setVec4   (name + ".position",      light.position);
+    setVec4   (name + ".direction",     light.direction);
+      
+    setFloat  (name + ".constant",      light.constant);
+    setFloat  (name + ".linear",        light.linear);
+    setFloat  (name + ".quadratic",     light.quadratic);
+
+    setVec3   (name + ".ambient",       light.ambient);
+    setVec3   (name + ".diffuse",       light.diffuse);
+    setVec3   (name + ".specular",      light.specular);
+    
+    setFloat  (name + ".cutoff",        light.cutoff);
+    setFloat  (name + ".outer_cutoff",  light.outer_cutoff);
+}
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
 

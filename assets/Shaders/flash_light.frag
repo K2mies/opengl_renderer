@@ -186,12 +186,14 @@ void main()
     //{
     //           result                 = ambient.color;
     //}
-               diffuse.color          =  diffuse.color  * intensity * attenuation;
-               specular.color         =  specular.color * intensity * attenuation;
+               diffuse.color          = diffuse.color  * intensity * attenuation;
+               specular.color         = specular.color * intensity * attenuation;
+               //emission.color         = emission.color - (emission.color * intensity);
 
                result                 = ambient.color
                                       + diffuse.color
                                       + specular.color;
+                                      //+ emission.color;
 
-               FragColor              =  vec4(result, 1.0);
+               FragColor              = vec4(result, 1.0);
 }

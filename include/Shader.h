@@ -84,6 +84,15 @@ class Shader  {
     void setLight     (const std::string& name, 
                        const Light& light)                const;
 
+    void setSunLight  (const std::string& name, 
+                       const SunLight& light)             const;
+
+    void setPointLight(const std::string& name, 
+                       const PointLight& light)           const;
+
+    void setSpotLight (const std::string& name,
+                       const SpotLight& light)            const;
+
   private:
     //-- function for checking shader compilation/linking errors.
     void checkCompileErrors(unsigned int shader, std::string type);
