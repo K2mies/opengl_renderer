@@ -27,10 +27,6 @@
 // Imports
 #include <iostream>
 
-//------------------------------------------------------------------------ Macros
-#define   NUM_OF_POINT_LIGHTS 4
-#define   NUM_OF_CUBES        10
-
 //------------------------------------------------------------------------- Enums
 enum AxisType {
     
@@ -643,7 +639,7 @@ int main (){
       
       // Point Lights
       
-      for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++)
+      for (int i = 0; i < 4; i++)
       {
         float time;
               time = glfwGetTime();
@@ -713,7 +709,7 @@ int main (){
       matrix.normal = mat4::normalMatrix(matrix.model);
 
 
-      for (unsigned int i = 0; i < NUM_OF_CUBES; i++)
+      for (unsigned int i = 0; i < 10; i++)
       {
         matrix.model = mat4(1.0f);
         matrix.model = matrix.model
@@ -751,7 +747,7 @@ int main (){
       lightShader.use();
 
       glBindVertexArray(light_objs[VAO]);
-      for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++ )
+      for (int i = 0; i < 4; i++ )
       {
 
         matrix.model = mat4(1.0f);
