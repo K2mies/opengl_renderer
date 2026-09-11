@@ -4,14 +4,14 @@
 //#include <glm/gtc/matrix_transform.hpp>
 //#include <glm/gtc/type_ptr.hpp>
 
-#include "Mat4.h"
-#include "Mat3.h"
-#include "Mat2.h"
-#include "Vec4.h"
-#include "Vec3.h"
-#include "Vec2.h"
+#include "Typedefs/Mat4.h"
+#include "Typedefs/Mat3.h"
+#include "Typedefs/Mat2.h"
+#include "Typedefs/Vec4.h"
+#include "Typedefs/Vec3.h"
+#include "Typedefs/Vec2.h"
 
-#include "Texture.h"
+#include "Objects/Texture.h"
 
 struct  Weight
 {

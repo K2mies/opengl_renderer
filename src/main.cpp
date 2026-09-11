@@ -1,28 +1,32 @@
 // Imported libraries
 
-// Glad/GLFW/stb_image 
+// Glad/GLFW/stb_image/assimp 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "glm/ext/matrix_clip_space.hpp"
 #include "stb_image.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 
 
 // Objects / Classes
-#include "Shader.h"
-#include "Texture.h"
-#include "ShaderTypes.h"
+#include "Objects/Shader.h"
+#include "Objects/Texture.h"
+#include "Typedefs/ShaderTypes.h"
 
-#include "Camera.h"
+#include "Scene/Camera.h"
 
 // Custom Types
-#include "Vec4.h"
-#include "Vec3.h"
-#include "Vec2.h"
-#include "Mat4.h"
-#include "Mat3.h"
+#include "Typedefs/Vec4.h"
+#include "Typedefs/Vec3.h"
+#include "Typedefs/Vec2.h"
+#include "Typedefs/Mat4.h"
+#include "Typedefs/Mat3.h"
 
 // custom libraries
-#include "MathUtils.h"
+#include "Utils/MathUtils.h"
 
 // Imports
 #include <iostream>

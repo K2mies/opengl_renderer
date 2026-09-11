@@ -1,4 +1,4 @@
-#include  "Vec3.h"
+#include  "Typedefs/Vec3.h"
 
 //----------------------------------------------------------------- constructors
 

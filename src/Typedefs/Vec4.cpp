@@ -1,6 +1,6 @@
-#include  "Vec4.h"
+#include  "Typedefs/Vec4.h"
 #include <cmath>
-#include "MathUtils.h"
+#include "Utils/MathUtils.h"
 
 //----------------------------------------------------------------- constructors
 vec4::vec4()  {

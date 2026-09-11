@@ -1,7 +1,7 @@
 #ifndef MAT2_H
 #define MAT2_H
 
-#include "Vec2.h"
+#include "Typedefs/Vec2.h"
 
 #include <iostream>
 

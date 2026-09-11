@@ -1,4 +1,4 @@
-#include "Vec2.h"
+#include "Typedefs/Vec2.h"
 
 //----------------------------------------------------------------- constructors
 vec2::vec2(){

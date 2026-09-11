@@ -12,7 +12,7 @@
 #include <string>
 
 // Types to use for custom setters ie: Light, Material ... etc
-#include "ShaderTypes.h"
+#include "Typedefs/ShaderTypes.h"
 
 //---------------------------------------- Forward declarations
 

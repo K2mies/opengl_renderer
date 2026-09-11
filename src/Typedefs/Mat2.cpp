@@ -1,4 +1,4 @@
-#include "Mat2.h"
+#include "Typedefs/Mat2.h"
 
 #include <stdexcept>
 #include <iomanip>

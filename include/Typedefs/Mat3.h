@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "Vec3.h"
+#include "Typedefs/Vec3.h"
 
 class mat3
 {

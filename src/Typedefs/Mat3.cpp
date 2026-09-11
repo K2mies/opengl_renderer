@@ -1,4 +1,4 @@
-#include "Mat3.h"
+#include "Typedefs/Mat3.h"
 
 #include <stdexcept>
 #include <iomanip>

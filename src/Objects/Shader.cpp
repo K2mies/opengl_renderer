@@ -1,16 +1,16 @@
 
-#include "Shader.h"
+#include "Objects/Shader.h"
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
 
-#include "Mat4.h"
-#include "Mat3.h"
-#include "Mat2.h"
-#include "Vec4.h"
-#include "Vec3.h"
-#include "MathUtils.h"
+#include "Typedefs/Mat4.h"
+#include "Typedefs/Mat3.h"
+#include "Typedefs/Mat2.h"
+#include "Typedefs/Vec4.h"
+#include "Typedefs/Vec3.h"
+#include "Utils/MathUtils.h"
 
 enum ShaderType
 {

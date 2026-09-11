@@ -3,9 +3,9 @@
 
 #include<iostream>
 
-#include "Vec3.h"
-#include "Vec4.h"
-#include "Mat3.h"
+#include "Typedefs/Vec3.h"
+#include "Typedefs/Vec4.h"
+#include "Typedefs/Mat3.h"
 
 class mat4
 {
