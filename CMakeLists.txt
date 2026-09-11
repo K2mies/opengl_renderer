@@ -8,7 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(OpenGL REQUIRED)
-find_package(glfw3 REQUIRED)
+find_package(assimp REQUIRED)
+find_package(glfw3  REQUIRED)
 
 add_executable(OpenGLRenderer
     src/main.cpp
@@ -36,5 +37,6 @@ target_include_directories(OpenGLRenderer PRIVATE
 target_link_libraries(OpenGLRenderer
     glfw
     OpenGL::GL
+    assimp::assimp
 )
 
