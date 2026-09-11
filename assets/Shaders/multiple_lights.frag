@@ -71,32 +71,15 @@ struct    PointLight {
           vec3        specular;
 };
 
-struct  SpotLight
+struct    SpotLight
 {
-        vec4    position;
-        vec4    direction;
-
-        vec3    ambient;
-        vec3    diffuse;
-        vec3    specular;
-
-        float   constant;
-        float   linear;
-        float   quadratic;
-
-        float   cutoff;
-        float   outer_cutoff;
-};
-
-struct    Light {
-
           vec4        position;
           vec4        direction;
 
           vec3        ambient;
           vec3        diffuse;
           vec3        specular;
-          
+
           float       constant;
           float       linear;
           float       quadratic;
@@ -107,7 +90,6 @@ struct    Light {
 
 //------------------------------------------- struct uniforms
 uniform   Material    material;
-uniform   Light       lighting;
 uniform   SunLight    sunlight;
 uniform   SpotLight   spotlight;
 uniform   PointLight  pointlights[NUM_OF_POINT_LIGHTS];
