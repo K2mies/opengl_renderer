@@ -43,6 +43,7 @@ endif()
 add_executable(OpenGLRenderer
     src/main.cpp
 
+    src/Objects/Model.cpp
     src/Objects/Mesh.cpp
     src/Objects/Shader.cpp
     src/Objects/Texture.cpp

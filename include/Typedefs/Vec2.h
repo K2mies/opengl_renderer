@@ -17,6 +17,7 @@ public:
 
     vec2();
     vec2(float x, float y);
+    vec2(float num);
     vec2(const vec2& source);
 
     //------------------------------------------------ operators

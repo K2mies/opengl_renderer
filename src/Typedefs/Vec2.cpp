@@ -15,6 +15,11 @@ vec2::vec2(float x, float y){
 
 }
 
+vec2::vec2(float num){
+  this->x = num;
+  this->y = num;
+}
+
 vec2::vec2(const vec2& source){
   
   *this = source;

@@ -94,17 +94,27 @@ void Mesh::draw(Shader &shader){
   
   unsigned int diffuse_num  = 1;
   unsigned int specular_num = 1;
+  unsigned int emission_num = 1;
   //----------------------------------------------------- bind textures
   for (unsigned int i = 0; i < textures.size(); i++)
   {
     std::string number;
-    std::string name = textures[i].type;
+    std::string name;
 
-    if           (name == "texture_diffuse")
+    if (textures[i].type == diffuse){
       number = std::to_string(diffuse_num++);
+      name   = "texture_diffuse";
+    }
 
-    else if      (name == "texture_sepcular")
+    if (textures[i].type == specular){
       number = std::to_string(specular_num++);
+      name   = "texture_specular";
+    }
+
+    if (textures[i].type == emission){
+      number = std::to_string(emission_num++);
+      name   = "texture_emission";
+    }
 
     shader.setInt("material." + name + number, static_cast<int>(i));
 
