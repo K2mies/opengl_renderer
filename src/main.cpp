@@ -9,13 +9,15 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-
-
 // Objects / Classes
+#include "Objects/Mesh.h"
 #include "Objects/Shader.h"
 #include "Objects/Texture.h"
+
+// Shader Typedefs
 #include "Typedefs/ShaderTypes.h"
 
+// Scene Objects
 #include "Scene/Camera.h"
 
 // Custom Types
@@ -24,6 +26,7 @@
 #include "Typedefs/Vec2.h"
 #include "Typedefs/Mat4.h"
 #include "Typedefs/Mat3.h"
+#include "Typedefs/Mat2.h"
 
 // custom libraries
 #include "Utils/MathUtils.h"
@@ -119,8 +122,8 @@ float fov;
 float last[2];
 bool  firstMouse = true;
 
-vec3  position      = vec3(0.0f, 0.0f, 3.0f);
-vec3  up            = vec3(0.0f, 1.0f, 0.0f);
+vec3  position       = vec3(0.0f, 0.0f, 3.0f);
+vec3  up             = vec3(0.0f, 1.0f, 0.0f);
 
 vec3  light_position = vec3(1.2f, 1.0f, 2.0f);
 

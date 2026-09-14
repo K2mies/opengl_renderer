@@ -1,19 +1,19 @@
 #version 330 core
 
-//---------------------------------------------------- macros
+//------------------------------------------------------------------------------------------ macros
 #define   NUM_OF_POINT_LIGHTS 4
 
-//-------------------------------------------------- uniforms
+//---------------------------------------------------------------------------------------- uniforms
 uniform   vec3        viewPosition;
 
-//---------------------------------------------------- in/out
+//------------------------------------------------------------------------------------------ in/out
 in        vec3        Normal;
 in        vec2        TexCoords;
 in        vec4        fragmentPosition;
 
 out       vec4        FragColor;
 
-//--------------------------------------------------- structs
+//----------------------------------------------------------------------------------------- structs
 struct    Pass {
 
           float       strength;
@@ -47,7 +47,7 @@ struct    Material {
           float       shininess;
 };
 
-//---------------------------------------------------- lights
+//------------------------------------------------------------------------------------------ lights
 struct    SunLight {
 
           vec4        direction;
@@ -88,22 +88,22 @@ struct    SpotLight
           float       outer_cutoff;
 };
 
-//------------------------------------------- struct uniforms
+//--------------------------------------------------------------------------------- struct uniforms
 uniform   Material    material;
 uniform   SunLight    sunlight;
 uniform   SpotLight   spotlight;
 uniform   PointLight  pointlights[NUM_OF_POINT_LIGHTS];
 
 
-//--------------------------------------- forward declaraions
-vec3 calculateSunLight    (SunLight   light, vec3 normal, vec3 view_direction);
+//----------------------------------------------------------------------------- forward declaraions
+vec3 calculateSunLight    (SunLight   light, vec3 normal, vec3 view_direction                    );
 vec3 calculateSpotLight   (SpotLight  light, vec3 normal, vec3 frag_position, vec3 view_direction);
 vec3 calculatePointLight  (PointLight light, vec3 normal, vec3 frag_position, vec3 view_direction);
 
 void main()
 {   
     // Multiple lighting
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     vec3    normal                    = normalize(Normal);
 
     Spacial fragment;
@@ -114,32 +114,31 @@ void main()
             view.direction            = normalize(view.position - fragment.position);
     
     // Sun Lighting
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     vec3    result;
             result                    = calculateSunLight(sunlight, normal, view.direction.xyz) / 2.0f;
 
     // Point lights
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++)
     {
       result += calculatePointLight(pointlights[i], normal, fragment.position.xyz, view.direction.xyz) / 2.0f;
     }
   
     // Spot Light
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
       result += calculateSpotLight(spotlight, normal, fragment.position.xyz, view.direction.xyz) * 2.0f; 
 
     // Output
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     FragColor = vec4(result, 1.0);
 }
 
-
-//------------------------------------------------- functions
+//--------------------------------------------------------------------------------------- functions
 vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction)
 {    
     // Sun Light
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Spacial sunlight;
             sunlight.direction.xyz    = normalize (-light.direction.xyz);
             sunlight.direction.w      = 0.0;
@@ -156,13 +155,13 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction)
             view.direction            = vec4      (view_direction, 0.0);
 
     // Ambient Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    ambient;
             ambient.color             = texture(material.diffuse, TexCoords).rgb;
             ambient.color             = sunlight.ambient * ambient.color;
 
     // Diffuse Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    diffuse;
             diffuse.intensity         = dot(normal, sunlight.direction.xyz);
             diffuse.intensity         = max(diffuse.intensity, 0.0);
@@ -173,7 +172,7 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction)
                                       * diffuse.color;
   
     // Specular Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    specular;
             specular.intensity        = dot(view.direction.xyz, reflection.direction.xyz);
             specular.intensity        = max(specular.intensity, 0.0);
@@ -185,14 +184,14 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction)
                                       * specular.color;
   
     // Output
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     return (ambient.color + diffuse.color + specular.color); 
 }
 
 vec3 calculateSpotLight  (SpotLight light, vec3 normal, vec3 frag_position, vec3 view_direction)
 {
     // Point Light
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     Spacial fragment;
             fragment.position         = vec4      (frag_position, 1.0);
     
@@ -243,14 +242,14 @@ vec3 calculateSpotLight  (SpotLight light, vec3 normal, vec3 frag_position, vec3
             intensity                 = clamp(intensity, 0.0, 1.0);
  
     // Ambient Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    ambient;
             ambient.color             = texture(material.diffuse, TexCoords).rgb;
             ambient.color             = spotlight.ambient * ambient.color;
             ambient.color             *= attenuation;
 
     // Diffuse Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    diffuse;
             diffuse.intensity         = dot(normal, spotlight.direction.xyz);
             diffuse.intensity         = max(diffuse.intensity, 0.0);
@@ -261,7 +260,7 @@ vec3 calculateSpotLight  (SpotLight light, vec3 normal, vec3 frag_position, vec3
             diffuse.color             *= intensity;
 
     // Specular Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    specular;
             specular.intensity        = dot(view.direction.xyz, reflection.direction.xyz);
             specular.intensity        = max(specular.intensity, 0.0);
@@ -273,13 +272,14 @@ vec3 calculateSpotLight  (SpotLight light, vec3 normal, vec3 frag_position, vec3
             specular.color            *= intensity;
     
     // Output
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     return (ambient.color + diffuse.color + specular.color);
 }
+
 vec3 calculatePointLight  (PointLight light, vec3 normal, vec3 frag_position, vec3 view_direction)
 {
     // Point Light
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     Spacial fragment;
             fragment.position         = vec4      (frag_position, 1.0);
     
@@ -315,14 +315,14 @@ vec3 calculatePointLight  (PointLight light, vec3 normal, vec3 frag_position, ve
             attenuation               = 1.0 / attenuation;
  
     // Ambient Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    ambient;
             ambient.color             = texture(material.diffuse, TexCoords).rgb;
             ambient.color             = pointlight.ambient * ambient.color;
             ambient.color             *= attenuation;
 
     // Diffuse Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    diffuse;
             diffuse.intensity         = dot(normal, pointlight.direction.xyz);
             diffuse.intensity         = max(diffuse.intensity, 0.0);
@@ -332,7 +332,7 @@ vec3 calculatePointLight  (PointLight light, vec3 normal, vec3 frag_position, ve
             diffuse.color             *= attenuation;
 
     // Specular Shading
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     Pass    specular;
             specular.intensity        = dot(view.direction.xyz, reflection.direction.xyz);
             specular.intensity        = max(specular.intensity, 0.0);
@@ -343,6 +343,6 @@ vec3 calculatePointLight  (PointLight light, vec3 normal, vec3 frag_position, ve
             specular.color            *= attenuation;
     
     // Output
-    // ---------------------------------------------------------- 
+    // ------------------------------------------------------------------------------------------------ 
     return (ambient.color + diffuse.color + specular.color);
 }

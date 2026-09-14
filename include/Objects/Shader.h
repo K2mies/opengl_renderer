@@ -5,9 +5,9 @@
 #include <glad/glad.h> 
 
 // include glm libraries to get the glm functions
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 
@@ -57,15 +57,15 @@ class Shader  {
                    const        vec4& vector)             const;
 
     //------------------------------------- set matrix functions
-    void setMat2(const std::string &name,   const mat2 &matrix)
+    void setMat2(const std::string   &name, const mat2  &matrix)
 
                                                           const;
 
-    void setMat3(const std::string &name,   const mat3 &matrix)
+    void setMat3(const std::string   &name, const mat3  &matrix)
 
                                                           const;
 
-    void setMat4(const std::string &name,   const mat4 &matrix)
+    void setMat4(const std::string   &name, const mat4  &matrix)
 
                                                           const;
 
@@ -79,19 +79,19 @@ class Shader  {
                                                           const;
 
     void setMaterial  (const std::string& name,
-                       const Material& material)          const;
+                       const Material&    material)       const;
 
     void setLight     (const std::string& name, 
-                       const Light& light)                const;
+                       const Light&       light)          const;
 
     void setSunLight  (const std::string& name, 
-                       const SunLight& light)             const;
+                       const SunLight&    light)          const;
 
     void setPointLight(const std::string& name, 
-                       const PointLight& light)           const;
+                       const PointLight&  light)          const;
 
     void setSpotLight (const std::string& name,
-                       const SpotLight& light)            const;
+                       const SpotLight&   light)          const;
 
   private:
     //-- function for checking shader compilation/linking errors.
