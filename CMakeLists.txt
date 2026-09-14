@@ -43,6 +43,7 @@ endif()
 add_executable(OpenGLRenderer
     src/main.cpp
 
+    src/Objects/Mesh.cpp
     src/Objects/Shader.cpp
     src/Objects/Texture.cpp
 
@@ -58,6 +59,7 @@ add_executable(OpenGLRenderer
     src/Typedefs/Mat4.cpp
     src/Typedefs/Mat3.cpp
     src/Typedefs/Mat2.cpp
+
 
     third_party/glad/src/glad.c
 )

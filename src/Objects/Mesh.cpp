@@ -1,4 +1,4 @@
-#include "OBjects/Mesh.h"
+#include "Objects/Mesh.h"
 #include "Objects/Shader.h"
 
 #include <glad/glad.h>
