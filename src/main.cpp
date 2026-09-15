@@ -318,6 +318,7 @@ int main (){
   );
   //------------------------------------------------------------- 5. Model Loader
   Model  loaded_model("../assets/Models/backpack/backpack.obj");
+  //Model loaded_model("../assets/Models/Cube.obj");
 
   // configure global opengl state
   // -----------------------------
@@ -514,12 +515,12 @@ int main (){
   //----------------------------------------------------------------- 8. Textures 
   
   //Texture diffuseMap ("../assets/Textures/container2.png");
-  Material material;
-  material.diffuse.load ("../assets/Textures/diffuse.png");
-  material.specular.load("../assets/Textures/specular.png");
-  material.emission.load("../assets/Textures/emission.jpg");
-  //material.specular.load("../assets/Textures/color_specular.png");
-  material.shininess = 32.0f;
+  //Material material;
+  //material.diffuse.load ("../assets/Textures/diffuse.png");
+  //material.specular.load("../assets/Textures/specular.png");
+  //material.emission.load("../assets/Textures/emission.jpg");
+  ////material.specular.load("../assets/Textures/color_specular.png");
+  //material.shininess = 32.0f;
 
   //--------------------------------------------- 9. Build/Compile Shader Program
 
@@ -728,6 +729,8 @@ int main (){
       // Ok lets draw the object
       //------------------------------------------------ draw model
       model_shader.use();
+      
+      model_shader.setVec3("material.color", vec3(1.0f));
       
       matrix.model = mat4(1.0f);
 

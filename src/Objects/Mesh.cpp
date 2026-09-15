@@ -92,9 +92,11 @@ void Mesh::setupMesh() {
 //---------------------------------------------------------------- draw
 void Mesh::draw(Shader &shader){
   
-  unsigned int diffuse_num  = 1;
-  unsigned int specular_num = 1;
-  unsigned int emission_num = 1;
+  unsigned int diffuse_num   = 1;
+  unsigned int specular_num  = 1;
+  unsigned int emission_num  = 1;
+
+  bool         hasDiffuseMap = false;
   //----------------------------------------------------- bind textures
   for (unsigned int i = 0; i < textures.size(); i++)
   {
@@ -104,6 +106,8 @@ void Mesh::draw(Shader &shader){
     if (textures[i].type == diffuse){
       number = std::to_string(diffuse_num++);
       name   = "texture_diffuse";
+
+      hasDiffuseMap = true;
     }
 
     if (textures[i].type == specular){
@@ -120,6 +124,8 @@ void Mesh::draw(Shader &shader){
 
     textures[i].texture->bind(i);
   }
+
+  shader.setBool("material.hasDiffuseMap", hasDiffuseMap);
 
   //--------------------------------------------------------- draw mesh
   glBindVertexArray(VAO);
