@@ -18,7 +18,7 @@ struct MeshTexture
 
   //const Texture         *texture;
   std::shared_ptr<Texture> texture; //A shared_ptr<Texture> lets multiple MeshTextures safely refer to the same actual OpenGL texture without copying it:
-  unsigned int             type;
+  TextureType              type;
   //std::string            type;
 
 };

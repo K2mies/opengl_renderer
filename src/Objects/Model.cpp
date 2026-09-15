@@ -1,9 +1,13 @@
 #include "Objects/Model.h"
+#include "Typedefs/MeshTexture.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
+#include <assimp/scene.h>
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 
 Model::Model(const std::string &path){
@@ -11,6 +15,7 @@ Model::Model(const std::string &path){
 }
 
 void Model::draw(Shader &shader){
+
   for (Mesh &mesh : meshes)
     mesh.draw(shader);
 }
@@ -21,12 +26,13 @@ void Model::loadModel(const std::string &path){
 
   const aiScene *scene = importer.ReadFile( 
     path, 
-    aiProcess_Triangulate 
-  | aiProcess_FlipUVs 
-  | aiProcess_GenSmoothNormals
+    aiProcess_Triangulate       | 
+    aiProcess_FlipUVs           |
+    aiProcess_GenSmoothNormals  |
+    aiProcess_CalcTangentSpace
   );
 
-  if (scene == nullptr || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != 0 || scene->mRootNode == nullptr){
+  if (scene == nullptr || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != 0 || scene->mRootNode == nullptr){
     std::cerr << "ERROR::ASSIMP:"
               << importer.GetErrorString()
               << std::endl;
@@ -57,6 +63,9 @@ void Model::processNode(aiNode *node, const aiScene *scene){
 }
 
 Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
+  
+  (void)scene; // temp delete
+
   std::vector<Vertex>           vertices;
   std::vector<unsigned int>     indices;
   std::vector<MeshTexture>      textures;
@@ -70,34 +79,65 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
     Vertex vertex{};
 
     //-------------------------------------------------- position
-    vertex.position = vec3( mesh->mVertices[i].x, 
-                            mesh->mVertices[i].y, 
-                            mesh->mVertices[i].z);
-
+    vertex.position.x   = mesh->mVertices[i].x;
+    vertex.position.y   = mesh->mVertices[i].y;
+    vertex.position.z   = mesh->mVertices[i].z;
+    
     //---------------------------------------------------- normal
-    if (mesh->HasNormals()){
-      vertex.normal = vec3( mesh->mNormals[i].x, 
-                            mesh->mNormals[i].y, 
-                            mesh->mNormals[i].z);
+    if (mesh->HasNormals())
+    {
+      vertex.normal.x   = mesh->mNormals[i].x;
+      vertex.normal.y   = mesh->mNormals[i].y;
+      vertex.normal.z   = mesh->mNormals[i].z;
     }
-    else{
-      vertex.normal = vec3(0.0f);
+    else
+    {
+      vertex.normal.x   = 0.0f;
+      vertex.normal.y   = 0.0f;
+      vertex.normal.z   = 0.0f;
     }
 
     //--------------------------------------- texture coordinates
     
-    if (mesh->HasTextureCoords(0)){
-      vertex.texCoords = vec2(mesh->mTextureCoords[0][i].x, 
-                              mesh->mTextureCoords[0][i].y);
+    if (mesh->HasTextureCoords(0))
+    {
+      vertex.texCoords.x = mesh->mTextureCoords[0][i].x;
+      vertex.texCoords.y = mesh->mTextureCoords[0][i].y;
     }
-    else{
-      vertex.texCoords = vec2(0.0f);
+    else
+    {
+      vertex.texCoords.x = 0.0f;
+      vertex.texCoords.y = 0.0f;
+    }
+    //--------------------------------------- tangent and bitangent
+    if (mesh->HasTangentsAndBitangents())
+    {
+      vertex.tangent.x   = mesh->mTangents[i].x;
+      vertex.tangent.y   = mesh->mTangents[i].y;
+      vertex.tangent.z   = mesh->mTangents[i].z;
+      
+      vertex.bitangent.x = mesh->mBitangents[i].x;
+      vertex.bitangent.y = mesh->mBitangents[i].y;
+      vertex.bitangent.z = mesh->mBitangents[i].z;
+    }
+    else
+    {
+      vertex.tangent.x   = 0.0f;
+      vertex.tangent.y   = 0.0f;
+      vertex.tangent.z   = 0.0f;
+
+      vertex.bitangent.x = 0.0f;
+      vertex.bitangent.y = 0.0f;
+      vertex.bitangent.z = 0.0f;
     }
 
+    //------------------------------------------------ store vertex
     vertices.push_back(vertex);
   }
 
   //------------------------------------------------------ indices
+  
+  indices.reserve(mesh->mNumFaces * 3);
 
   for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
   {
@@ -115,8 +155,82 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
      * Material texture loading will go here after we add
      * loadMaterialTextures().
      */
+
+  //----------------------------------------------------- material
+  if (mesh->mMaterialIndex < scene->mNumMaterials)
+  {
+    aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+
+    //----------------------------------------------- diffuse maps
+    std::vector<MeshTexture> diffuseMaps =
+                     loadMaterialTextures( material, 
+                                           aiTextureType_DIFFUSE, 
+                                           diffuse);
+
+    textures.insert(textures.end(), 
+                    diffuseMaps.begin(), 
+                    diffuseMaps.end());
+
+    //---------------------------------------------- specular maps
+    std::vector<MeshTexture> specularMaps =
+                    loadMaterialTextures( material,
+                                          aiTextureType_SPECULAR,
+                                          specular);
+
+    textures.insert(textures.end(),
+                    specularMaps.begin(),
+                    specularMaps.end());
+
+    //---------------------------------------------- emission maps
+    std::vector<MeshTexture> emissionMaps =
+                    loadMaterialTextures( material,
+                                          aiTextureType_EMISSIVE,
+                                          emission);
+
+    textures.insert(textures.end(),
+                    emissionMaps.begin(),
+                    emissionMaps.end());
+
+  }
   //-------------------------------------------------- create mesh
   
   return Mesh(vertices, indices, textures);
 
+}
+
+std::vector<MeshTexture> Model::loadMaterialTextures(
+                                                      aiMaterial    *material, 
+                                                      aiTextureType assimpType, 
+                                                      TextureType   textureType){
+  std::vector<MeshTexture> materialTextures;
+
+  const unsigned int textureCount = material->GetTextureCount(assimpType);
+
+  materialTextures.reserve(textureCount);
+
+  for (unsigned int i = 0; i < textureCount; ++i)
+  {
+    aiString relativePath;
+
+    if (material->GetTexture(assimpType, i, &relativePath) != AI_SUCCESS)
+      continue;
+
+    //------------------------------------------------- full path
+    const std::string fullPath = directory + "/" + relativePath.C_Str();
+    
+    //-------------------------------------------- cached texture
+    auto existingTexture = loadedTextures.find(fullPath);
+
+    if (existingTexture != loadedTextures.end()){
+      materialTextures.push_back(MeshTexture{existingTexture->second, textureType});
+      continue;
+    }
+    //----------------------------------------------- new texture
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>(fullPath, false);
+
+    loadedTextures.emplace(fullPath, texture);
+    materialTextures.push_back(MeshTexture{texture, textureType});
+
+  }
+  return materialTextures;
 }
