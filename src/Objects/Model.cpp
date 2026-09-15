@@ -70,7 +70,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
   std::vector<unsigned int>     indices;
   std::vector<MeshTexture>      textures;
 
-  //---------------------------------------------------- vertices
+  //------------------------------------------------------------------------------------- vertices
 
   vertices.reserve(mesh->mNumVertices);
 
@@ -78,12 +78,12 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
   {
     Vertex vertex{};
 
-    //-------------------------------------------------- position
+    //----------------------------------------------------------------------------------- position
     vertex.position.x   = mesh->mVertices[i].x;
     vertex.position.y   = mesh->mVertices[i].y;
     vertex.position.z   = mesh->mVertices[i].z;
     
-    //---------------------------------------------------- normal
+    //------------------------------------------------------------------------------------- normal
     if (mesh->HasNormals())
     {
       vertex.normal.x   = mesh->mNormals[i].x;
@@ -97,7 +97,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       vertex.normal.z   = 0.0f;
     }
 
-    //--------------------------------------- texture coordinates
+    //------------------------------------------------------------------------ texture coordinates
     
     if (mesh->HasTextureCoords(0))
     {
@@ -109,7 +109,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       vertex.texCoords.x = 0.0f;
       vertex.texCoords.y = 0.0f;
     }
-    //--------------------------------------- tangent and bitangent
+    //------------------------------------------------------------------------ tangent and bitangent
     if (mesh->HasTangentsAndBitangents())
     {
       vertex.tangent.x   = mesh->mTangents[i].x;
@@ -131,11 +131,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       vertex.bitangent.z = 0.0f;
     }
 
-    //------------------------------------------------ store vertex
+    //--------------------------------------------------------------------------------- store vertex
     vertices.push_back(vertex);
   }
 
-  //------------------------------------------------------ indices
+  //--------------------------------------------------------------------------------------- indices
   
   indices.reserve(mesh->mNumFaces * 3);
 
@@ -149,19 +149,19 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
     }
   }
 
-  //----------------------------------------------------- textures
+  //-------------------------------------------------------------------------------------- textures
 
     /*
      * Material texture loading will go here after we add
      * loadMaterialTextures().
      */
 
-  //----------------------------------------------------- material
+  //-------------------------------------------------------------------------------------- material
   if (mesh->mMaterialIndex < scene->mNumMaterials)
   {
     aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
 
-    //----------------------------------------------- diffuse maps
+    //-------------------------------------------------------------------------------- diffuse maps
     std::vector<MeshTexture> diffuseMaps =
                      loadMaterialTextures( material, 
                                            aiTextureType_DIFFUSE, 
@@ -171,7 +171,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
                     diffuseMaps.begin(), 
                     diffuseMaps.end());
 
-    //---------------------------------------------- specular maps
+    //------------------------------------------------------------------------------- specular maps
     std::vector<MeshTexture> specularMaps =
                     loadMaterialTextures( material,
                                           aiTextureType_SPECULAR,
@@ -181,7 +181,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
                     specularMaps.begin(),
                     specularMaps.end());
 
-    //---------------------------------------------- emission maps
+    //------------------------------------------------------------------------------- emission maps
     std::vector<MeshTexture> emissionMaps =
                     loadMaterialTextures( material,
                                           aiTextureType_EMISSIVE,
@@ -192,14 +192,13 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
                     emissionMaps.end());
 
   }
-  //-------------------------------------------------- create mesh
+  //----------------------------------------------------------------------------------- create mesh
   
   return Mesh(vertices, indices, textures);
 
 }
 
-std::vector<MeshTexture> Model::loadMaterialTextures(
-                                                      aiMaterial    *material, 
+std::vector<MeshTexture> Model::loadMaterialTextures( aiMaterial    *material, 
                                                       aiTextureType assimpType, 
                                                       TextureType   textureType){
   std::vector<MeshTexture> materialTextures;
@@ -215,17 +214,17 @@ std::vector<MeshTexture> Model::loadMaterialTextures(
     if (material->GetTexture(assimpType, i, &relativePath) != AI_SUCCESS)
       continue;
 
-    //------------------------------------------------- full path
+    //---------------------------------------------------------------------------------- full path
     const std::string fullPath = directory + "/" + relativePath.C_Str();
     
-    //-------------------------------------------- cached texture
+    //----------------------------------------------------------------------------- cached texture
     auto existingTexture = loadedTextures.find(fullPath);
 
     if (existingTexture != loadedTextures.end()){
       materialTextures.push_back(MeshTexture{existingTexture->second, textureType});
       continue;
     }
-    //----------------------------------------------- new texture
+    //-------------------------------------------------------------------------------- new texture
     std::shared_ptr<Texture> texture = std::make_shared<Texture>(fullPath, false);
 
     loadedTextures.emplace(fullPath, texture);

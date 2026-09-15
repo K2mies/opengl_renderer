@@ -30,9 +30,9 @@ void main() {
                       * matrix.model 
                       * matrix.local;
 
-    gl_Position       = clip_space * vec4(aPos, 1.0);
+    gl_Position       = clip_space    * vec4(aPos, 1.0);
 
-    fragmentPosition  = matrix.model * vec4(aPos, 1.0);
+    fragmentPosition  = matrix.model  * vec4(aPos, 1.0);
 
     Normal            = matrix.normal * aNormal;
 

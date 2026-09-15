@@ -3,11 +3,11 @@
 // Glad/GLFW/stb_image/assimp 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "glm/ext/matrix_clip_space.hpp"
+//#include "glm/ext/matrix_clip_space.hpp"
 #include "stb_image.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+//#include <assimp/postprocess.h>
 
 // Objects / Classes
 #include "Objects/Model.h"
@@ -268,53 +268,56 @@ int main (){
       return -1;
   }
 
- //------------------------------------------------------------- 5. Model Loader
-
- // Model  model("../assets/Models/Cube.obj");
-
  //---------------------------------------------------- 5. Create Shader Program
     
-  Shader lightShader (
-    "../assets/Shaders/light.vert",
-    "../assets/Shaders/light.frag"
-  );
+  //Shader lightShader (
+  //  "../assets/Shaders/light.vert",
+  //  "../assets/Shaders/light.frag"
+  //);
 
-  //Shader colorShader (
+  //Shader model_shader (
   //  "../assets/Shaders/directional_light.vert",
   //  "../assets/Shaders/directional_light.frag"
   //);
   
-  //Shader colorShader (
+  //Shader model_shader (
   //  "../assets/Shaders/point_light.vert",
   //  "../assets/Shaders/point_light.frag"
   //);
 
-  //Shader colorShader (
+  //Shader model_shader (
   //  "../assets/Shaders/flash_light.vert",
   //  "../assets/Shaders/flash_light.frag"
   //);
   
-  Shader colorShader (
-    "../assets/Shaders/multiple_lights.vert",
-    "../assets/Shaders/multiple_lights.frag"
-  );
+  //Shader model_shader (
+  //  "../assets/Shaders/multiple_lights.vert",
+  //  "../assets/Shaders/multiple_lights.frag"
+  //);
 
-  //Shader colorShader (
+  //Shader model_shader (
   //  "../assets/Shaders/gouraud_flash_light.vert",
   //  "../assets/Shaders/gouraud_flash_light.frag"
   //);
   
-  //Shader colorShader  (
+  //Shader model_shader  (
   //  "../assets/Shaders/temp.vert",
   //  "../assets/Shaders/temp.frag"
   //);
 
 
   // GOURAUD SHADING
-  //Shader colorShader (
+  //Shader model_shader (
   //  "../assets/Shaders/gouraud.vert",
   //  "../assets/Shaders/gouraud.frag"
   //);
+
+  Shader model_shader (
+    "../assets/Shaders/model.vert",
+    "../assets/Shaders/model.frag"
+  );
+  //------------------------------------------------------------- 5. Model Loader
+  Model  loaded_model("../assets/Models/backpack/backpack.obj");
 
   // configure global opengl state
   // -----------------------------
@@ -325,187 +328,187 @@ int main (){
   // set up vertex data (and buffer(s)) and configure vertex attributes
   // ------------------------------------------------------------------
 
-  float vertices[] = {
-    // positions          // normals           // texture coords
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+  //float vertices[] = {
+  //  // positions          // normals           // texture coords
+  //  -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+  //   0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+  //   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+  //   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+  //  -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+  //  -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+  //  -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+  //   0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+  //   0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+  //   0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+  //  -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+  //  -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+  //  -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+  //  -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+  //  -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+  //  -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+  //  -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+  //  -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+  //   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+  //   0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+  //   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+  //   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+  //   0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+  //   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+  //  -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+  //   0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+  //   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+  //   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+  //  -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+  //  -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-  };
+  //  -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+  //   0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+  //   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+  //   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+  //  -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+  //  -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+  //};
 
-  unsigned int indices[] =
-  {
-      0, 1, 2, 2, 3, 0,
-      6, 7, 8, 8, 9, 6,
-      12,13,14,14,15,12,
-      18,19,20,20,21,18,
-      24,25,26,26,27,24,
-      30,31,32,32,33,30
-  };
+  //unsigned int indices[] =
+  //{
+  //    0, 1, 2, 2, 3, 0,
+  //    6, 7, 8, 8, 9, 6,
+  //    12,13,14,14,15,12,
+  //    18,19,20,20,21,18,
+  //    24,25,26,26,27,24,
+  //    30,31,32,32,33,30
+  //};
 
-  vec3 cubePositions[] = {
-    vec3( 0.0f,  0.0f,  0.0f),
-    vec3( 2.0f,  5.0f, -15.0f),
-    vec3(-1.5f, -2.2f, -2.5f),
-    vec3(-3.8f, -2.0f, -12.3f),
-    vec3( 2.4f, -0.4f, -3.5f),
-    vec3(-1.7f,  3.0f, -7.5f),
-    vec3( 1.3f, -2.0f, -2.5f),
-    vec3( 1.5f,  2.0f, -2.5f),
-    vec3( 1.5f,  0.2f, -1.5f),
-    vec3(-1.3f,  1.0f, -1.5f)
-  };
+  //vec3 cubePositions[] = {
+  //  vec3( 0.0f,  0.0f,  0.0f),
+  //  vec3( 2.0f,  5.0f, -15.0f),
+  //  vec3(-1.5f, -2.2f, -2.5f),
+  //  vec3(-3.8f, -2.0f, -12.3f),
+  //  vec3( 2.4f, -0.4f, -3.5f),
+  //  vec3(-1.7f,  3.0f, -7.5f),
+  //  vec3( 1.3f, -2.0f, -2.5f),
+  //  vec3( 1.5f,  2.0f, -2.5f),
+  //  vec3( 1.5f,  0.2f, -1.5f),
+  //  vec3(-1.3f,  1.0f, -1.5f)
+  //};
 
-  vec3 pointLightPositions[] = {
-	  vec3( 0.7f,  0.2f,  2.0f),
-	  vec3( 2.3f, -3.3f, -4.0f),
-	  vec3(-4.0f,  2.0f, -12.0f),
-	  vec3( 0.0f,  0.0f, -3.0f)
-  };  
+  //vec3 pointLightPositions[] = {
+	//  vec3( 0.7f,  0.2f,  2.0f),
+	//  vec3( 2.3f, -3.3f, -4.0f),
+	//  vec3(-4.0f,  2.0f, -12.0f),
+	//  vec3( 0.0f,  0.0f, -3.0f)
+  //};  
   //---------------------------------------------------- 7. Create OpenGL Objects 
 
   // CUBE OBJECT---------------------------------------------
-  unsigned int cube_objs[3];
+  //unsigned int cube_objs[3];
 
-  glGenVertexArrays (1, &cube_objs[VAO]);
-  glGenBuffers      (1, &cube_objs[VBO]);
-  glGenBuffers      (1, &cube_objs[EBO]);
+  //glGenVertexArrays (1, &cube_objs[VAO]);
+  //glGenBuffers      (1, &cube_objs[VBO]);
+  //glGenBuffers      (1, &cube_objs[EBO]);
 
-  // Setup
-  // --------------------
-  glBindVertexArray (cube_objs[VAO]);
+  //// Setup
+  //// --------------------
+  //glBindVertexArray (cube_objs[VAO]);
 
-  glBindBuffer      (GL_ARRAY_BUFFER,   cube_objs[VBO]);
-  glBufferData      (GL_ARRAY_BUFFER,
-                                        sizeof(vertices), 
-                                        vertices, 
-                                        GL_STATIC_DRAW);
-
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_objs[EBO]);
-  
-  glBufferData(
-      GL_ELEMENT_ARRAY_BUFFER,
-      sizeof(indices),
-      indices,
-      GL_STATIC_DRAW
-  );
-
-  // Attribute #0 (LOCATION) :
-  glVertexAttribPointer (
-    0, 
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)0
-  );
-
-  glEnableVertexAttribArray (0);
-
-   // Attribute #1 (NORMAL) :
-  glVertexAttribPointer (
-    1, 
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)(3 * sizeof(float))
-  );
-
-  glEnableVertexAttribArray (1);
-
-  // Attribute #2 (UV) :
-  glVertexAttribPointer (
-    2,
-    2,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)(6 * sizeof(float))
-  );
-
-  glEnableVertexAttribArray (2);
+  //glBindBuffer      (GL_ARRAY_BUFFER,   cube_objs[VBO]);
+  //glBufferData      (GL_ARRAY_BUFFER,
+  //                                      sizeof(vertices), 
+  //                                      vertices, 
+  //                                      GL_STATIC_DRAW);
 
 
-  // LIGHT OBJECT--------------------------------------------
-  unsigned int light_objs[3];
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_objs[EBO]);
+  //
+  //glBufferData(
+  //    GL_ELEMENT_ARRAY_BUFFER,
+  //    sizeof(indices),
+  //    indices,
+  //    GL_STATIC_DRAW
+  //);
 
-  glGenVertexArrays (1, &light_objs[VAO]);
-  glGenBuffers      (1, &light_objs[VBO]);
-  glGenBuffers      (1, &light_objs[EBO]);
+  //// Attribute #0 (LOCATION) :
+  //glVertexAttribPointer (
+  //  0, 
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  8 * sizeof(float),
+  //  (void*)0
+  //);
 
-  glBindVertexArray (    light_objs[VAO]);
+  //glEnableVertexAttribArray (0);
 
-  glBindBuffer      (GL_ARRAY_BUFFER,   light_objs[VBO]);
-  glBufferData      (GL_ARRAY_BUFFER,
-                                        sizeof(vertices), 
-                                        vertices, 
-                                        GL_STATIC_DRAW);
+  // // Attribute #1 (NORMAL) :
+  //glVertexAttribPointer (
+  //  1, 
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  8 * sizeof(float),
+  //  (void*)(3 * sizeof(float))
+  //);
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
-  
-  glBufferData(
-      GL_ELEMENT_ARRAY_BUFFER,
-      sizeof(indices),
-      indices,
-      GL_STATIC_DRAW
-  );
-  
-  // Attribute #0 (LOCATION) :
-  glVertexAttribPointer (
-    0, 
-    3,
-    GL_FLOAT,
-    GL_FALSE,
-    8 * sizeof(float),
-    (void*)0
-  );
+  //glEnableVertexAttribArray (1);
 
-  glEnableVertexAttribArray(0);
+  //// Attribute #2 (UV) :
+  //glVertexAttribPointer (
+  //  2,
+  //  2,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  8 * sizeof(float),
+  //  (void*)(6 * sizeof(float))
+  //);
+
+  //glEnableVertexAttribArray (2);
+
+
+  //// LIGHT OBJECT--------------------------------------------
+  //unsigned int light_objs[3];
+
+  //glGenVertexArrays (1, &light_objs[VAO]);
+  //glGenBuffers      (1, &light_objs[VBO]);
+  //glGenBuffers      (1, &light_objs[EBO]);
+
+  //glBindVertexArray (    light_objs[VAO]);
+
+  //glBindBuffer      (GL_ARRAY_BUFFER,   light_objs[VBO]);
+  //glBufferData      (GL_ARRAY_BUFFER,
+  //                                      sizeof(vertices), 
+  //                                      vertices, 
+  //                                      GL_STATIC_DRAW);
+
+  //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, light_objs[EBO]);
+  //
+  //glBufferData(
+  //    GL_ELEMENT_ARRAY_BUFFER,
+  //    sizeof(indices),
+  //    indices,
+  //    GL_STATIC_DRAW
+  //);
+  //
+  //// Attribute #0 (LOCATION) :
+  //glVertexAttribPointer (
+  //  0, 
+  //  3,
+  //  GL_FLOAT,
+  //  GL_FALSE,
+  //  8 * sizeof(float),
+  //  (void*)0
+  //);
+
+  //glEnableVertexAttribArray(0);
 
  
 
-  //// Unbind
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray            (0);
+  ////// Unbind
+  //glBindBuffer(GL_ARRAY_BUFFER, 0);
+  //glBindVertexArray            (0);
 
  
   //----------------------------------------------------------------- 8. Textures 
@@ -560,10 +563,10 @@ int main (){
   matrix.projection = projection[perspective];
  
   // activate the shader 
-  colorShader.use();
+  model_shader.use();
 
   // Pass the coordinate matricies to the shader.
-  colorShader.setMatrix      ("matrix", matrix);
+  model_shader.setMatrix      ("matrix", matrix);
 
   //------------------------------------------------------------- 14. Render Loop
   
@@ -587,119 +590,119 @@ int main (){
       glPointSize         (pointSize);
 
       // Use our Lightshader program
-      colorShader.use();
+      model_shader.use();
 
       // Bind Textures to GL_TEXTURE0 + unit.
-      material.diffuse.bind   (0);
-      material.specular.bind  (1);
-      material.emission.bind  (2);
+      //material.diffuse.bind   (0);
+      //material.specular.bind  (1);
+      //material.emission.bind  (2);
 
-      colorShader.setInt    ("material.diffuse",  0);
-      colorShader.setInt    ("material.specular", 1);
-      colorShader.setInt    ("material.emission", 2);
-      colorShader.setFloat  ("material.shininess", material.shininess);
+      //model_shader.setInt    ("material.diffuse",  0);
+      //model_shader.setInt    ("material.specular", 1);
+      //model_shader.setInt    ("material.emission", 2);
+      //model_shader.setFloat  ("material.shininess", material.shininess);
 
-      // Set Camera as viewPosition
-      colorShader.setVec3   ("viewPosition", camera.position);
+      //// Set Camera as viewPosition
+      //model_shader.setVec3   ("viewPosition", camera.position);
 
 
       // LIGHT'S -------------------------------------------------------
       
-      float time;
-            time = glfwGetTime();
-            //time = math::radians(time);
-            time = sin(time);
+      //float time;
+      //      time = glfwGetTime();
+      //      //time = math::radians(time);
+      //      time = sin(time);
 
-      float axis[3];
-            axis[x] = 1.0f;
-            axis[y] = 0.0f;
-            axis[z] = 0.0f;
-      
-      // Sunlight
-      sunlight.direction = vec4::direction(-0.2f, 1.0f, -0.3f);
-      sunlight.direction = mat4::rotate(time, axis) * sunlight.direction;
-      sunlight.ambient   = vec3(0.0f, 0.0f, 0.2f);
-      sunlight.diffuse   = vec3(0.0f, 0.0f, 1.0f);
-      sunlight.specular  = vec3(0.0f, 0.0f, 1.0f);
+      //float axis[3];
+      //      axis[x] = 1.0f;
+      //      axis[y] = 0.0f;
+      //      axis[z] = 0.0f;
+      //
+      //// Sunlight
+      //sunlight.direction = vec4::direction(-0.2f, 1.0f, -0.3f);
+      //sunlight.direction = mat4::rotate(time, axis) * sunlight.direction;
+      //sunlight.ambient   = vec3(0.0f, 0.0f, 0.2f);
+      //sunlight.diffuse   = vec3(0.0f, 0.0f, 1.0f);
+      //sunlight.specular  = vec3(0.0f, 0.0f, 1.0f);
 
       //sunlight.ambient   = vec3(0.05f, 0.05f, 0.05f);
       //sunlight.diffuse   = vec3(0.4f , 0.4f , 0.4f);
       //sunlight.specular  = vec3(0.5f, 0.5f, 0.5f);
 
-      colorShader.setSunLight("sunlight", sunlight);
+      //model_shader.setSunLight("sunlight", sunlight);
 
       // PointLight;
       
-      spotlight.position  = vec4::position(camera.position);
-      spotlight.direction = vec4::direction(camera.front);
-      
-      spotlight.ambient   = vec3(0.0f, 0.0f, 0.0f);
-      spotlight.diffuse   = vec3(1.0f, 1.0f, 1.0f);
-      spotlight.specular  = vec3(1.0f, 1.0f, 1.0f);
+      //spotlight.position  = vec4::position(camera.position);
+      //spotlight.direction = vec4::direction(camera.front);
+      //
+      //spotlight.ambient   = vec3(0.0f, 0.0f, 0.0f);
+      //spotlight.diffuse   = vec3(1.0f, 1.0f, 1.0f);
+      //spotlight.specular  = vec3(1.0f, 1.0f, 1.0f);
 
-      spotlight.constant  = 1.0f;
-      spotlight.linear    = 0.09f;
-      spotlight.quadratic = 0.032f;
+      //spotlight.constant  = 1.0f;
+      //spotlight.linear    = 0.09f;
+      //spotlight.quadratic = 0.032f;
 
-      spotlight.cutoff       = cutoff;
-      spotlight.cutoff       = math::radians(spotlight.cutoff);
-      spotlight.cutoff       = math::cos(spotlight.cutoff);
+      //spotlight.cutoff       = cutoff;
+      //spotlight.cutoff       = math::radians(spotlight.cutoff);
+      //spotlight.cutoff       = math::cos(spotlight.cutoff);
 
-      spotlight.outer_cutoff = outer_cutoff;
-      spotlight.outer_cutoff = math::radians(spotlight.outer_cutoff);
-      spotlight.outer_cutoff = math::cos(spotlight.outer_cutoff);
-      
-      colorShader.setSpotLight("spotlight", spotlight);
+      //spotlight.outer_cutoff = outer_cutoff;
+      //spotlight.outer_cutoff = math::radians(spotlight.outer_cutoff);
+      //spotlight.outer_cutoff = math::cos(spotlight.outer_cutoff);
+      //
+      //model_shader.setSpotLight("spotlight", spotlight);
 
-      float   multiplier = 2.5f;
+      //float   multiplier = 2.5f;
       
       // Point Lights
       
-      for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++)
-      {
-        float time;
-              time = glfwGetTime();
-              time = time * (i + 1);
+      //for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++)
+      //{
+      //  float time;
+      //        time = glfwGetTime();
+      //        time = time * (i + 1);
 
-              position[x] = 0.0f;
-              position[y] = sin(time) * multiplier;
-              position[z] = 0.0f;
+      //        position[x] = 0.0f;
+      //        position[y] = sin(time) * multiplier;
+      //        position[z] = 0.0f;
 
-        pointlights[i].position  = vec4::position(pointLightPositions[i] + position);
+      //  pointlights[i].position  = vec4::position(pointLightPositions[i] + position);
 
-        pointlights[i].ambient   = vec3(0.05f, 0.05f, 0.05f);
-        //pointlights[i].diffuse   = vec3(0.8f, 0.8f, 0.8f);
-        pointlights[i].diffuse   = vec3(0.0f, 0.0f, 0.0f);
-        pointlights[i].specular  = vec3(1.0f, 1.0f, 1.0f);
+      //  pointlights[i].ambient   = vec3(0.05f, 0.05f, 0.05f);
+      //  //pointlights[i].diffuse   = vec3(0.8f, 0.8f, 0.8f);
+      //  pointlights[i].diffuse   = vec3(0.0f, 0.0f, 0.0f);
+      //  pointlights[i].specular  = vec3(1.0f, 1.0f, 1.0f);
 
-        if (i == 1 || i == 3)
-        {
-          pointlights[i].diffuse  = vec3(1.0f, 0.0f, 0.0f);
-          pointlights[i].specular = vec3(1.0f, 0.0f, 0.0f);
-          pointlights[i].ambient  = vec3(0.2f, 0.0f, 0.0f);
-        }
+      //  if (i == 1 || i == 3)
+      //  {
+      //    pointlights[i].diffuse  = vec3(1.0f, 0.0f, 0.0f);
+      //    pointlights[i].specular = vec3(1.0f, 0.0f, 0.0f);
+      //    pointlights[i].ambient  = vec3(0.2f, 0.0f, 0.0f);
+      //  }
 
-        if (i == 0)
-        {
-          pointlights[i].diffuse  = vec3(0.0f, 1.0f, 0.0f);
-          pointlights[i].specular = vec3(0.0f, 1.0f, 0.0f);
-          pointlights[i].ambient  = vec3(0.0f, 0.2f, 0.0f);
+      //  if (i == 0)
+      //  {
+      //    pointlights[i].diffuse  = vec3(0.0f, 1.0f, 0.0f);
+      //    pointlights[i].specular = vec3(0.0f, 1.0f, 0.0f);
+      //    pointlights[i].ambient  = vec3(0.0f, 0.2f, 0.0f);
 
-        }
-        if (i == 2)
-        {
-          pointlights[i].diffuse  = vec3(0.0f, 0.0f, 1.0f);
-          pointlights[i].specular = vec3(0.0f, 0.0f, 1.0f);
-          pointlights[i].ambient  = vec3(0.0f, 0.0f, 0.2f);
+      //  }
+      //  if (i == 2)
+      //  {
+      //    pointlights[i].diffuse  = vec3(0.0f, 0.0f, 1.0f);
+      //    pointlights[i].specular = vec3(0.0f, 0.0f, 1.0f);
+      //    pointlights[i].ambient  = vec3(0.0f, 0.0f, 0.2f);
 
-        }
+      //  }
 
-        pointlights[i].constant  = 1.0f;
-        pointlights[i].linear    = 0.09f;
-        pointlights[i].quadratic = 0.032f;
-      
-        colorShader.setPointLight("pointlights[" + std::to_string(i) + "]", pointlights[i]);
-      }
+      //  pointlights[i].constant  = 1.0f;
+      //  pointlights[i].linear    = 0.09f;
+      //  pointlights[i].quadratic = 0.032f;
+      //
+      //  model_shader.setPointLight("pointlights[" + std::to_string(i) + "]", pointlights[i]);
+      //}
 
       projection[orthographic] = mat4::ortho        (frustum.left,
                                                      frustum.right,
@@ -721,72 +724,89 @@ int main (){
 
       // update view matrix with LookAt every frame
       matrix.view   = camera.getViewMatrix();
-     
+
+      // Ok lets draw the object
+      //------------------------------------------------ draw model
+      model_shader.use();
+      
+      matrix.model = mat4(1.0f);
+
+      matrix.model = matrix.model * mat4::translate(vec3(0.0f));
+
+      matrix.model = matrix.model * mat4::scale(vec3(1.0f));
+
       matrix.normal = mat4::normalMatrix(matrix.model);
 
+      model_shader.setMatrix("matrix", matrix);
 
-      for (unsigned int i = 0; i < NUM_OF_CUBES; i++)
-      {
-        matrix.model = mat4(1.0f);
-        matrix.model = matrix.model
-                     * mat4::translate(cubePositions[i]);
+      loaded_model.draw(model_shader);
 
-        float angle  = 20.0f * i;
-              angle  = math::radians(angle);
-
-        float axis[3];
-              axis[x] = 1.0f;
-              axis[y] = 0.3f;
-              axis[z] = 0.5f;
-
-        matrix.model = matrix.model 
-                     * mat4::rotate(angle, vec3(axis));
-        
-        matrix.normal = mat4::normalMatrix(matrix.model);
+     
+      //matrix.normal = mat4::normalMatrix(matrix.model);
 
 
-        colorShader.setMatrix("matrix", matrix);
-        
-        glBindVertexArray(cube_objs[VAO]);
-        //glDrawElements(
-        //  GL_TRIANGLES,
-        //  36,
-        //  GL_UNSIGNED_INT,
-        //  0
-        //);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glDrawArrays(GL_POINTS, 0, 24);
-        
-      }
+      //for (unsigned int i = 0; i < NUM_OF_CUBES; i++)
+      //{
+      //  matrix.model = mat4(1.0f);
+      //  matrix.model = matrix.model
+      //               * mat4::translate(cubePositions[i]);
+
+      //  float angle  = 20.0f * i;
+      //        angle  = math::radians(angle);
+
+      //  float axis[3];
+      //        axis[x] = 1.0f;
+      //        axis[y] = 0.3f;
+      //        axis[z] = 0.5f;
+
+      //  matrix.model = matrix.model 
+      //               * mat4::rotate(angle, vec3(axis));
+      //  
+      //  matrix.normal = mat4::normalMatrix(matrix.model);
+
+
+      //  model_shader.setMatrix("matrix", matrix);
+      //  
+      //  glBindVertexArray(cube_objs[VAO]);
+      //  //glDrawElements(
+      //  //  GL_TRIANGLES,
+      //  //  36,
+      //  //  GL_UNSIGNED_INT,
+      //  //  0
+      //  //);
+      //  glDrawArrays(GL_TRIANGLES, 0, 36);
+      //  glDrawArrays(GL_POINTS, 0, 24);
+      //  
+      //}
 
       // setup the lgiht object
-      lightShader.use();
+      //lightShader.use();
 
-      glBindVertexArray(light_objs[VAO]);
-      for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++ )
-      {
+      //glBindVertexArray(light_objs[VAO]);
+      //for (int i = 0; i < NUM_OF_POINT_LIGHTS; i++ )
+      //{
 
-        matrix.model = mat4(1.0f);
-        matrix.model = matrix.model * mat4::translate(pointLightPositions[i]);
-        matrix.model = matrix.model * mat4::scale(vec3(0.2f));
+      //  matrix.model = mat4(1.0f);
+      //  matrix.model = matrix.model * mat4::translate(pointLightPositions[i]);
+      //  matrix.model = matrix.model * mat4::scale(vec3(0.2f));
 
-        float time;
-              time = glfwGetTime();
-              time = time * (i + 1);
+      //  float time;
+      //        time = glfwGetTime();
+      //        time = time * (i + 1);
 
-              position[x] = 0.0f;
-              position[y] = sin(time) * multiplier;
-              position[z] = 0.0f;
-        
-        matrix.model = matrix.model * mat4::translate(position);
+      //        position[x] = 0.0f;
+      //        position[y] = sin(time) * multiplier;
+      //        position[z] = 0.0f;
+      //  
+      //  matrix.model = matrix.model * mat4::translate(position);
 
-        lightShader.setMatrix("matrix", matrix);
-        lightShader.setPointLight("light", pointlights[i]);
+      //  lightShader.setMatrix("matrix", matrix);
+      //  lightShader.setPointLight("light", pointlights[i]);
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glDrawArrays(GL_POINTS, 0, 24);
+      //  glDrawArrays(GL_TRIANGLES, 0, 36);
+      //  glDrawArrays(GL_POINTS, 0, 24);
 
-      }
+      //}
       
  
       // Swap the buffers / present the finished frame.
@@ -799,12 +819,12 @@ int main (){
   //----------------------------------------------------------------- 15. Cleanup
 
   // Destroy vertex buffer, Array , Element buffer object and program
-  glDeleteVertexArrays        (1, &cube_objs[VAO]);
-  glDeleteBuffers             (1, &cube_objs[VBO]);
-  glDeleteBuffers             (1, &cube_objs[EBO]);
+  //glDeleteVertexArrays        (1, &cube_objs[VAO]);
+  //glDeleteBuffers             (1, &cube_objs[VBO]);
+  //glDeleteBuffers             (1, &cube_objs[EBO]);
 
-  glDeleteVertexArrays        (1, &light_objs[VAO]);
-  glDeleteBuffers             (1, &light_objs[VBO]);
+  //glDeleteVertexArrays        (1, &light_objs[VAO]);
+  //glDeleteBuffers             (1, &light_objs[VBO]);
   // Clear/handle all allocated memory free, close... etc for GLFW
   glfwTerminate(); 
   return 0;
