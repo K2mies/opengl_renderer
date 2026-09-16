@@ -8,6 +8,7 @@
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
+#include <assimp/version.h>
 
 // Objects / Classes
 #include "Objects/Model.h"
@@ -149,7 +150,12 @@ void implamentation_info        ();
 int main (){ 
 
   //----------------------------------------------------------------------- TESTS
-  
+  std::cout
+    << "Assimp: "
+    << aiGetVersionMajor() << '.'
+    << aiGetVersionMinor() << '.'
+    << aiGetVersionPatch()
+    << '\n';
 
   //----------------------------------------------------- 0. Initialize variables
 
@@ -267,7 +273,8 @@ int main (){
       glfwTerminate();
       return -1;
   }
-
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_PROGRAM_POINT_SIZE);
  //---------------------------------------------------- 5. Create Shader Program
     
   //Shader lightShader (
@@ -312,17 +319,30 @@ int main (){
   //  "../assets/Shaders/gouraud.frag"
   //);
 
+  //Shader model_shader (
+  //  "../assets/Shaders/model.vert",
+  //  "../assets/Shaders/model.frag"
+  //);
   Shader model_shader (
-    "../assets/Shaders/model.vert",
-    "../assets/Shaders/model.frag"
+    "../assets/Shaders/point_cloud.vert",
+    "../assets/Shaders/point_cloud.frag"
   );
   //------------------------------------------------------------- 5. Model Loader
-  Model  loaded_model("../assets/Models/backpack/backpack.obj");
+  //OBJ
+  //Model  loaded_model("../assets/Models/backpack/backpack.obj");
   //Model loaded_model("../assets/Models/Cube.obj");
+  
+  //GLTF
+  //Model loaded_model("../assets/Models/testbox/Box.glb");
+  //Model loaded_model("../assets/Models/birb/birb_rgba.glb");
+  Model loaded_model("../assets/Models/birb/birb_rigged_test_001.glb");
+  
+  //PLY
+  //Model loaded_model("../assets/Models/birb/birb_001.ply");
 
   // configure global opengl state
   // -----------------------------
-    glEnable(GL_DEPTH_TEST);
+  //  glEnable(GL_DEPTH_TEST);
 
   //--------------------------------------------------------------- 6 Vxertex data
 
@@ -535,7 +555,7 @@ int main (){
   //------------------------------------------------------- 11. Rendering Settings
 
   // Render points as 10x10 pixels
-  glPointSize (pointSize);
+  //glPointSize (pointSize);
 
   //----------------------------------------------------- 12. Implamentation info
  
@@ -583,8 +603,8 @@ int main (){
       processInput        (window);
 
       // Set Background Color 
-      //glClearColor        (0.1f, 0.1f, 0.1f, 1.0f);
-      glClearColor        (0.0f, 0.0f, 0.0f, 1.0f);
+      glClearColor        (0.1f, 0.1f, 0.1f, 1.0f);
+      //glClearColor        (0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // Update the point size

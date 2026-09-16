@@ -9,14 +9,14 @@
 //--------------------------------------------------------- constructor
 Mesh::Mesh( const std::vector<Vertex>       &vertices, 
             const std::vector<unsigned int> &indices,
-            const std::vector<MeshTexture>  &textures){
-
-  this->vertices = vertices;
-  this->indices  = indices;
-  this->textures = textures;
-
+            const std::vector<MeshTexture>  &textures,
+                  GLenum                     drawMode)
+                : vertices  (vertices),
+                  indices   (indices),
+                  textures  (textures),
+                  drawMode  (drawMode)
+{
   setupMesh();
-
 }
 
 //---------------------------------------------------------- setup mesh
@@ -84,6 +84,21 @@ void Mesh::setupMesh() {
     sizeof(Vertex), 
     reinterpret_cast<void*>(offsetof(Vertex, texCoords)) 
   );
+  
+  //------------------------------------------------ vertex color
+
+  glEnableVertexAttribArray(5);
+  
+  glVertexAttribPointer(
+      5,
+      4,
+      GL_FLOAT,
+      GL_FALSE,
+      sizeof(Vertex),
+      reinterpret_cast<void*>(
+          offsetof(Vertex, color)
+      )
+  );
 
   //----------------------------------------------- unbind vertex array
   glBindVertexArray(0);
@@ -130,12 +145,29 @@ void Mesh::draw(Shader &shader){
   //--------------------------------------------------------- draw mesh
   glBindVertexArray(VAO);
 
-  glDrawElements(
-    GL_TRIANGLES, 
-    static_cast<GLsizei>(indices.size()), 
-    GL_UNSIGNED_INT, 
-    nullptr
-  );
+  if (!indices.empty())
+  {
+    glDrawElements(
+      drawMode,
+      static_cast<GLsizei>(indices.size()),
+      GL_UNSIGNED_INT,
+      nullptr
+    );
+  }
+  else
+  {
+    glDrawArrays(
+      drawMode,
+      0,
+      static_cast<GLsizei>(vertices.size())
+    );
+  }
+  //glDrawElements(
+  //  GL_TRIANGLES, 
+  //  static_cast<GLsizei>(indices.size()), 
+  //  GL_UNSIGNED_INT, 
+  //  nullptr
+  //);
 
   glBindVertexArray(0);
 

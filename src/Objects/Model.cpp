@@ -25,20 +25,57 @@ void Model::loadModel(const std::string &path){
   Assimp::Importer importer;
 
   const aiScene *scene = importer.ReadFile( 
-    path, 
+    path,
+    aiProcess_SortByPType       |
     aiProcess_Triangulate       | 
     aiProcess_FlipUVs           |
     aiProcess_GenSmoothNormals  |
     aiProcess_CalcTangentSpace
   );
 
-  if (scene == nullptr || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != 0 || scene->mRootNode == nullptr){
-    std::cerr << "ERROR::ASSIMP:"
-              << importer.GetErrorString()
-              << std::endl;
-    return ;
-              
+  if (scene == nullptr)
+  {
+      std::cerr
+          << "ERROR::ASSIMP: scene is null\n"
+          << importer.GetErrorString()
+          << '\n';
+  
+      return;
   }
+  
+  if (scene->mRootNode == nullptr)
+  {
+      std::cerr
+          << "ERROR::ASSIMP: scene has no root node\n"
+          << importer.GetErrorString()
+          << '\n';
+  
+      return;
+  }
+  
+
+  if ((scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != 0)
+  {
+      std::cerr
+          << "WARNING::ASSIMP: scene is marked incomplete\n"
+          << "Scene flags: "
+          << scene->mFlags
+          << '\n';
+  }
+
+  std::cout
+      << "Scene meshes: "
+      << scene->mNumMeshes
+      << '\n'
+      << "Scene materials: "
+      << scene->mNumMaterials
+      << '\n'
+      << "Root meshes: "
+      << scene->mRootNode->mNumMeshes
+      << '\n'
+      << "Root children: "
+      << scene->mRootNode->mNumChildren
+      << '\n';
 
   const std::size_t separator = path.find_last_of("/\\");
 
@@ -64,7 +101,22 @@ void Model::processNode(aiNode *node, const aiScene *scene){
 
 Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
   
-  (void)scene; // temp delete
+  //----------------------------------------------------------------------------------- diagnostics
+  std::cout
+      << "Has vertex colors: "
+      << std::boolalpha
+      << mesh->HasVertexColors(0)
+      << '\n';
+
+  std::cout
+      << "Mesh vertices: "
+      << mesh->mNumVertices
+      << ", faces: "
+      << mesh->mNumFaces
+      << ", primitive types: "
+      << mesh->mPrimitiveTypes
+      << '\n';
+
 
   std::vector<Vertex>           vertices;
   std::vector<unsigned int>     indices;
@@ -131,6 +183,26 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       vertex.bitangent.z = 0.0f;
     }
 
+    //---------------------------------------------------------------------------- vertex color 
+    if (mesh->HasVertexColors(0))
+    {
+        const aiColor4D& color =
+            mesh->mColors[0][i];
+    
+        vertex.color.x = color.r;
+        vertex.color.y = color.g;
+        vertex.color.z = color.b;
+        vertex.color.w = color.a;
+    }
+    else
+    {
+        // Use white when the model has no vertex colors.
+        vertex.color.x = 1.0f;
+        vertex.color.y = 1.0f;
+        vertex.color.z = 1.0f;
+        vertex.color.w = 1.0f;
+    }
+
     //--------------------------------------------------------------------------------- store vertex
     vertices.push_back(vertex);
   }
@@ -192,9 +264,25 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
                     emissionMaps.end());
 
   }
+
+  //----------------------------------------------------------------------------------- draw mode
+  GLenum drawMode = GL_TRIANGLES;
+
+  if ((mesh->mPrimitiveTypes & aiPrimitiveType_POINT) != 0)
+  {
+      drawMode = GL_POINTS;
+  }
+  else if ((mesh->mPrimitiveTypes & aiPrimitiveType_LINE) != 0)
+  {
+      drawMode = GL_LINES;
+  }
+  else if ((mesh->mPrimitiveTypes & aiPrimitiveType_TRIANGLE) != 0)
+  {
+      drawMode = GL_TRIANGLES;
+  }
   //----------------------------------------------------------------------------------- create mesh
   
-  return Mesh(vertices, indices, textures);
+  return Mesh(vertices, indices, textures, drawMode);
 
 }
 
@@ -225,7 +313,7 @@ std::vector<MeshTexture> Model::loadMaterialTextures( aiMaterial    *material,
       continue;
     }
     //-------------------------------------------------------------------------------- new texture
-    std::shared_ptr<Texture> texture = std::make_shared<Texture>(fullPath, false);
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>(fullPath, true);
 
     loadedTextures.emplace(fullPath, texture);
     materialTextures.push_back(MeshTexture{texture, textureType});

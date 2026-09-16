@@ -1,6 +1,8 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include <glad/glad.h>
+
 #include<vector>
 
 #include"Objects/Shader.h"
@@ -18,12 +20,16 @@ public:
   //--------------------------------------------------------- constructor
   Mesh(const std::vector<Vertex>       &vertices, 
        const std::vector<unsigned int> &indices,
-       const std::vector<MeshTexture>  &textures );
+       const std::vector<MeshTexture>  &textures,
+             GLenum drawMode = GL_TRIANGLES       );
 
   //----------------------------------------------------------- functions
   void draw(Shader& shader);
 
 private:
+
+  GLenum drawMode;
+
   //--------------------------------------------------------- render data
   unsigned int VAO;
   unsigned int VBO;

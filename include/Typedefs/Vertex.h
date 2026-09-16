@@ -3,6 +3,7 @@
 
 #include "Typedefs/Vec2.h"
 #include "Typedefs/Vec3.h"
+#include "Typedefs/Vec4.h"
 
 struct  Vertex
 {
@@ -13,6 +14,7 @@ struct  Vertex
         vec3  tangent;
         vec3  bitangent;
 
+        vec4  color;
 };
 
 #endif
