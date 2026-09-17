@@ -131,6 +131,8 @@ PointLight  pointlights[4];
 
 Orbit orbit;
 
+Projection  projection;
+
 //-------------------------------------------------------------- Global Variables
 
 float point_world_size;
@@ -606,24 +608,24 @@ int main (){
   frustum.bottom = -half[height];
   frustum.top    =  half[height];
 
-  mat4 projection[2];
-  projection[orthographic] = mat4::ortho        (frustum.left,
-                                                 frustum.right,
-                                                 frustum.bottom,
-                                                 frustum.top,
-                                                 frustum.near,
-                                                 frustum.far
-                                                );
+  mat4 projection_mode[2];
+  projection_mode[orthographic] = mat4::ortho        (frustum.left,
+                                                      frustum.right,
+                                                      frustum.bottom,
+                                                      frustum.top,
+                                                      frustum.near,
+                                                      frustum.far
+                                                     );
 
-  projection[perspective]  = mat4::perspective  (fov, 
-                                                (float)window_dimensions[width] 
-                                              / (float)window_dimensions[height],
-                                                 frustum.near,
-                                                 frustum.far
-                                                );
+  projection_mode[perspective]  = mat4::perspective  (fov, 
+                                                     (float)window_dimensions[width] 
+                                                   / (float)window_dimensions[height],
+                                                      frustum.near,
+                                                      frustum.far
+                                                     );
   
   // select which perspective projection matrix to use:
-  matrix.projection = projection[projection_type];
+  matrix.projection = projection_mode[projection_type];
 
  
   // activate the shader 
@@ -769,34 +771,34 @@ int main (){
       //}
     
       float aspect;
-            aspect = static_cast<float>(window_dimensions[width])
-                   / static_cast<float>(window_dimensions[height]);
+            aspect   = static_cast<float>(window_dimensions[width])
+                     / static_cast<float>(window_dimensions[height]);
 
-      half[height] = orthographic_size;
-      half[width]  = orthographic_size * aspect;
+      half[height]   = orthographic_size;
+      half[width]    = orthographic_size * aspect;
 
       frustum.left   = -half[width];
       frustum.right  =  half[width];
       frustum.bottom = -half[height];
       frustum.top    =  half[height];
 
-      projection[orthographic] = mat4::ortho        (frustum.left,
-                                                     frustum.right,
-                                                     frustum.bottom,
-                                                     frustum.top,
-                                                     frustum.near,
-                                                     frustum.far
-                                                    );
+      projection_mode[orthographic] = mat4::ortho        (frustum.left,
+                                                          frustum.right,
+                                                          frustum.bottom,
+                                                          frustum.top,
+                                                          frustum.near,
+                                                          frustum.far
+                                                         );
 
-      projection[perspective]  = mat4::perspective  (fov, 
-                                                    (float)window_dimensions[width] 
-                                                  / (float)window_dimensions[height],
-                                                     frustum.near,
-                                                     frustum.far
-                                                    );
+      projection_mode[perspective]  = mat4::perspective  (fov, 
+                                                         (float)window_dimensions[width] 
+                                                       / (float)window_dimensions[height],
+                                                          frustum.near,
+                                                          frustum.far
+                                                         );
       
       // select which perspective projection matrix to use:
-      matrix.projection = projection[projection_type];
+      matrix.projection = projection_mode[projection_type];
 
       // update the orbit camera
         updateOrbitCamera();
@@ -822,11 +824,19 @@ int main (){
 
 
       // load projection properties
-      model_shader.setBool  ("orthographic_projection", projection_type == orthographic);
-      model_shader.setFloat ("orthographic_size",       orthographic_size);
-      model_shader.setFloat ("viewport_height",         static_cast<float>(window_dimensions[height]));
-      model_shader.setFloat ("point_world_size",        point_world_size);
-      model_shader.setFloat ("fov", fov);
+      //model_shader.setBool  ("orthographic_projection", projection_type == orthographic);
+      //model_shader.setFloat ("orthographic_size",       orthographic_size);
+      //model_shader.setFloat ("viewport_height",         static_cast<float>(window_dimensions[height]));
+      //model_shader.setFloat ("point_world_size",        point_world_size);
+      //model_shader.setFloat ("fov", fov);
+
+      projection.type       = projection_type;
+      projection.size       = orthographic_size;
+      projection.height     = static_cast<float>(window_dimensions[height]);
+      projection.point_size = point_world_size;
+      projection.fov        = fov;
+
+      model_shader.setProjection("projection", projection);
       
       // Draw the loaded model
       loaded_model.draw(model_shader);

@@ -93,6 +93,9 @@ class Shader  {
     void setSpotLight (const std::string& name,
                        const SpotLight&   light)          const;
 
+    void setProjection(const std::string& name,
+                       const Projection&  projection)     const;
+
   private:
     //-- function for checking shader compilation/linking errors.
     void checkCompileErrors(unsigned int shader, std::string type);

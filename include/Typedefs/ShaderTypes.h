@@ -63,6 +63,15 @@ struct  Color
         vec3    light;
 };
 
+struct  Projection
+{
+        int     type;
+        float   size;
+        float   height;
+        float   point_size;
+        float   fov;
+};
+
 struct  Material
 {
         Texture diffuse;

@@ -267,6 +267,14 @@ void Shader::setSpotLight(const std::string& name, const SpotLight& light) const
     setFloat  (name + ".cutoff",        light.cutoff);
     setFloat  (name + ".outer_cutoff",  light.outer_cutoff);
 }
+
+void Shader::setProjection(const std::string& name, const Projection& projection) const{
+    setInt    (name + ".type",          projection.type);
+    setFloat  (name + ".size",          projection.size);
+    setFloat  (name + ".height",        projection.height);
+    setFloat  (name + ".point_size",    projection.point_size);
+    setFloat  (name + ".fov",           projection.fov);
+}
 // utility function for checking shader compilation/linking errors.
 // ----------------------------------------------------------------
 
