@@ -94,6 +94,23 @@ Frustum frustum {
 
 };
 
+
+struct Orbit
+{
+    float yaw        = 90.0f;
+    float pitch      = 0.0f;
+    float radius     = 3.0f;
+
+    float sensitivity = 0.15f;
+    float zoom_speed  = 0.25f;
+
+    vec3 target = vec3(
+        0.0f,
+        0.29f,
+        0.0f
+    );
+};
+
 Matrix      matrix;
 
 Time        timer;
@@ -112,13 +129,18 @@ SpotLight   spotlight;
 
 PointLight  pointlights[4];
 
+Orbit orbit;
+
 //-------------------------------------------------------------- Global Variables
 
-float pointSize;
+float point_world_size;
+
 int   window_dimensions[2];
+
 float location[4];
 float rotation[3];
 float scale[3];
+
 float fov;
 
 float last[2];
@@ -132,8 +154,9 @@ vec3  light_position = vec3(1.2f, 1.0f, 2.0f);
 float cutoff;
 float outer_cutoff;
 
+float orthographic_size = 1.0f;
 
-
+ProjectionType  projection_type   = perspective;
 //---------------------------------------------------------------- Global Objects
 Camera camera(position, up, YAW, PITCH);
 
@@ -144,6 +167,7 @@ void scroll_callback            (GLFWwindow *window, double xoffset, double yoff
 void mouse_callback             (GLFWwindow* window, double xpos, double ypos);
 void processInput               (GLFWwindow *window);
 void implamentation_info        ();
+void updateOrbitCamera          ();
 
 //-------------------------------------------------------------------------- Main
 
@@ -178,18 +202,18 @@ int main (){
   last    [x]       = 400.0f;
   last    [y]       = 300.0f;
 
-  pointSize         = 40.f;
+  point_world_size  = 0.014f;
 
   fov               = math::radians(45.0f);
 
   cutoff            = 12.5f;
   outer_cutoff      = 17.5f; 
 
-  weight.blend      = 0.5f;
+  //weight.blend      = 0.5f;
 
-  weight.texture    = 0.5f;
-  weight.vertex     = 0.25f;
-  weight.location   = 0.25f;
+  //weight.texture    = 0.5f;
+  //weight.vertex     = 0.25f;
+  //weight.location   = 0.25f;
 
   frustum.left      =  -1.0f;
   frustum.right     =   1.0f;
@@ -211,8 +235,8 @@ int main (){
   euler.yaw         = -90.0f;
   euler.roll        =   0.0f;
 
-  color.object      = vec3(1.0f, 0.5f, 0.31f);
-  color.light       = vec3(1.0f, 1.0f, 1.0f);
+  //color.object      = vec3(1.0f, 0.5f, 0.31f);
+  //color.light       = vec3(1.0f, 1.0f, 1.0f);
 
   light.position    = vec4(1.2f, 1.0f, 2.0f);
 
@@ -227,6 +251,7 @@ int main (){
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_SRGB_CAPABLE, GLFW_TRUE);
 
   #ifdef __APPLE__
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -260,9 +285,12 @@ int main (){
 
   // Capture and hide the mouse cursor
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  
+  // Mouse movement rotates around the target.
+  glfwSetCursorPosCallback(window, mouse_callback);
 
-  glfwSetCursorPosCallback(window, mouse_callback);  
-
+  // Scroll changes the orbit radius.
+  glfwSetScrollCallback(window, scroll_callback);
   
   //---------------------------------------------------------- 4. Initialize GLAD 
   
@@ -275,6 +303,7 @@ int main (){
   }
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_PROGRAM_POINT_SIZE);
+  glEnable(GL_FRAMEBUFFER_SRGB);
  //---------------------------------------------------- 5. Create Shader Program
     
   //Shader lightShader (
@@ -564,6 +593,19 @@ int main (){
 
   //------------------------------------------------------- 13. Projection matrix
   
+  float aspect;
+        aspect = static_cast<float>(window_dimensions[width])
+               / static_cast<float>(window_dimensions[height]);
+
+  float half[2];
+        half[height] = orthographic_size;
+        half[width]  = orthographic_size * aspect;
+
+  frustum.left   = -half[width];
+  frustum.right  =  half[width];
+  frustum.bottom = -half[height];
+  frustum.top    =  half[height];
+
   mat4 projection[2];
   projection[orthographic] = mat4::ortho        (frustum.left,
                                                  frustum.right,
@@ -581,7 +623,8 @@ int main (){
                                                 );
   
   // select which perspective projection matrix to use:
-  matrix.projection = projection[perspective];
+  matrix.projection = projection[projection_type];
+
  
   // activate the shader 
   model_shader.use();
@@ -608,7 +651,7 @@ int main (){
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // Update the point size
-      glPointSize         (pointSize);
+      //glPointSize         (pointSize);
 
       // Use our Lightshader program
       model_shader.use();
@@ -724,6 +767,18 @@ int main (){
       //
       //  model_shader.setPointLight("pointlights[" + std::to_string(i) + "]", pointlights[i]);
       //}
+    
+      float aspect;
+            aspect = static_cast<float>(window_dimensions[width])
+                   / static_cast<float>(window_dimensions[height]);
+
+      half[height] = orthographic_size;
+      half[width]  = orthographic_size * aspect;
+
+      frustum.left   = -half[width];
+      frustum.right  =  half[width];
+      frustum.bottom = -half[height];
+      frustum.top    =  half[height];
 
       projection[orthographic] = mat4::ortho        (frustum.left,
                                                      frustum.right,
@@ -741,7 +796,10 @@ int main (){
                                                     );
       
       // select which perspective projection matrix to use:
-      matrix.projection = projection[perspective];
+      matrix.projection = projection[projection_type];
+
+      // update the orbit camera
+        updateOrbitCamera();
 
       // update view matrix with LookAt every frame
       matrix.view   = camera.getViewMatrix();
@@ -762,6 +820,15 @@ int main (){
 
       model_shader.setMatrix("matrix", matrix);
 
+
+      // load projection properties
+      model_shader.setBool  ("orthographic_projection", projection_type == orthographic);
+      model_shader.setFloat ("orthographic_size",       orthographic_size);
+      model_shader.setFloat ("viewport_height",         static_cast<float>(window_dimensions[height]));
+      model_shader.setFloat ("point_world_size",        point_world_size);
+      model_shader.setFloat ("fov", fov);
+      
+      // Draw the loaded model
       loaded_model.draw(model_shader);
 
      
@@ -881,6 +948,23 @@ void implamentation_info() {
     << nrAttributes << std::endl;
 }
 
+void updateOrbitCamera()
+{
+  float yaw;
+        yaw = math::radians(orbit.yaw);
+
+  float pitch;
+        pitch = math::radians(orbit.pitch);
+
+  vec3 offset;
+       offset.x = orbit.radius * math::cos(pitch) * math::cos(yaw);
+       offset.y = orbit.radius * math::sin(pitch);
+       offset.z = orbit.radius * math::cos(pitch) * math::sin(yaw);
+
+  camera.position = orbit.target + offset;
+  camera.front    = vec3::normalized(orbit.target - camera.position);
+}
+
 //window resize update function
 void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height*/)
 {
@@ -892,42 +976,102 @@ void framebuffer_size_callback  (GLFWwindow* window, int /*width*/, int /*height
   window_dimensions[height]       = frameBuffer[height];
 }
 
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset){
+//void scroll_callback(GLFWwindow *window, double xoffset, double yoffset){
+//
+//  float offset[2];
+//
+//  offset[x] = static_cast<float>(xoffset);
+//  offset[y] = static_cast<float>(yoffset);
+//
+//  camera.processMouseScroll(offset);
+//}
 
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
+{
+  (void)window;
+  (void)xoffset;
+
+  //------------------------------------------------- change orbit distance
+  orbit.radius -= static_cast<float>(yoffset) * orbit.zoom_speed;
+
+  //----------------------------------------------- restrict orbit distance
+  if (orbit.radius <= 0.1f)
+    orbit.radius = 0.1f;
+  if (orbit.radius >= 100.0f)
+    orbit.radius = 100.0f;
+
+
+}
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+//{
+//    // Camera mouse movement code goes here
+//    float position[2];
+//
+//    position[x]  = static_cast<float>(xpos);
+//    position[y]  = static_cast<float>(ypos);
+//    
+//    if (firstMouse){
+//
+//      last  [x]  = position[x];
+//      last  [y]  = position[y];
+//
+//      firstMouse = false;
+//
+//    }
+//
+//    float offset[2];
+//
+//    offset  [x]  = position[x] - last    [x];
+//    offset  [y]  = last    [y] - position[y];
+//
+//    last    [x]  = position[x];
+//    last    [y]  = position[y];
+//
+//    camera.processMouseMovement(offset);
+//}
+
+void mouse_callback(GLFWwindow *window, double xpos, double ypos)
+{
+  (void)window;
+
+  //------------------------------------------------ current mouse position
+  float position[2];
+
+  position[x] = static_cast<float>(xpos);
+  position[y] = static_cast<float>(ypos);
+
+  //--------------------------------------------- initialize first position
+  if (firstMouse)
+  {
+    last[x] = position[x];
+    last[y] = position[y];
+
+    firstMouse = false;
+
+    return ;
+  }
+
+  //---------------------------------------------------- calculate movement
   float offset[2];
 
-  offset[x] = static_cast<float>(xoffset);
-  offset[y] = static_cast<float>(yoffset);
+  offset[x] = position[x] - last[x];
+  offset[y] = position[y] - last[y];
 
-  camera.processMouseScroll(offset);
-}
+  //----------------------------------------------------- remember position
+  last[x] = position[x];
+  last[y] = position[y];
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
-{
-    // Camera mouse movement code goes here
-    float position[2];
+  //--------------------------------------------------- update orbit angles
+  orbit.yaw   += offset[x] * orbit.sensitivity;
+  orbit.pitch += offset[y] * orbit.sensitivity;
 
-    position[x]  = static_cast<float>(xpos);
-    position[y]  = static_cast<float>(ypos);
-    
-    if (firstMouse){
+  //--------------------------------------------- stop vertical camera flip
+  if (orbit.pitch >= 89.0f)
+    orbit.pitch = 89.0f;
+  if (orbit.pitch <= -89.0f)
+    orbit.pitch = -89.0f;
 
-      last  [x]  = position[x];
-      last  [y]  = position[y];
 
-      firstMouse = false;
-
-    }
-
-    float offset[2];
-
-    offset  [x]  = position[x] - last    [x];
-    offset  [y]  = last    [y] - position[y];
-
-    last    [x]  = position[x];
-    last    [y]  = position[y];
-
-    camera.processMouseMovement(offset);
 }
 
 // Key Hooks
@@ -937,106 +1081,120 @@ void processInput(GLFWwindow *window)
   if  (glfwGetKey (window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       glfwSetWindowShouldClose(window, true);
 
-  if  (glfwGetKey (window, GLFW_KEY_2)      == GLFW_PRESS){
-        pointSize += 0.1f;
-    if (pointSize < 20.0f){
-        pointSize = 20.0f;
-    }
+
+  // PERSPECTIVE SWITCH
+  static bool p_was_pressed = false;
+  const  bool p_is_pressed  = glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS;
+  if (p_is_pressed && !p_was_pressed)
+  {
+    if (projection_type == perspective)
+      projection_type = orthographic;
+    else
+      projection_type = perspective;
+
+    std::cout
+        << "Projection: "
+        << (projection_type == perspective
+                ? "perspective"
+                : "orthographic")
+        << '\n';
+  }
+
+  // POINT SIZE CONTROLS
+  if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+  {
+    point_world_size -= 0.001f;
+    if (point_world_size <= 0.001f)
+      point_world_size = 0.001f;
+
   }
   
-  if  (glfwGetKey (window, GLFW_KEY_1)      == GLFW_PRESS){
-        pointSize -= 0.1f;
-    if (pointSize < 20.0f){
-        pointSize = 20.0f;
-    }
+  if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+  {
+    point_world_size += 0.001f;
+    if (point_world_size >= 10.0f)
+      point_world_size = 10.0f;
+
   }
 
-  if  (glfwGetKey (window, GLFW_KEY_3)   == GLFW_PRESS){
-      //color.light = color.light - vec3(0.01f, 0.0f, 0.0f);
-      cutoff -= 0.1f;
-      outer_cutoff -= 0.1f;
-  }
-
-  if  (glfwGetKey (window, GLFW_KEY_4)   == GLFW_PRESS){
-      //color.light = color.light + vec3(0.01f, 0.0f, 0.0f);
-      cutoff += 0.1f;
-      outer_cutoff += 0.1f;
-  }
-
-   if  (glfwGetKey (window, GLFW_KEY_5)   == GLFW_PRESS){
-      outer_cutoff -= 0.1f;
-      if (outer_cutoff <= cutoff)
-          outer_cutoff = cutoff;
-    //    weight.vertex -= 0.01f;
-    //if (weight.vertex <= 0.0f)
-    //    weight.vertex =  0.0f;
-  }
-
-  if  (glfwGetKey (window, GLFW_KEY_6)   == GLFW_PRESS){
-      outer_cutoff += 0.1f;
-    //    weight.vertex += 0.01f;
-    //if (weight.vertex >= 1.0f)
-    //    weight.vertex =  1.0f;
-  }
-
- if  (glfwGetKey (window, GLFW_KEY_7)   == GLFW_PRESS){
-        weight.location -= 0.01f;
-    if (weight.location <= 0.0f)
-        weight.location =  0.0f;
-  }
-
-  if  (glfwGetKey (window, GLFW_KEY_8)   == GLFW_PRESS){
-        weight.location += 0.01f;
-    if (weight.location >= 1.0f)
-        weight.location =  1.0f;
-  }
-
- if  (glfwGetKey (window, GLFW_KEY_9)   == GLFW_PRESS){
-        weight.blend -= 0.01f;
-    if (weight.blend <= 0.0f)
-        weight.blend =  0.0f;
-  }
-
-  if  (glfwGetKey (window, GLFW_KEY_0)   == GLFW_PRESS){
-        weight.blend += 0.01f;
-    if (weight.blend >= 1.0f)
-        weight.blend =  1.0f;
-  }
-
+  p_was_pressed = p_is_pressed;
+  
+  // FOV CONTROLS
   if  (glfwGetKey (window, GLFW_KEY_X)   == GLFW_PRESS){
         fov += math::radians(1.0f);
+        orthographic_size += 0.01f;
     if (fov >= math::radians(180.0f))
         fov =  math::radians(180.0f);
   }
 
   if  (glfwGetKey (window, GLFW_KEY_Z)   == GLFW_PRESS){
         fov -= math::radians(1.0f);
+        orthographic_size -= 0.01f;
     if (fov <= math::radians(1.0f))
         fov =  math::radians(1.0f);
   }
+  
+  // CAMERA MOVEMENT
+  const float zoom_amount = orbit.zoom_speed * timer.delta_time;
 
-  //    CAMERA MOVEMENT
-  if (glfwGetKey(window, GLFW_KEY_W)    == GLFW_PRESS){
-    camera.processKeyboard(FORWARD,  timer.delta_time);
+  const float pan_speed   = 0.25f;
+  const float pan_amount  = pan_speed * timer.delta_time;
+
+  //------------------------------------------------------ forward / zoom
+
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+  {
+      if (projection_type == perspective)
+          orbit.radius -= zoom_amount * 10.0f;
+      else
+          orthographic_size -= zoom_amount;
+  }
+  
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+  {
+      if (projection_type == perspective)
+          orbit.radius += zoom_amount * 10.0f;
+      else
+          orthographic_size += zoom_amount;
   }
 
-  if (glfwGetKey(window, GLFW_KEY_S)    == GLFW_PRESS){
-    camera.processKeyboard(BACKWARD, timer.delta_time);
+  //----------------------------------------------------------- left / right
+  
+  const vec3 camera_right = vec3::normalized( vec3::cross(camera.front, camera.up));
+  
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+  {
+      orbit.target = orbit.target - camera_right * pan_amount;
   }
-
-  if (glfwGetKey(window, GLFW_KEY_A)    == GLFW_PRESS){
-    camera.processKeyboard(LEFT,     timer.delta_time);
+  
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+  {
+      orbit.target = orbit.target + camera_right * pan_amount;
   }
-
-  if (glfwGetKey(window, GLFW_KEY_D)    == GLFW_PRESS){
-    camera.processKeyboard(RIGHT,    timer.delta_time);
+  
+  //------------------------------------------------------------- up / down
+  
+  if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+  {
+      orbit.target.y += pan_amount;
   }
-
-  if (glfwGetKey(window, GLFW_KEY_UP)   == GLFW_PRESS){
-    camera.processKeyboard(UP,        timer.delta_time);
+  
+  if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+  {
+      orbit.target.y -= pan_amount;
   }
-
-  if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
-    camera.processKeyboard(DOWN,      timer.delta_time);
-  }
+  
+  //-------------------------------------------------------------- limits
+  
+  if (orbit.radius < 0.1f)
+      orbit.radius = 0.1f;
+  
+  if (orbit.radius > 100.0f)
+      orbit.radius = 100.0f;
+  
+  if (orthographic_size < 0.01f)
+      orthographic_size = 0.01f;
+  
+  if (orthographic_size > 100.0f)
+      orthographic_size = 100.0f;
 }
