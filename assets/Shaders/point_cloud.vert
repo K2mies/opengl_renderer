@@ -17,6 +17,7 @@ out   vec4 VertexColor;
 //----------------------------------------------------- enums
 const int orthographic = 0;
 const int perspective  = 1;
+const int polar        = 2;
 
 //-------------------------------------------------- matrices
 
@@ -61,33 +62,40 @@ void main()
   
     if (projection.type == orthographic)
     {
-      float visible_world_height;
-            visible_world_height = 2.0 * projection.size;
+      float visible_world_height  = 2.0 * projection.size;
+      float pixels_per_world_unit = projection.height / visible_world_height;
 
-      float pixels_per_world_unit;
-            pixels_per_world_unit = projection.height / visible_world_height;
+      gl_PointSize                = projection.point_size * pixels_per_world_unit;
 
-      gl_PointSize = projection.point_size * pixels_per_world_unit;
+      //float point_size;
+      //      point_size = 2.0 * projection.size;
+      //      point_size = projection.height / point_size;
+      //      point_size = projection.point_size * point_size;
+
+      //gl_PointSize = point_size;
 
     }
     if (projection.type == perspective)
     {
-       float distance_from_camera;
-             distance_from_camera = max(-viewPosition.z, 0.001);
+      float distance_from_camera  = max(-viewPosition.z, 0.001);
 
-      float half_fov;
-            half_fov              = projection.fov * 0.5;
-
-      float half_view_height;
-            half_view_height      = tan(half_fov) * distance_from_camera;
-
-      float visible_world_height;
-            visible_world_height  = 2.0 * half_view_height;
-
-      float pixels_per_world_unit;
-            pixels_per_world_unit = projection.height / visible_world_height;
+      float half_fov              = projection.fov * 0.5;
+      float half_view_height      = tan(half_fov) * distance_from_camera;
+      float visible_world_height  = 2.0 * half_view_height;
+      float pixels_per_world_unit = projection.height / visible_world_height;
 
       gl_PointSize                = projection.point_size * pixels_per_world_unit;
+
+      //float distance_from_camera = max(-viewPosition.z, 0.001);
+
+      //float point_size;
+      //      point_size = projection.fov * 0.5;
+      //      point_size = tan(point_size) * distance_from_camera;
+      //      point_size = 2.0 * point_size;
+      //      point_size = projection.height / point_size;
+      //      point_size = projection.point_size * point_size;
+
+      //gl_PointSize     = point_size;
     }
 
     VertexColor         = aColor;
