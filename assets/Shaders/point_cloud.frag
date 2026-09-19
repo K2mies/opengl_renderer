@@ -78,16 +78,20 @@ void main()
 { 
   if (lighting_type == phong)
   {
-    vec3 normal         = normalize        (FragmentPosition.xyz - modelCenter);
-    vec3 view_direction = normalize        (viewPosition - FragmentPosition.xyz);
-    vec3 lighting       = calculateSunLight(sunlight, normal, view_direction, VertexColor.rgb);
+    vec3 normal                       = normalize        (FragmentPosition.xyz - modelCenter);
+    vec3 view_direction               = normalize        (viewPosition - FragmentPosition.xyz);
 
-    FragColor = vec4(lighting, 1.0);
+    vec3 lighting                     = calculateSunLight(sunlight, 
+                                                          normal,
+                                                          view_direction, 
+                                                          VertexColor.rgb);
+
+    FragColor                         = vec4(lighting, 1.0);
   }
 
   if (lighting_type == gouraud)
   {
-    FragColor = vec4(VertexColor.rgb, 1.0);
+    FragColor                         = vec4(VertexColor.rgb, 1.0);
   }
 }
 

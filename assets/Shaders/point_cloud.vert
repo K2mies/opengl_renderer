@@ -118,20 +118,20 @@ void main()
     // PHONG
     if (lighting_type == phong)
     {
-        VertexColor         = aColor;
+        VertexColor               = aColor;
     }
    
     // GOURAUD
     if (lighting_type == gouraud)
     {
-        vec3 view_direction = normalize(viewPosition - worldPosition.xyz);
+        vec3 view_direction       = normalize(viewPosition - worldPosition.xyz);
 
-        vec3 lighting       = calculateSunLight(sunlight,
-                                                Normal, 
-                                                view_direction, 
-                                                aColor.rgb);
+        vec3 lighting             = calculateSunLight(sunlight,
+                                                      Normal, 
+                                                      view_direction, 
+                                                      aColor.rgb);
 
-        VertexColor         = vec4(lighting, aColor.a);
+        VertexColor               = vec4(lighting, aColor.a);
         
     }
 }
@@ -140,29 +140,33 @@ void main()
 vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color)
 {
   //--------------------------------------------------------------- directions
-  vec3  light_direction = normalize(-light.direction.xyz);
-  vec3  reflection_direction = reflect(-light_direction.xyz, normal);
+  vec3  light_direction           = normalize(-light.direction.xyz);
+  vec3  reflection_direction      = reflect(-light_direction.xyz, normal);
 
   //-------------------------------------------------------------- base colour
   vec3  base_color = vertex_color;
 
   //------------------------------------------------------------------ ambient
-  vec3  ambient = light.ambient * base_color;
+  vec3  ambient                   = light.ambient * base_color;
 
   //------------------------------------------------------------------ diffuse
   float diffuse_intensity;
-        diffuse_intensity = dot(normal, light_direction);
-        diffuse_intensity = max(diffuse_intensity, 0.0);
+        diffuse_intensity         = dot(normal, light_direction);
+        diffuse_intensity         = max(diffuse_intensity, 0.0);
         
-  vec3  diffuse = light.diffuse * diffuse_intensity * base_color;
+  vec3  diffuse                   = light.diffuse 
+                                  * diffuse_intensity 
+                                  * base_color;
 
   //----------------------------------------------------------------- specular
   float specular_intensity;
-        specular_intensity = dot(view_direction, reflection_direction);
-        specular_intensity = max(specular_intensity, 0.0);
-        specular_intensity = pow(specular_intensity, material.shininess);
+        specular_intensity        = dot(view_direction, reflection_direction);
+        specular_intensity        = max(specular_intensity, 0.0);
+        specular_intensity        = pow(specular_intensity, material.shininess);
 
-  vec3  specular = light.specular * specular_intensity * material.specular;
+  vec3  specular                  = light.specular 
+                                  * specular_intensity
+                                  * material.specular;
 
   //------------------------------------------------------------------- result
   return ambient + diffuse + specular;
