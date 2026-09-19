@@ -103,6 +103,11 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
   
   //----------------------------------------------------------------------------------- diagnostics
   std::cout
+    << "Has normals: "
+    << (mesh->HasNormals() ? "true" : "false")
+    << '\n';
+
+  std::cout
       << "Has vertex colors: "
       << std::boolalpha
       << mesh->HasVertexColors(0)

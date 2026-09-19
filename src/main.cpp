@@ -72,6 +72,11 @@ enum ProjectionType {
   perspective  = 1
 };
 
+enum LightingType{
+  phong,
+  gouraud
+};
+
 //----------------------------------------------------------------------- Structs
 
 Weight  weight  { 
@@ -133,6 +138,8 @@ Orbit orbit;
 
 Projection  projection;
 
+
+
 //-------------------------------------------------------------- Global Variables
 
 float point_world_size;
@@ -159,6 +166,7 @@ float outer_cutoff;
 float orthographic_size = 1.0f;
 
 ProjectionType  projection_type   = perspective;
+LightingType    lighting_type     = gouraud;
 //---------------------------------------------------------------- Global Objects
 Camera camera(position, up, YAW, PITCH);
 
@@ -674,28 +682,32 @@ int main (){
 
       // LIGHT'S -------------------------------------------------------
       
-      //float time;
-      //      time = glfwGetTime();
-      //      //time = math::radians(time);
-      //      time = sin(time);
+      float time;
+            time = glfwGetTime();
+            //time = math::radians(time);
+            //time = sin(time);
 
-      //float axis[3];
-      //      axis[x] = 1.0f;
-      //      axis[y] = 0.0f;
-      //      axis[z] = 0.0f;
-      //
-      //// Sunlight
-      //sunlight.direction = vec4::direction(-0.2f, 1.0f, -0.3f);
-      //sunlight.direction = mat4::rotate(time, axis) * sunlight.direction;
+      float axis[3];
+            axis[x] = 1.0f;
+            axis[y] = 0.0f;
+            axis[z] = 0.0f;
+      
+      // Sunlight
+      sunlight.direction = vec4::direction(-0.2f, 1.0f, -0.3f);
+      sunlight.direction = mat4::rotate(time, axis) * sunlight.direction;
       //sunlight.ambient   = vec3(0.0f, 0.0f, 0.2f);
       //sunlight.diffuse   = vec3(0.0f, 0.0f, 1.0f);
       //sunlight.specular  = vec3(0.0f, 0.0f, 1.0f);
 
-      //sunlight.ambient   = vec3(0.05f, 0.05f, 0.05f);
-      //sunlight.diffuse   = vec3(0.4f , 0.4f , 0.4f);
-      //sunlight.specular  = vec3(0.5f, 0.5f, 0.5f);
+      //sunlight.ambient   = vec3(1.0f);
+      //sunlight.diffuse   = vec3(0.0f);
+      //sunlight.specular  = vec3(0.0f);
+      
+      sunlight.ambient  = vec3(0.12f);
+      sunlight.diffuse  = vec3(1.0f);
+      sunlight.specular = vec3(0.0f);
 
-      //model_shader.setSunLight("sunlight", sunlight);
+      model_shader.setSunLight("sunlight", sunlight);
 
       // PointLight;
       
@@ -810,7 +822,13 @@ int main (){
       //------------------------------------------------ draw model
       model_shader.use();
       
-      model_shader.setVec3("material.color", vec3(1.0f));
+      model_shader.setVec3  ("material.diffuse",    vec3(1.0f));
+      model_shader.setVec3  ("material.specular",   vec3(0.25f));
+      model_shader.setFloat ("material.shininess",       32.0f);
+      model_shader.setVec3  ("viewPosition",        camera.position);
+      model_shader.setVec3  ("modelCenter",         vec3(0.0f, 0.27f, 0.0f));
+
+      model_shader.setInt   ("lighting_type", lighting_type);
       
       matrix.model = mat4(1.0f);
 
@@ -1109,6 +1127,27 @@ void processInput(GLFWwindow *window)
                 : "orthographic")
         << '\n';
   }
+  p_was_pressed = p_is_pressed;
+
+  // LIGHTING MODEL SWITCH
+  static bool l_was_pressed = false;
+  const  bool l_is_pressed  = glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS;
+  if (l_is_pressed && !l_was_pressed)
+  {
+    if (lighting_type == gouraud)
+      lighting_type = phong;
+    else
+      lighting_type = gouraud;
+    
+    std::cout
+        << "Lighting Model: "
+        << (lighting_type == gouraud
+                ? "gouraud"
+                : "phong")
+        << '\n';
+  }
+  l_was_pressed = l_is_pressed;
+
 
   // POINT SIZE CONTROLS
   if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
