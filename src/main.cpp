@@ -831,9 +831,7 @@ int main (){
       model_shader.setInt   ("lighting_type", lighting_type);
       
       matrix.model = mat4(1.0f);
-
       matrix.model = matrix.model * mat4::translate(vec3(0.0f));
-
       matrix.model = matrix.model * mat4::scale(vec3(1.0f));
 
       matrix.normal = mat4::normalMatrix(matrix.model);

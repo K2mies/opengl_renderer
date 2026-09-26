@@ -1,21 +1,21 @@
 #version 330 core
 
-//------------------------------------------------ attributes
+//------------------------------------------------------------------------------- attributes
 layout (location = 0) in vec3 aPosition;
 layout (location = 1) in vec3 aNormal;
 layout (location = 5) in vec4 aColor;
 
-//---------------------------------------------------- output
+//----------------------------------------------------------------------------------- output
 out    vec4   VertexColor;
 out    vec3   Normal;
 out    vec4   FragmentPosition;
 
-//-------------------------------------------------- uniform
+//---------------------------------------------------------------------------------- uniform
 uniform int   lighting_type;
 uniform vec3  viewPosition;
 uniform vec3  modelCenter;
 
-//----------------------------------------------------- enums
+//------------------------------------------------------------------------------------ enums
 //projection type
 const   int   orthographic = 0;
 const   int   perspective  = 1;
@@ -24,7 +24,7 @@ const   int   perspective  = 1;
 const   int   phong        = 0;
 const   int   gouraud      = 1;
 
-//-------------------------------------------------- matrices
+//--------------------------------------------------------------------------------- matrices
 
 struct  Projection
 {
@@ -63,17 +63,19 @@ struct  SunLight
         vec3  specular;
 };
 
-//-------------------------------------------- struct uniforms
+//-------------------------------------------------------------------------- struct uniforms
 uniform Matrix   matrix;
 uniform Material material;
 uniform SunLight sunlight;
 
-//--------------------------------------- forward declarations
+//--------------------------------------------------------------------- forward declarations
 vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color);
 
+
+//------------------------------------------------------------------------------------- main
 void main()
 {
-    //-------------------------------------------------- position calculations
+    //---------------------------------------------------------------- position calculations
     mat4  clip_space              = matrix.projection 
                                   * matrix.view 
                                   * matrix.model 
@@ -88,7 +90,7 @@ void main()
   
     gl_Position                   = clip_space * vec4(aPosition, 1.0);
  
-    //------------------------------------------------ point size calculations
+    //-------------------------------------------------------------- point size calculations
     if (projection.type == orthographic)
     {
       float visible_world_height  = 2.0 * projection.size;
@@ -113,7 +115,7 @@ void main()
     
     Normal                        = normalize(worldPosition.xyz - modelCenter);
 
-    //-------------------------------------------------------- lighting models
+    //---------------------------------------------------------------------- lighting models
     
     // PHONG
     if (lighting_type == phong)
@@ -136,20 +138,20 @@ void main()
     }
 }
 
-//------------------------------------------------------------------ functions
+//-------------------------------------------------------------------------------- functions
 vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color)
 {
-  //--------------------------------------------------------------- directions
+  //----------------------------------------------------------------------------- directions
   vec3  light_direction           = normalize(-light.direction.xyz);
   vec3  reflection_direction      = reflect(-light_direction.xyz, normal);
 
-  //-------------------------------------------------------------- base colour
+  //---------------------------------------------------------------------------- base colour
   vec3  base_color = vertex_color;
 
-  //------------------------------------------------------------------ ambient
+  //-------------------------------------------------------------------------------- ambient
   vec3  ambient                   = light.ambient * base_color;
 
-  //------------------------------------------------------------------ diffuse
+  //-------------------------------------------------------------------------------- diffuse
   float diffuse_intensity;
         diffuse_intensity         = dot(normal, light_direction);
         diffuse_intensity         = max(diffuse_intensity, 0.0);
@@ -158,7 +160,7 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 ve
                                   * diffuse_intensity 
                                   * base_color;
 
-  //----------------------------------------------------------------- specular
+  //------------------------------------------------------------------------------- specular
   float specular_intensity;
         specular_intensity        = dot(view_direction, reflection_direction);
         specular_intensity        = max(specular_intensity, 0.0);
@@ -168,7 +170,7 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 ve
                                   * specular_intensity
                                   * material.specular;
 
-  //------------------------------------------------------------------- result
+  //--------------------------------------------------------------------------------- result
   return ambient + diffuse + specular;
 }
 
