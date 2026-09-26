@@ -114,6 +114,14 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       << '\n';
 
   std::cout
+    << "Has COLOR_0: "
+    << (mesh->HasVertexColors(0) ? "true" : "false")
+    << '\n'
+    << "Has COLOR_1: "
+    << (mesh->HasVertexColors(1) ? "true" : "false")
+    << '\n';
+
+  std::cout
       << "Mesh vertices: "
       << mesh->mNumVertices
       << ", faces: "
@@ -188,7 +196,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
       vertex.bitangent.z = 0.0f;
     }
 
-    //---------------------------------------------------------------------------- vertex color 
+    //--------------------------------------------------------------------------------- vertex color 
     if (mesh->HasVertexColors(0))
     {
         const aiColor4D& color =
@@ -206,6 +214,22 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene){
         vertex.color.y = 1.0f;
         vertex.color.z = 1.0f;
         vertex.color.w = 1.0f;
+    }
+
+    //-------------------------------------------------------------------------- shadow vertex color 
+    if (mesh->HasVertexColors(1))
+    {
+        const aiColor4D& shadow =
+            mesh->mColors[1][i];
+
+        vertex.shadow.x = shadow.r;
+        vertex.shadow.y = shadow.g;
+        vertex.shadow.z = shadow.b;
+        vertex.shadow.w = shadow.a;
+    }
+    else 
+    {
+        vertex.shadow = vertex.color;
     }
 
     //--------------------------------------------------------------------------------- store vertex

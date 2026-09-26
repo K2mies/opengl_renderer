@@ -374,7 +374,9 @@ int main (){
   //GLTF
   //Model loaded_model("../assets/Models/testbox/Box.glb");
   //Model loaded_model("../assets/Models/birb/birb_rgba.glb");
-  Model loaded_model("../assets/Models/birb/birb_rigged_test_001.glb");
+  //Model loaded_model("../assets/Models/birb/birb_rigged_test_001.glb");
+  //Model loaded_model("../assets/Models/birb/red_shadow_test_fixed.glb");
+  Model loaded_model("../assets/Models/birb/gradient_shadow_test_fixed.glb");
   
   //PLY
   //Model loaded_model("../assets/Models/birb/birb_001.ply");

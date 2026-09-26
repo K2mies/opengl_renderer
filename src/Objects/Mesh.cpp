@@ -85,7 +85,7 @@ void Mesh::setupMesh() {
     reinterpret_cast<void*>(offsetof(Vertex, texCoords)) 
   );
   
-  //------------------------------------------------ vertex color
+  //------------------------------------------------ primary vertex color
 
   glEnableVertexAttribArray(5);
   
@@ -98,6 +98,22 @@ void Mesh::setupMesh() {
       reinterpret_cast<void*>(
           offsetof(Vertex, color)
       )
+  );
+
+
+  //------------------------------------------------- shadow vertex color
+
+  glEnableVertexAttribArray(6);
+
+  glVertexAttribPointer(
+    6,
+    4,
+    GL_FLOAT,
+    GL_FALSE,
+    sizeof(Vertex),
+    reinterpret_cast<void*>(
+      offsetof(Vertex, shadow)
+    )
   );
 
   //----------------------------------------------- unbind vertex array

@@ -15,6 +15,7 @@ struct  Vertex
         vec3  bitangent;
 
         vec4  color;
+        vec4  shadow;
 };
 
 #endif

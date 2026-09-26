@@ -4,9 +4,11 @@
 layout (location = 0) in vec3 aPosition;
 layout (location = 1) in vec3 aNormal;
 layout (location = 5) in vec4 aColor;
+layout (location = 6) in vec4 aShadowColor;
 
 //----------------------------------------------------------------------------------- output
 out    vec4   VertexColor;
+out    vec4   VertexShadowColor;
 out    vec3   Normal;
 out    vec4   FragmentPosition;
 
@@ -69,7 +71,7 @@ uniform Material material;
 uniform SunLight sunlight;
 
 //--------------------------------------------------------------------- forward declarations
-vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color);
+vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color, vec3 shadow_color);
 
 
 //------------------------------------------------------------------------------------- main
@@ -121,6 +123,7 @@ void main()
     if (lighting_type == phong)
     {
         VertexColor               = aColor;
+        VertexShadowColor         = aShadowColor;
     }
    
     // GOURAUD
@@ -131,22 +134,26 @@ void main()
         vec3 lighting             = calculateSunLight(sunlight,
                                                       Normal, 
                                                       view_direction, 
-                                                      aColor.rgb);
+                                                      aColor.rgb,
+                                                      aShadowColor.rgb);
 
         VertexColor               = vec4(lighting, aColor.a);
+        VertexShadowColor         = aShadowColor;
         
     }
 }
 
 //-------------------------------------------------------------------------------- functions
-vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color)
+vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 vertex_color, vec3 vertex_shadow_color)
 {
   //----------------------------------------------------------------------------- directions
   vec3  light_direction           = normalize(-light.direction.xyz);
   vec3  reflection_direction      = reflect(-light_direction.xyz, normal);
 
   //---------------------------------------------------------------------------- base colour
-  vec3  base_color = vertex_color;
+  vec3  base_color                = vertex_color;
+  
+  vec3  shadow_color              = vertex_shadow_color;
 
   //-------------------------------------------------------------------------------- ambient
   vec3  ambient                   = light.ambient * base_color;
@@ -155,7 +162,7 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 ve
   float diffuse_intensity;
         diffuse_intensity         = dot(normal, light_direction);
         diffuse_intensity         = max(diffuse_intensity, 0.0);
-        
+ 
   vec3  diffuse                   = light.diffuse 
                                   * diffuse_intensity 
                                   * base_color;
@@ -171,6 +178,20 @@ vec3 calculateSunLight(SunLight light, vec3 normal, vec3 view_direction, vec3 ve
                                   * material.specular;
 
   //--------------------------------------------------------------------------------- result
-  return ambient + diffuse + specular;
+
+  vec3  surface_color;
+
+        surface_color             = mix(shadow_color,
+                                        base_color,
+                                        diffuse_intensity);
+
+  vec3  lighting_color;
+
+        lighting_color            = light.ambient
+                                  + light.diffuse;
+
+  return surface_color
+       * lighting_color
+       + specular;
 }
 

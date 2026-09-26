@@ -2,6 +2,7 @@
 
 //----------------------------------------------------------------------------------------------- input
 in vec4 VertexColor;
+in vec4 VertexShadowColor;
 in vec3 Normal;
 in vec4 FragmentPosition;
 
