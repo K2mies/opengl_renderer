@@ -163,7 +163,7 @@ with open(output_path, "wb") as file:
 
 print(f"Saved repaired GLB: {output_path}")
 
-# python3 \                                                                                               
-#    ../assets/Blender/Scripts/Fix_GLTF_Color_Accessors.py \
-#    ../assets/Models/birb/red_shadow_test.glb \
-#    ../assets/Models/birb/red_shadow_test_fixed.glb
+#python3 \                                                                                               
+#   ../assets/Blender/Scripts/Fix_GLTF_Color_Accessors.py \
+#   ../assets/Models/birb/red_shadow_test.glb \
+#   ../assets/Models/birb/red_shadow_test_fixed.glb

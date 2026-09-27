@@ -155,6 +155,11 @@ float fov;
 float last[2];
 bool  firstMouse = true;
 
+bool  is_fullscreen = false;
+
+int   windowed_position[2]  = {0, 0};
+int   windowed_size[2]      = {800, 600};
+
 vec3  position       = vec3(0.0f, 0.0f, 3.0f);
 vec3  up             = vec3(0.0f, 1.0f, 0.0f);
 
@@ -178,6 +183,7 @@ void mouse_callback             (GLFWwindow* window, double xpos, double ypos);
 void processInput               (GLFWwindow *window);
 void implamentation_info        ();
 void updateOrbitCamera          ();
+void toggleFullscreen(GLFWwindow* window);
 
 //-------------------------------------------------------------------------- Main
 
@@ -376,7 +382,8 @@ int main (){
   //Model loaded_model("../assets/Models/birb/birb_rgba.glb");
   //Model loaded_model("../assets/Models/birb/birb_rigged_test_001.glb");
   //Model loaded_model("../assets/Models/birb/red_shadow_test_fixed.glb");
-  Model loaded_model("../assets/Models/birb/gradient_shadow_test_fixed.glb");
+  //Model loaded_model("../assets/Models/birb/gradient_shadow_test_fixed.glb");
+  Model loaded_model("../assets/Models/birb/full_colors_test_fixed.glb");
   
   //PLY
   //Model loaded_model("../assets/Models/birb/birb_001.ply");
@@ -658,7 +665,8 @@ int main (){
       processInput        (window);
 
       // Set Background Color 
-      glClearColor        (0.1f, 0.1f, 0.1f, 1.0f);
+      glClearColor        (0.014f, 0.013f, 0.021f, 1.0f);
+      //glClearColor        (0.1f, 0.1f, 0.1f, 1.0f);
       //glClearColor        (0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -1102,6 +1110,72 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 
 }
 
+void toggleFullscreen(GLFWwindow* window)
+{
+    if (!is_fullscreen)
+    {
+        // Remember the current windowed position and logical size.
+        glfwGetWindowPos(
+            window,
+            &windowed_position[x],
+            &windowed_position[y]
+        );
+
+        glfwGetWindowSize(
+            window,
+            &windowed_size[width],
+            &windowed_size[height]
+        );
+
+        GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+
+        if (monitor == nullptr)
+        {
+            std::cerr << "Failed to get primary monitor\n";
+            return;
+        }
+
+        const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+        if (mode == nullptr)
+        {
+            std::cerr << "Failed to get monitor video mode\n";
+            return;
+        }
+
+        glfwSetWindowMonitor(
+            window,
+            monitor,
+            0,
+            0,
+            mode->width,
+            mode->height,
+            mode->refreshRate
+        );
+
+        is_fullscreen = true;
+        std::cout << "Window: fullscreen\n";
+    }
+    else
+    {
+        glfwSetWindowMonitor(
+            window,
+            nullptr,
+            windowed_position[x],
+            windowed_position[y],
+            windowed_size[width],
+            windowed_size[height],
+            GLFW_DONT_CARE
+        );
+
+        is_fullscreen = false;
+        std::cout << "Window: windowed\n";
+    }
+
+    // Prevent the first mouse event after resizing from producing a jump.
+    firstMouse = true;
+}
+
 // Key Hooks
 void processInput(GLFWwindow *window)
 {
@@ -1148,6 +1222,18 @@ void processInput(GLFWwindow *window)
   }
   l_was_pressed = l_is_pressed;
 
+  // FULLSCREEN SWITCH
+  static bool f_was_pressed = false;
+  
+  const bool f_is_pressed =
+      glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+  
+  if (f_is_pressed && !f_was_pressed)
+  {
+      toggleFullscreen(window);
+  }
+  
+  f_was_pressed = f_is_pressed;
 
   // POINT SIZE CONTROLS
   if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
