@@ -170,7 +170,7 @@ float outer_cutoff;
 
 float orthographic_size = 1.0f;
 
-ProjectionType  projection_type   = perspective;
+ProjectionType  projection_type   = orthographic;
 LightingType    lighting_type     = gouraud;
 //---------------------------------------------------------------- Global Objects
 Camera camera(position, up, YAW, PITCH);
@@ -255,6 +255,14 @@ int main (){
   //color.light       = vec3(1.0f, 1.0f, 1.0f);
 
   light.position    = vec4(1.2f, 1.0f, 2.0f);
+
+  orbit.target.y    = -0.21f;
+  orbit.target.z    = -0.25f;
+
+  orbit.yaw         = 360;
+
+  orbit.radius      = 1.6f;
+  orthographic_size = 0.65f;
 
   //---------------------------------------------------------- 1. Initialize GLFW
 
